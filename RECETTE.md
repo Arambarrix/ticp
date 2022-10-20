@@ -12,9 +12,9 @@ Le logiciel comporte les fonctionnalités suivantes :
 ### GESTION DES EQUIPES
 |N°   |ACTION   |ATTENDU   |RESULTAT   |STATUS   |
 |---|---|---|---|---|
-|   |   |   |   |   |
-|   |   |   |   |   |
-|   |   |   |   |   |
+|  1 |   |   |   |   |
+|  2 |   |   |   |   |
+|  3 |   |   |   |   |
 
 
 ## Getting started
