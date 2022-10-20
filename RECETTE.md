@@ -12,7 +12,7 @@ Le logiciel comporte les fonctionnalités suivantes :
 ### GESTION DES EQUIPES
 |N°   |ACTION   |ATTENDU   |RESULTAT   |STATUS   |
 |---|---|---|---|---|
-|  1 |   |   |   |   |
+|  1 | Créer une équipe  | Un utilisateur peut renseigner le nom et le logo d'une équipe  |   |   |
 |  2 |   |   |   |   |
 |  3 |   |   |   |   |
 
