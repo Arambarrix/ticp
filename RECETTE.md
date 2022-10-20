@@ -9,12 +9,12 @@ Le logiciel comporte les fonctionnalités suivantes :
 - Création d'un tournoi par l'administrateur du logiciel
 
 ## DESCRIPTION DES TESTS DES FONCTIONNALITES
-### GESTION DES EQUIPES
-|N°   |ACTION   |ATTENDU   |RESULTAT   |STATUS   |
+### CREATION DES EQUIPES
+|N°   |ACTION   |ATTENDU   |RESULTAT   |DATE DE MAJ   |
 |---|---|---|---|---|
-|  1 | Créer une équipe  | Un utilisateur peut renseigner le nom et le logo d'une équipe  |   |   |
-|  2 |   |   |   |   |
-|  3 |   |   |   |   |
+|  1 | Créer une équipe  | Un utilisateur peut créer une équipe  |  NON | 20/10/2022 - 17:33  |
+|  2 | Renseigner le nom d'une équipe  | Un utilisateur peut renseigner le nom d'une équipe  | NON  | 20/10/2022 - 17:33  |
+|  3 |  Renseigner le logo d'une équipe |  Un utilisateur peut renseigner le logo d'une équipe | NON  | 20/10/2022 - 17:33  |
 
 
 ## Getting started
