@@ -108,4 +108,4 @@ Ce document représente l'ensemble des tests des fonctionnalités du logiciel de
 | N°  | Action  | Statut  | Mise à jour  |
 |---|---|---|---|
 | 1  | Je peux modifier un match  | Non  | 23/10/2022  |
-| 2  | Je renseigne l'état du match, le score de la première équipe et le score de la seconde  |   |   |
+| 2  | Je renseigne l'état du match, le score de la première équipe et le score de la seconde  | Non  | 23/10/2022  |
