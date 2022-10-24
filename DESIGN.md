@@ -2,7 +2,9 @@
 
 ## DIAGRAMME DE CAS D'UTILISATION
 
-Nous avons deux acteurs(les utilisateurs et l'administrateur) qui interagissent avec le système ![IMG-20221024-WA0015](C:\Users\HP\Documents\istic\pdl\IMG-20221024-WA0015.jpg)
+Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent avec le système
+
+<img src="pictures/diagramme_de_cas_dutilisation.jpg" style="zoom:20%;" />
 
 ### LES ACTIONS QU'UN ADMINISTRATEUR PEUT EFFECTUER :
 
@@ -35,7 +37,7 @@ de l'équipe et des joueurs qui la compose
 
 ## DIAGRAMME DE CLASSES
 
-![IMG-20221024-WA0014](C:\Users\HP\Documents\istic\pdl\IMG-20221024-WA0014.jpg)
+<img src="pictures/diagramme_de_classes.jpg" style="zoom:20%;" />
 
 ### DESCRIPTION DES  CLASSES
 
@@ -61,43 +63,43 @@ de l'équipe et des joueurs qui la compose
 ### PAGE ACCUEIL ( État initial)
 Il s'agit de la page principale. C'est la page qui se présente à l'utilisateur lorsque le tournoi est en phase "d'inscription"
 
-![Tournoi de Pétanque-1](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-1.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_1.jpg" style="zoom:20%;" />
 
 ### PAGE D'INSCRIPTION
 Il s'agit de la page D'inscription des équipes. C'est la page qui se présente à l'utilisateur lorsqu'il souhaite inscrire son équipe au tournoi.
 
-![Tournoi de Pétanque-2](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-2.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_2.jpg" style="zoom:20%;" />
 
 ### PAGE D'ACCUEIL ( État Poule générée )
 Il s'agit de la page principale. C'est la page qui se présente à l'utilisateur lorsque les inscriptions sont cloturées. Cette page présente les Poules constituées de Matchs.
 
-![Tournoi de Pétanque-8](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-8.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_8.jpg" style="zoom:20%;" />
 
-![Tournoi de Pétanque-7](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-7.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_7.jpg" style="zoom:20%;" />
 
 ### PAGE DES  TABLEAUX 
 Il s'agit de la page qui présente les matchs de chaque Tableau. Ces tableaux sont générés après la fin des Matchs de Poule.
 
-![Tournoi de Pétanque-6](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-6.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_6.jpg" style="zoom:20%;" />
 
-![Tournoi de Pétanque-5](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-5.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_5.jpg" style="zoom:20%;" />
 
 ## FONCTIONNALITES SECONDAIRES
 
 ### PAGE HISTORIQUES
 Il s'agit de la page qui récapitule l'ensemble des tournois, matchs, équipes, poules, vainqueurs qui ont existé jusqu'à aujourd'hui.
 
-![Tournoi de Pétanque-3](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-3.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_3.jpg" style="zoom:20%;" />
 
-![Tournoi de Pétanque-4](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-4.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_4.jpg" style="zoom:20%;" />
 
 
 ### PAGE PHOTOS
 Il s'agit de la page qui récapitule l'ensemble des tournois, matchs, équipes, poules, vainqueurs qui ont existé jusqu'à aujourd'hui.
 
-![Tournoi de Pétanque-9](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-9.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_9.jpg" style="zoom:20%;" />
 
 ### PAGE INFORMATIONS UTILES
 Il s'agit de la page qui rappelle les règles du concours, les emplacements où se joue les matchs, les actualités et les échéances à respecter.
 
-![Tournoi de Pétanque-10](C:\Users\HP\Documents\istic\pdl\ressource\elements\Tournoi de Pétanque-10.jpg)
+<img src="pictures/groupe1_tournoi_de_petanque_10.jpg" style="zoom:20%;" />
