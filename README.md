@@ -1,7 +1,34 @@
 # TICP
-_(juste en dessous des badges sympatiques à placer)_
 
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  [![forthebadge](http://forthebadge.com/images/badges/powered-by-electricity.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+<!-- Table des matières -->
+## Table des matières
+
+- [Table des matières](#table-des-matières)
+
+- [À propos du projet](#à-propos-du-projet)
+
+- [Technologies utilisées](#technologies-utilisées)
+
+- [Structure du projet](./DESIGN.md)
+
+- [Maquette du projet](./DESIGN.md#maquette)
+
+- [Pour commencer](#pour-commencer)
+
+  - [Prérequis](#pré-requis)
+
+  - [Installation](#installation)
+
+  - [Démarrage](#démarrage)
+
+- [Versions](#versions)
+
+- [Auteurs](#auteurs)
+
+- [License](#license)
+
+## À propos du projet
 
 L'objectif du projet est de mettre en applicatioon nos différentes connaissances acquises au travers des cours et afin de travailler sur un projet réel.  
 
@@ -13,37 +40,7 @@ Dans le cas où le nombre d’équipes participantes n’est pas favorable à l�
 
 [Pus de détails](./cahier_charge_ticp.pdf)
 
-## Pour commencer
 
-Entrez ici les instructions pour bien débuter avec votre projet...
-
-### Pré-requis
-
-Ce qu'il est requis pour commencer avec votre projet...
-
-- Install Node.js version 16.0 or higher
-- Programme 2
-- etc...
-
-### Installation
-
-Les étapes pour installer votre programme....
-
-Dites ce qu'il faut faire...
-
-_exemple_: Executez la commande ``telnet mapscii.me`` pour commencer ensuite [...]
-
-
-Ensuite vous pouvez montrer ce que vous obtenez au final...
-
-## Démarrage
-
-Une fois tous les prérequis respectés, pour lancer le projet
-```bash
-cd  frontend
-npm run dev
-```
-Dans une autre console lancer l'application spring boot au niveau du backend
 
 ## Technologies utilisées
 
@@ -52,20 +49,45 @@ Dans une autre console lancer l'application spring boot au niveau du backend
 * [Spring Boot](https://spring.io/projects/spring-boot) - Framework Java utilisé ici pour le backend
 
 
-## Versions
-Listez les versions ici
+## Pour commencer
 
-_exemple :_
-**Dernière version stable :** 5.0
-**Dernière version :** 5.1
-Liste des versions : [Cliquer pour afficher](https://github.com/your/project-name/tags)
-_(pour le lien mettez simplement l'URL de votre projets suivi de ``/tags``)_
+### Pré-requis
+
+Il est requis d'installer:
+
+- Node.js version 16.0 ou plus
+- JDK 1.8 ou plus
+- Gradle 4+ or Maven 3.2+
+
+
+
+### Installation
+Rien pour le moment
+
+### Démarrage
+
+Une fois tous les prérequis respectés, pour lancer le projet
+```bash
+cd  frontend
+npm run dev
+```
+Dans une autre console lancer l'application spring boot au niveau du backend
+
+
+## Versions
+Notre projet sera réalisé en deux versions:
+
+**version 1.0
+
+**version 2.0
 
 ## Auteurs
-* **Jhon doe** _alias_ [@outout14](https://github.com/outout14)
-
+* **Brou Assamela** _alias_ [@abrou](https://gitlab.istic.univ-rennes1.fr/abrou)
+* **Lokonon Bignon M Souvenir** _alias_ [@blokonon](https://gitlab.istic.univ-rennes1.fr/blokonon)
+* **Padonou Alexandra Epiphanie** _alias_ [@apadonou](https://gitlab.istic.univ-rennes1.fr/apadonou)
+* **Soumare Sekou** _alias_ [@ssoumare](https://gitlab.istic.univ-rennes1.fr/ssoumare)
+* **Tra-Lou Toure William** _alias_ [@wtraloutoure](https://gitlab.istic.univ-rennes1.fr/wtraloutoure)
 
 ## License
 
-Ce projet est sous licence ``exemple: WTFTPL`` - voir le fichier [LICENSE.md](LICENSE.md) pour plus d'informations
 
