@@ -7,21 +7,30 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 <img src="pictures/diagramme_de_cas_dutilisation.jpg" style="zoom:20%;" />
 
 ### LES ACTIONS QU'UN ADMINISTRATEUR PEUT EFFECTUER :
+- GERER UN TOURNOI :
+    - LANCER TOURNOI : une fois qu'on arrive à la date limite d'inscription, l'administrateur lance un et un seul tournoi.
+    - MODIFIER TOURNOI : une fois qu'on arrive à la date limite d'inscription, l'administrateur lance un et un seul tournoi.
+    - ANNULER TOURNOI : l'administrateur pourra annuler un tournoi dans certaines situations particulières(covid par exemplle)
 
-- CREER TOURNOI : une fois qu'on arrive à la date limite d'inscription, l'administrateur lance un et un seul tournoi
+-  GERER EQUIPE :
+    -  MODIFIER EQUIPE : seul un administrateur peut disqualifier une équipe du tournoi, si celle-ci ne remplit les condition  d'éligibilité.
 
-- MODIFIER EQUIPE : seul un administrateur peut disqualifier une équipe du tournoi, si celle-ci ne remplit les condition  d'éligibilité
+- GERER MATCH
+    - LANCER MATCH : l'administrateur est capable de lancer des matchs entre équipe.
 
-- CREER MATCH : l'administrateur est capable de créer un match entre équipe
 
 ### LES ACTIONS QU'UN UTILISATEUR PEUT  EFFECTUER :
 
-- MODIFIER EQUIPE : ce cas d'utilisation permet à l'utilisateur de mettre à jour son équipe : changer de nom de l'équipe et des membres
 
-- CREER EQUIPE : cette fonctionnalité permet à l'utilisateur de créer une équipe lors de  l'inscription en renseignant le nom 
+- GERER EQUIPE
+    - MODIFIER EQUIPE : ce cas d'utilisation permet à l'utilisateur de mettre à jour son équipe : changer de nom de l'équipe et des membres
+
+    - CREER EQUIPE : cette fonctionnalité permet à l'utilisateur de créer une équipe lors de  l'inscription en renseignant le nom 
 de l'équipe et des joueurs qui la compose
 
-- MODIFIER MATCH  : une fois que les équipes finissent leur match, cette action leur permettra de renseigner le  score du match
+
+- GERER MATCH
+    - MODIFIER MATCH  : une fois que les équipes finissent leur match, cette action leur permettra de renseigner le  score du match
 
 ### LES REGLES DE GESTION :
 
@@ -41,13 +50,13 @@ de l'équipe et des joueurs qui la compose
 
 ### DESCRIPTION DES  CLASSES
 
-- TOURNOI : elle est caractérisée par un identifiant et trois dates(date début du tournoi, date d'inscription des équipes(date début inscription et limite d'inscription), date fin du tournoi)
+- TOURNOI : elle est caractérisée par un identifiant et six dates(date début d'inscription des équipes, date fin d'inscription des équipes, date début poule, date début tableau, date début tournoi, date fin tournoi)
 
 - EQUIQUE : cette classe est caractérisée par un identifiant, un nom d'équipe, un état pour savoir si l'équipe est éliminée, disqualifiée...
 
 - TABLEAU : elle possède un identifiant, un nom, et un rang
 
-- MATCH : elle est caractérisée par un identifiant, une date (sera renseignée par l'équipe apres avoir  joué leur match), et deux scores(renseignant le score des deux équipes s'affrontant)
+- MATCH : elle est caractérisée par un identifiant, une date qui sera renseignée par les équipes apres avoir  joué leurs matchs, et deux scores(renseignant le score des deux équipes s'affrontant)
 
 - JOUEUR : cette classe possède un identifiant et un nom complet du  joueur
 
