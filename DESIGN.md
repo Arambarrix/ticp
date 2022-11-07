@@ -16,9 +16,9 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 
 ### LES ACTIONS QU'UN UTILISATEUR PEUT  EFFECTUER :
 
-- MODIFIER EQUIPE : ce cas d'utilisation permet à l'utilisateur de mettre à jour son équipe par exemple  : changer de nom
+- MODIFIER EQUIPE : ce cas d'utilisation permet à l'utilisateur de mettre à jour son équipe : changer de nom de l'équipe et des membres
 
-- CREER EQUIPE : cette fonctionnalité permet à l'utilisateur de créer une équipe de  l'inscription en renseignant le nom 
+- CREER EQUIPE : cette fonctionnalité permet à l'utilisateur de créer une équipe lors de  l'inscription en renseignant le nom 
 de l'équipe et des joueurs qui la compose
 
 - MODIFIER MATCH  : une fois que les équipes finissent leur match, cette action leur permettra de renseigner le  score du match
@@ -47,7 +47,7 @@ de l'équipe et des joueurs qui la compose
 
 - TABLEAU : elle possède un identifiant, un nom, et un rang
 
-- MATCH : elle est caractérisée par un identifiant, une date (date à laquelle le match jouera), et deux scores(renseignant le score des deux équipes s'affrontant)
+- MATCH : elle est caractérisée par un identifiant, une date (sera renseignée par l'équipe apres avoir  joué leur match), et deux scores(renseignant le score des deux équipes s'affrontant)
 
 - JOUEUR : cette classe possède un identifiant et un nom complet du  joueur
 
