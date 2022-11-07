@@ -7,42 +7,51 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 <img src="pictures/diagramme_de_cas_dutilisation.jpg" style="zoom:20%;" />
 
 ### LES ACTIONS QU'UN ADMINISTRATEUR PEUT EFFECTUER :
-- GERER UN TOURNOI :
-    - LANCER TOURNOI : une fois qu'on arrive à la date limite d'inscription, l'administrateur lance un et un seul tournoi.
-    - MODIFIER TOURNOI : une fois qu'on arrive à la date limite d'inscription, l'administrateur lance un et un seul tournoi.
-    - ANNULER TOURNOI : l'administrateur pourra annuler un tournoi dans certaines situations particulières(covid par exemplle)
+- GÉRER UN TOURNOI:
+    - LANCER TOURNOI: une fois qu'on arrive à la date fin d'inscription des équipes, l'administrateur lance un et un seul tournoi.
+    - MODIFIER TOURNOI: cette fonctionnalité permet à l'administrateur de faire des modifications, si necessaire :
+        - modifier la date début tournoi
+        - changer la date fin tournoi
+        - modifier la date début tournoi
+        - changer la date fin tournoi
+        - modifier la date de la phase de poule
+        - changer la date de la phase finale
+        .
+    - ANNULER TOURNOI: l'administrateur pourra annuler un tournoi dans certaines situations particulières(le covid par exemple).
+-  GÉRER ÉQUIPE:
+    -  MODIFIER ÉQUIPE: seul un administrateur peut disqualifier une équipe du tournoi, si celle-ci ne remplit pas certaines conditions  du tournoi.
 
--  GERER EQUIPE :
-    -  MODIFIER EQUIPE : seul un administrateur peut disqualifier une équipe du tournoi, si celle-ci ne remplit les condition  d'éligibilité.
-
-- GERER MATCH
-    - LANCER MATCH : l'administrateur est capable de lancer des matchs entre équipe.
+- GÉRER MATCH
+    - LANCER MATCH : l'administrateur lancera la création des matchs entre les équipes après la date fin d'inscription des équipes.
 
 
 ### LES ACTIONS QU'UN UTILISATEUR PEUT  EFFECTUER :
 
 
-- GERER EQUIPE
-    - MODIFIER EQUIPE : ce cas d'utilisation permet à l'utilisateur de mettre à jour son équipe : changer de nom de l'équipe et des membres
+- GÉRER ÉQUIPE
+    - MODIFIER ÉQUIPE : ce cas d'utilisation permet à l'utilisateur de mettre à jour son équipe : 
+        - changerle nom de l'équipe 
+        - changer le.s nom.s de membre de l'équipe
+        - modifier le.s nom.s de membre de l'équipe
 
-    - CREER EQUIPE : cette fonctionnalité permet à l'utilisateur de créer une équipe lors de  l'inscription en renseignant le nom 
-de l'équipe et des joueurs qui la compose
+    - CREER ÉQUIPE : cette fonctionnalité permet à l'utilisateur de créer une équipe lors de  l'inscription en renseignant le nom de l'équipe et des joueurs qui la compose
 
 
-- GERER MATCH
-    - MODIFIER MATCH  : une fois que les équipes finissent leur match, cette action leur permettra de renseigner le  score du match
+- GÉRER MATCH
+    - MODIFIER MATCH  : une fois que les équipes finissent leur match, cette action leur permettra de renseigner le  score final du match
 
 ### LES REGLES DE GESTION :
 
-| Règle de Gestion                                             |
-| ------------------------------------------------------------ |
-| les équipes sont formées de 2,3,4 personnes                  |
-| Une seule poule est constituée de 3 ou 4 équipes             |
-| on peut créer maxi 3 tableaux                                |
-| 2 équipes d'une même poule ne doivent pas se rencontrer dès le 1er tour du tableau |
-| Le 1er d'une poule doit rencontrer le 2ème d'une autre poule |
-| 2 équipes d'une même poule doivent se rencontrer le plus tard possible |
-| à la fin de la période d'inscription, les poules sont générées et on bloque la création des équipes |
+| Règle de Gestion                                                                                       |
+| -------------------------------------------------------------------------------------------------------|
+| Les équipes sont formées de 2,3,4 personnes                                                            |
+| Une poule est constituée de 3 ou 4 équipes                                                             |
+| On peut créer plus de tois tableaux quand il y'a plusieurs équipes inscrites au tournoi                |
+| Deux équipes d'une même poule ne doivent pas se rencontrer dès le 1er tour du tableau                  |
+| Le premier d'une poule doit rencontrer le deuxième d'une autre poule                                   |
+| Deux équipes d'une même poule doivent se rencontrer le plus tard possible                              |
+| À la fin de la période d'inscription, les poules sont générées et on bloque la création des équipes    |
+|--------------------------------------------------------------------------------------------------------|
 
 ## DIAGRAMME DE CLASSES
 
@@ -50,17 +59,17 @@ de l'équipe et des joueurs qui la compose
 
 ### DESCRIPTION DES  CLASSES
 
-- TOURNOI : elle est caractérisée par un identifiant et six dates(date début d'inscription des équipes, date fin d'inscription des équipes, date début poule, date début tableau, date début tournoi, date fin tournoi)
+- TOURNOI: elle est caractérisée par un identifiant et six dates(date début d'inscription équipe, date fin d'inscription équipe, date début poule, date début tableau, date début tournoi, date fin tournoi).
 
-- EQUIQUE : cette classe est caractérisée par un identifiant, un nom d'équipe, un état pour savoir si l'équipe est éliminée, disqualifiée...
+- ÉQUIQUE: cette classe est caractérisée par un identifiant, un nom d'équipe, un état pour savoir si l'équipe est éliminée, disqualifiée...
 
-- TABLEAU : elle possède un identifiant, un nom, et un rang
+- TABLEAU: elle possède un identifiant, un nom, et un rang pour faire la distinction entre les tableaux.
 
-- MATCH : elle est caractérisée par un identifiant, une date qui sera renseignée par les équipes apres avoir  joué leurs matchs, et deux scores(renseignant le score des deux équipes s'affrontant)
+- MATCH: elle est caractérisée par un identifiant, une date qui ne sera renseignée par les équipes qu'après avoir  joué leurs matchs, et deux scores(renseignant le score des deux équipes s'affrontant).
 
-- JOUEUR : cette classe possède un identifiant et un nom complet du  joueur
+- JOUEUR: cette classe possède un identifiant et un nom complet du  joueur.
 
-- POULE : Cette classe est caractérisée par un identifiant et un nom
+- POULE: cette classe est caractérisée par un identifiant et un nom.
 
 
 
@@ -75,7 +84,7 @@ Il s'agit de la page principale. C'est la page qui se présente à l'utilisateur
 <img src="pictures/groupe1_tournoi_de_petanque_1.jpg" style="zoom:20%;" />
 
 ### PAGE D'INSCRIPTION
-Il s'agit de la page D'inscription des équipes. C'est la page qui se présente à l'utilisateur lorsqu'il souhaite inscrire son équipe au tournoi.
+Il s'agit de la page d'inscription des équipes. C'est la page qui se présente à l'utilisateur lorsqu'il souhaite inscrire son équipe au tournoi.
 
 <img src="pictures/groupe1_tournoi_de_petanque_2.jpg" style="zoom:20%;" />
 
@@ -87,7 +96,7 @@ Il s'agit de la page principale. C'est la page qui se présente à l'utilisateur
 <img src="pictures/groupe1_tournoi_de_petanque_7.jpg" style="zoom:20%;" />
 
 ### PAGE DES  TABLEAUX 
-Il s'agit de la page qui présente les matchs de chaque Tableau. Ces tableaux sont générés après la fin des Matchs de Poule.
+Il s'agit de la page qui présente les matchs de chaque tableau. Ces tableaux sont générés après la fin des Matchs de Poule.
 
 <img src="pictures/groupe1_tournoi_de_petanque_6.jpg" style="zoom:20%;" />
 
