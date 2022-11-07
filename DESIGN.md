@@ -16,7 +16,7 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
         - changer la date fin tournoi
         - modifier la date de la phase de poule
         - changer la date de la phase finale
-        .
+    
     - ANNULER TOURNOI: l'administrateur pourra annuler un tournoi dans certaines situations particulières(le covid par exemple).
 -  GÉRER ÉQUIPE:
     -  MODIFIER ÉQUIPE: seul un administrateur peut disqualifier une équipe du tournoi, si celle-ci ne remplit pas certaines conditions  du tournoi.
@@ -42,16 +42,15 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 
 ### LES REGLES DE GESTION :
 
-| Règle de Gestion                                                                                       |
-| -------------------------------------------------------------------------------------------------------|
-| Les équipes sont formées de 2,3,4 personnes                                                            |
-| Une poule est constituée de 3 ou 4 équipes                                                             |
-| On peut créer plus de tois tableaux quand il y'a plusieurs équipes inscrites au tournoi                |
-| Deux équipes d'une même poule ne doivent pas se rencontrer dès le 1er tour du tableau                  |
-| Le premier d'une poule doit rencontrer le deuxième d'une autre poule                                   |
-| Deux équipes d'une même poule doivent se rencontrer le plus tard possible                              |
-| À la fin de la période d'inscription, les poules sont générées et on bloque la création des équipes    |
-|--------------------------------------------------------------------------------------------------------|
+| Règle de Gestion                                                                                                            |
+| ----------------------------------------------------------------------------------------------------------------------------|
+| Les équipes sont formées de 2,3,4 personnes                                                                                 |
+| Une poule est constituée de 3 ou 4 équipes                                                                                  |
+| On peut créer au minimum trois tableaux  ou plusieurs dès lors qu'on a plusieurs équipes inscrites au tournoi               |
+| Deux équipes d'une même poule ne doivent pas se rencontrer dès le 1er tour du tableau                                       |
+| Le premier d'une poule doit rencontrer le deuxième d'une autre poule                                                        |
+| Deux équipes d'une même poule doivent se rencontrer le plus tard possible                                                   |
+| À la fin de la période d'inscription, les poules sont générées et on bloque la création des équipes                         |
 
 ## DIAGRAMME DE CLASSES
 
