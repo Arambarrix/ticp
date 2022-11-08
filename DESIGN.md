@@ -2,27 +2,37 @@
 
 ## DIAGRAMME DE CAS D'UTILISATION
 
-Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent avec le système
+Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent avec le système.
 
 <img src="pictures/diagramme_de_cas_dutilisation.jpg" style="zoom:20%;" />
 
 ### LES ACTIONS QU'UN ADMINISTRATEUR PEUT EFFECTUER :
 - GÉRER UN TOURNOI:
-    - LANCER TOURNOI: une fois qu'on arrive à la date fin d'inscription des équipes, l'administrateur lance un et un seul tournoi.
-    - MODIFIER TOURNOI: cette fonctionnalité permet à l'administrateur de faire des modifications, si necessaire :
-        - modifier la date début tournoi
-        - changer la date fin tournoi
-        - modifier la date début tournoi
-        - changer la date fin tournoi
-        - modifier la date de la phase de poule
-        - changer la date de la phase finale
-    
+    - LANCER TOURNOI: une fois qu'on arrive à la date fin d'inscription, l'administrateur lance un et un seul tournoi.
     - ANNULER TOURNOI: l'administrateur pourra annuler un tournoi dans certaines situations particulières(le covid par exemple).
+    - MODIFIER TOURNOI: cette fonctionnalité permet à l'administrateur de faire des modifications, si necessaire :
+        - Lodifier la date début tournoi
+        - Changer la date fin tournoi
+        - Modifier la date début tournoi
+        - Changer la date fin tournoi
+        - Modifier la date de la phase de poule
+        - Changer la date de la phase finale
+    - UPLOADER LES PHOTOS : L'application dispose d'une page dédiée aux photos du tournois. L'administrateur a donc la possibilité d'uploader ces dernières.
+    - RENSEIGNER LES INFORMATIONS UTILES : L'administrateur peut renseigner les emplacements des terrains de Pétanque, les échéances à respecter et le rappel des règles du tournoi.
+
+
+
 -  GÉRER ÉQUIPE:
-    -  MODIFIER ÉQUIPE: seul un administrateur peut disqualifier une équipe du tournoi, si celle-ci ne remplit pas certaines conditions  du tournoi.
+    -  CRÉER ÉQUIPE: L'Administrateur peut ajouter une nouvelle équipe après la fin des inscription
+    -  MODIFIER ÉQUIPE: Durant le tournoi, l'Administrateur peut avoir besoin de supprimer ou ajouter des membres à une équipe (par exemple si un nouveau joueur est disponible)
+    - DISQUALIFIER ÉQUIPE: Un administrateur peut disqualifier une équipe du tournoi, si celle-ci ne remplit pas certaines conditions  du tournoi.
+
+
 
 - GÉRER MATCH
-    - LANCER MATCH : l'administrateur lancera la création des matchs entre les équipes après la date fin d'inscription des équipes.
+    - LANCER MATCH : l'administrateur lancera la création des matchs après la date fin des inscriptions. Suite à celà les POULES sont générées automatiquement. Il en va de même pour les MATCHS DE TABLEAUX.
+    - MODIFIER UN SCORE : l'administrateur peut modifier en le score des matchs. Cette fonctionnalité est nécessaire lorsque les utilisateurs n'ont plus la possibilité de modifier le score (par exemple modifier les scores des matchs de poules alors qu'ils sont déjà cloturés)
+
 
 
 ### LES ACTIONS QU'UN UTILISATEUR PEUT  EFFECTUER :
