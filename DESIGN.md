@@ -8,16 +8,16 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 
 ### LES ACTIONS QU'UN ADMINISTRATEUR PEUT EFFECTUER :
 - GÉRER UN TOURNOI:
-    - LANCER TOURNOI: une fois qu'on arrive à la date fin d'inscription, l'administrateur lance un et un seul tournoi.
-    - ANNULER TOURNOI: l'administrateur pourra annuler un tournoi dans certaines situations particulières(le covid par exemple).
-    - MODIFIER TOURNOI: cette fonctionnalité permet à l'administrateur de faire des modifications, si necessaire :
-        - Modifier la date début tournoi
-        - Changer la date fin tournoi
-        - Modifier la date début tournoi
-        - Changer la date fin tournoi
-        - Modifier la date de la phase de poule
-        - Changer la date de la phase finale
-    - UPLOADER LES PHOTOS : l'application dispose d'une page dédiée aux photos du tournois. L'administrateur a donc la possibilité d'uploader ces dernières.
+    - LANCER TOURNOI: une fois qu'on arrive à la date début d'inscription, l'administrateur lance un et un seul tournoi.
+    - ANNULER TOURNOI: l'administrateur pourra annuler un tournoi dans certaines situations particulières (le covid par exemple).
+    - MODIFIER TOURNOI: cette fonctionnalité permet à l'administrateur de faire des modifications, si necessaire, modifier la date de :
+        - début d'inscription
+        - fin d'inscription
+        - début poule
+        - fin poule
+        - début de match tableau
+        - la finale
+    - UPLOADER LES PHOTOS : l'application dispose d'une page dédiée aux photos du tournoi. L'administrateur a donc la possibilité d'uploader ces dernières.
     - RENSEIGNER LES INFORMATIONS UTILES : l'administrateur peut renseigner les emplacements des terrains de Pétanque, les échéances à respecter et le rappel des règles du tournoi.
 
 
@@ -31,7 +31,7 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 
 - GÉRER MATCH
     - LANCER MATCH : l'administrateur lancera la création des matchs après la date fin des inscriptions. Suite à celà les poules sont générées automatiquement. Il en va de même pour les matchs de tableaux.
-    - MODIFIER UN SCORE : l'administrateur peut modifier en le score des matchs. Cette fonctionnalité est nécessaire lorsque les utilisateurs n'ont plus la possibilité de modifier le score (par exemple modifier les scores des matchs de poules alors qu'ils sont déjà cloturés).
+    - MODIFIER UN SCORE : l'administrateur peut modifier le score des matchs. Cette fonctionnalité est nécessaire lorsque les utilisateurs n'ont plus la possibilité de modifier le score (par exemple modifier les scores des matchs de poules alors qu'ils sont déjà cloturés).
 
 
 
@@ -67,7 +67,7 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 
 ### DESCRIPTION DES  CLASSES
 
-- TOURNOI: elle est caractérisée par un identifiant et six dates(date début d'inscription équipe, date fin d'inscription équipe, date début poule, date début tableau, date début tournoi, date fin tournoi).
+- TOURNOI: elle est caractérisée par un identifiant et six dates(date début d'inscription, date fin d'inscription, date début poule, date de fin de poule, date début tableau, date de la finale).
 
 - ÉQUIQUE: cette classe est caractérisée par un identifiant, un nom d'équipe, un état pour savoir si l'équipe est éliminée, disqualifiée...
 
@@ -86,7 +86,7 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 
 ## FONCTIONNALITES PRINCIPALES
 
-### PAGE ACCUEIL ( État initial)
+### PAGE ACCUEIL ( État initial )
 Il s'agit de la page principale. C'est la page qui se présente à l'utilisateur lorsque le tournoi est en phase "d'inscription".
 
 <img src="pictures/groupe1_tournoi_de_petanque_1.jpg" style="zoom:20%;" />
@@ -97,11 +97,11 @@ Il s'agit de la page d'inscription des équipes. C'est la page qui se présente 
 <img src="pictures/groupe1_tournoi_de_petanque_2.jpg" style="zoom:20%;" />
 
 ### PAGE D'ACCUEIL ( État Poule générée )
-Il s'agit de la page principale. C'est la page qui se présente à l'utilisateur lorsque les inscriptions sont cloturées. Cette page présente les Poules constituées de Matchs.
+Il s'agit de la page principale. C'est la page qui se présente à l'utilisateur lorsque les inscriptions sont cloturées. Cette page présente les Poules constituées de Matchs. Ces derniers sont générés automatiquement grâce à l'administrateur.
 
 <img src="pictures/groupe1_tournoi_de_petanque_8.jpg" style="zoom:20%;" />
 
-Il s'agit de la vision qu'on a lorsqu'on renseigne le score d'un match.
+Il s'agit de la vision que l'on a lorsqu'on veut renseigner le score d'un match.
 
 <img src="pictures/groupe1_tournoi_de_petanque_7.jpg" style="zoom:20%;" />
 
@@ -123,7 +123,7 @@ Il s'agit de la page qui récapitule l'ensemble des tournois, matchs, équipes, 
 
 
 ### PAGE PHOTOS
-Il s'agit de la page qui présente les photos de tous les tournois ainsi que les photos par tournoi.
+Il s'agit de la page qui présente les photos de tous les tournois ainsi que les photos pour chaque tournoi individuellement.
 
 <img src="pictures/groupe1_tournoi_de_petanque_9.jpg" style="zoom:20%;" />
 
