@@ -93,7 +93,7 @@ Il s'agit de la version finale du logiciel. Elle être stable, facile à utilise
   - Consulter l'historique des tournois   (par l'utilisateur)
   - Consulter les photos                  (par l'utilisateur)
   - Uploader les photos                   (par l'administrateur)
-  - Renseigner                            (par l'administrateur)
+  - Renseigner les informations utiles    (par l'administrateur)
   - Un system d'alerte par mail           (automatique)
 
 ## Auteurs
