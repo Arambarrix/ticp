@@ -112,6 +112,45 @@ Il s'agit de la page qui présente les matchs de chaque tableau. Ces tableaux so
 
 <img src="pictures/groupe1_tournoi_de_petanque_5.jpg" style="zoom:20%;" />
 
+
+### PAGE ADMINISTRATEUR PHOTO 
+Il s'agit de la page qui permet à l'administrateur d'ajouter ou supprimer les photos.
+
+<img src="pictures/groupe1_tournoi_de_petanque_11.jpg" style="zoom:20%;" />
+
+
+### PAGE ADMINISTRATEUR INFORMATIONS UTILES
+Il s'agit de la page qui permet à l'administrateur de renseigner des informations utiles, emplacements et règles.
+
+<img src="pictures/groupe1_tournoi_de_petanque_14.jpg" style="zoom:20%;" />
+
+
+### PAGE ADMINISTRATEUR POULE 
+Il s'agit de la page qui permet à l'administrateur de gérer les Poules.
+
+<img src="pictures/groupe1_tournoi_de_petanque_12.jpg" style="zoom:20%;" />
+
+
+### PAGE ADMINISTRATEUR MATCH 
+Il s'agit de la page qui permet à l'administrateur de gérer les matchs.
+
+<img src="pictures/groupe1_tournoi_de_petanque_15.jpg" style="zoom:20%;" />
+
+
+### PAGE ADMINISTRATEUR EQUIPE 
+Il s'agit de la page qui permet à l'administrateur de gérer les équipes; modifier ou disqualifier.
+
+<img src="pictures/groupe1_tournoi_de_petanque_13.jpg" style="zoom:20%;" />
+
+
+### PAGE ADMINISTRATEUR TABLEAU 
+Il s'agit de la page qui permet à l'administrateur de gérer les tableaus.
+
+<img src="pictures/groupe1_tournoi_de_petanque_16.jpg" style="zoom:20%;" />
+
+
+
+
 ## FONCTIONNALITES SECONDAIRES
 
 ### PAGE HISTORIQUES
@@ -131,3 +170,6 @@ Il s'agit de la page qui présente les photos de tous les tournois ainsi que les
 Il s'agit de la page qui rappelle les règles du concours, les emplacements où se jouent les matchs, les actualités et les échéances à respecter.
 
 <img src="pictures/groupe1_tournoi_de_petanque_10.jpg" style="zoom:20%;" />
+
+
+
