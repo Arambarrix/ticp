@@ -138,13 +138,13 @@ Il s'agit de la page qui permet à l'administrateur de gérer les matchs.
 
 
 ### PAGE ADMINISTRATEUR EQUIPE 
-Il s'agit de la page qui permet à l'administrateur de gérer les équipes; modifier ou disqualifier.
+Il s'agit de la page qui permet à l'administrateur de gérer les équipes, de les modifier ou de les disqualifier.
 
 <img src="pictures/groupe1_tournoi_de_petanque_13.jpg" style="zoom:20%;" />
 
 
 ### PAGE ADMINISTRATEUR TABLEAU 
-Il s'agit de la page qui permet à l'administrateur de gérer les tableaus.
+Il s'agit de la page qui permet à l'administrateur de gérer les tableaux.
 
 <img src="pictures/groupe1_tournoi_de_petanque_16.jpg" style="zoom:20%;" />
 
