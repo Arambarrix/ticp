@@ -4,7 +4,7 @@
 
 Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent avec le système.
 
-<img src="pictures/diagramme_de_cas_dutilisation.jpg" style="zoom:20%;" />
+<img src="pictures/UseCaseDiagram.jpg" style="zoom:20%;" />
 
 ### LES ACTIONS QU'UN ADMINISTRATEUR PEUT EFFECTUER :
 - GÉRER UN TOURNOI:
@@ -63,7 +63,7 @@ Nous avons deux acteurs (les utilisateurs et l'administrateur) qui interagissent
 
 ## DIAGRAMME DE CLASSES
 
-<img src="pictures/diagramme_de_classes.jpg" style="zoom:20%;" />
+<img src="pictures/ClassDiagram.jpg" style="zoom:20%;" />
 
 ### DESCRIPTION DES  CLASSES
 
