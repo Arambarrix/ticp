@@ -1,35 +1,72 @@
 <script setup> 
-import { RouterLink, RouterView, useRouter } from "vue-router";
+import { RouterLink } from "vue-router";
 
 </script>
 
-
 <template>
-    <!-- component -->
-<div>
-      <nav class="flex flex-col bg-blue-900 w-56 h-screen px-4 tex-gray-900 border border-blue-900 items align-items-center">
-        <div class="flex items-center mt-8">
-            <span class="font-semibold text-white">    TICP TOURNOI</span> 
-        </div>
-        <div class="mt-10 mb-4 text-white">
-          <div class=" flex flex-col text-center item-center">
-            <div class="my-2 py-2 text-sm   text-gray-500  border-gray-300 hover:text-black   bg-blue-400  hover:font-bold  rounded-full items-center">
-              <RouterLink to="/" class=" w-full poppins space-x-1 items-center"><i class="fa-light fa-house-blank"></i> <span class="text-center">Accueil</span> </RouterLink>
-            </div>
+      <!-- Sidebar -->
+      <div class="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 bg-blue-900 dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
+        <div class="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
+          <ul class="flex flex-col py-4 space-y-1">
+            <li class="px-5 hidden md:block">
+              <div class="flex flex-row items-center h-8">
+                <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Main</div>
+              </div>
+            </li>
+            <li>
+              <RouterLink to="/" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                <span class="inline-flex justify-center items-center ml-4">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                </span>
+                <span class="ml-2 text-sm tracking-wide truncate">Dashboard</span>
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                <i class="fa-light fa-users inline-flex justify-center items-center ml-4"></i>
+                <span class="ml-2 text-sm tracking-wide truncate">Gérer Equipe</span>
+              </RouterLink>
+            </li>
 
-            <div class="my-2 py-2 text-sm   text-gray-500  border-gray-300 hover:text-black   bg-blue-400  hover:font-bold  rounded-full items-center">
-              <RouterLink to="/" class=" w-full poppins space-x-1 items-center"><i class="fa-light fa-house-blank"></i> <span class="text-center">Accueil</span> </RouterLink>
-            </div>
+            <li>
+              <RouterLink to="/" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                <i class="fa-light fa-handshake inline-flex justify-center items-center ml-4"></i>
+                <span class="ml-2 text-sm tracking-wide truncate">Gérer Match</span>
+              </RouterLink>
+            </li>
 
-            <div class="my-2 py-2 text-sm   text-gray-500  border-gray-300 hover:text-black   bg-blue-400  hover:font-bold  rounded-full items-center">
-              <RouterLink to="/" class=" w-full poppins space-x-1 items-center"><i class="fa-light fa-house-blank"></i> <span class="text-center">Accueil</span> </RouterLink>
-            </div>
+            <li>
+              <RouterLink to="/" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                <i class="fa-light fa-poll-people inline-flex justify-center items-center ml-4"></i>
+                <span class="ml-2 text-sm tracking-wide truncate">Gérer Poule</span>
+              </RouterLink>
+            </li>
 
-            <div class="my-2 py-2 text-sm   text-gray-500  border-gray-300 hover:text-black   bg-blue-400  hover:font-bold  rounded-full items-center">
-              <RouterLink to="/" class=" w-full poppins space-x-1 items-center"><i class="fa-light fa-house-blank"></i> <span class="text-center">Accueil</span> </RouterLink>
-            </div>
+            <li>
+              <RouterLink to="/" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                <i class="fa-light fa-table inline-flex justify-center items-center ml-4"></i>
+                <span class="ml-2 text-sm tracking-wide truncate">Gérer Tableau</span>
+              </RouterLink>
+            </li>
+            <li class="px-5 hidden md:block">
+              <div class="flex flex-row items-center mt-5 h-8">
+                <div class="text-sm font-light tracking-wide text-gray-400 uppercase">Settings</div>
+              </div>
+            </li>
+            <li>
+              <RouterLink to="/" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6">
+                <span class="inline-flex justify-center items-center ml-4">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </span>
+                <span class="ml-2 text-sm tracking-wide truncate">Settings</span>
+              </RouterLink>
+            </li>
+          </ul>
         </div>
-        </div>
-      </nav>
-    </div>
+      </div>
+      <!-- ./Sidebar -->
+
 </template>
