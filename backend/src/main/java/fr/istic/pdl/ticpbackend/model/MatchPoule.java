@@ -1,9 +1,12 @@
 package fr.istic.pdl.ticpbackend.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
-public class MatchPoule implements Match{
+public class MatchPoule extends Match{
+    @OneToOne
+    @JoinColumn(name="poule_id")
+    private Poule poule;
     @Override
     public Equipe getEquipeA() {
         return null;
@@ -52,5 +55,12 @@ public class MatchPoule implements Match{
     @Override
     public void setLieu(String lieu) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "MatchPoule{" +
+                "poule=" + poule +
+                '}';
     }
 }
