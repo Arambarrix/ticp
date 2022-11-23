@@ -1,6 +1,7 @@
 package fr.istic.pdl.ticpbackend.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,10 +11,16 @@ import java.util.Objects;
 public class Equipe {
 
     @Id
+    @GeneratedValue
     private Long id;
+    @NotEmpty
     private String nom;
     @OneToMany(mappedBy="equipe")
     private List<Joueur> joueurs;
+    @ManyToOne
+    @JoinColumn(name="tournoi_id")
+    private Tournoi tournoi;
+
 
 
     public Equipe() {

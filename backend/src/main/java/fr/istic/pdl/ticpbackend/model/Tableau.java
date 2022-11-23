@@ -2,6 +2,11 @@ package fr.istic.pdl.ticpbackend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,7 +15,11 @@ public class Tableau {
     private Long id;
     private String nom;
 
+    @OneToMany(mappedBy="tableau")
+    private List<MatchTableau> listMatchs;
+
     public Tableau() {
+        listMatchs = new ArrayList<>();
     }
 
     public Long getId() {
@@ -28,6 +37,15 @@ public class Tableau {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public List<Match> getListMatchs() {
+        return Collections.unmodifiableList(listMatchs);
+    }
+
+    public void setListMatchs(List<MatchTableau> listMatchs) {
+        this.listMatchs = listMatchs;
+    }
+
 
     @Override
     public boolean equals(Object o) {

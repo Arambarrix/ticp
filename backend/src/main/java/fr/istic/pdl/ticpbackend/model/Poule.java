@@ -2,6 +2,11 @@ package fr.istic.pdl.ticpbackend.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -9,8 +14,11 @@ public class Poule {
     @Id
     private Long id;
     private String nom;
+    @OneToMany(mappedBy="poule")
+    private List<MatchPoule> listMatchs;
 
     public Poule() {
+        listMatchs = new ArrayList<>();
     }
 
     public Long getId() {
@@ -27,6 +35,14 @@ public class Poule {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public List<MatchPoule> getListMatchs() {
+        return Collections.unmodifiableList(listMatchs);
+    }
+
+    public void setListMatchs(List<MatchPoule> listMatchs) {
+        this.listMatchs = listMatchs;
     }
 
     @Override

@@ -1,29 +1,30 @@
 package fr.istic.pdl.ticpbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
-@Table(name="TOURNOI")
 public class Tournoi {
     @Id
     @GeneratedValue
     private Long id;
+
     private String nom;
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
+    @OneToMany(mappedBy="tournoi")
+    private List<Equipe> equipes;
+    private LocalDate dateDebutTournoi;
+    private LocalDate dateFinInscription;
+    private LocalDate dateDebutPoule;
+    private LocalDate dateFinPoule;
+    private LocalDate dateDebutTableau;
+    private LocalDate dateFinTournoi;
+
 
     public Tournoi() {
 
-    }
-
-    public Tournoi(String nom, LocalDateTime dateDebut, LocalDateTime dateFin) {
-        this.nom = nom;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
     }
 
     public Long getId() {
@@ -42,19 +43,67 @@ public class Tournoi {
         this.nom = nom;
     }
 
-    public LocalDateTime getDateDebut() {
-        return dateDebut;
+    public LocalDate getDateDebutTournoi() {
+        return dateDebutTournoi;
     }
 
-    public void setDateDebut(LocalDateTime dateDebut) {
-        this.dateDebut = dateDebut;
+    public void setDateDebutTournoi(LocalDate dateDebutTournoi) {
+        this.dateDebutTournoi = dateDebutTournoi;
     }
 
-    public LocalDateTime getDateFin() {
-        return dateFin;
+    public LocalDate getDateFinInscription() {
+        return dateFinInscription;
     }
 
-    public void setDateFin(LocalDateTime dateFin) {
-        this.dateFin = dateFin;
+    public void setDateFinInscription(LocalDate dateFinInscription) {
+        this.dateFinInscription = dateFinInscription;
+    }
+
+    public LocalDate getDateDebutPoule() {
+        return dateDebutPoule;
+    }
+
+    public void setDateDebutPoule(LocalDate dateDebutPoule) {
+        this.dateDebutPoule = dateDebutPoule;
+    }
+
+    public LocalDate getDateFinPoule() {
+        return dateFinPoule;
+    }
+
+    public void setDateFinPoule(LocalDate dateFinPoule) {
+        this.dateFinPoule = dateFinPoule;
+    }
+
+    public LocalDate getDateDebutTableau() {
+        return dateDebutTableau;
+    }
+
+    public void setDateDebutTableau(LocalDate dateDebutTableau) {
+        this.dateDebutTableau = dateDebutTableau;
+    }
+
+    public LocalDate getDateFinTournoi() {
+        return dateFinTournoi;
+    }
+
+    public void setDateFinTournoi(LocalDate dateFinTournoi) {
+        this.dateFinTournoi = dateFinTournoi;
+    }
+
+    public List<Equipe> getEquipes() {
+        return Collections.unmodifiableList(equipes);
+    }
+
+    public void setEquipes(List<Equipe> equipes) {
+        this.equipes = equipes;
+    }
+
+    public void setEquipe(Equipe equipe){
+        this.equipes.add(equipe);
+    }
+
+    public void removeEquipe(Equipe equipe){
+        this.equipes.remove(equipe);
     }
 }

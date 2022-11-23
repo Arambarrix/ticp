@@ -33,15 +33,19 @@ public abstract class Match {
     Equipe getEquipeB(){
         return equipeB;
     }
+
     int getScoreA(){
         return resultA.getValue();
     };
+
     int getScoreB(){
         return resultB.getValue();
     };
+
     String getLieu(){
         return lieu;
     };
+
     void setEquipeA(Equipe teamA){
         equipeA=teamA;
         resultA = new Pair<>(teamA,0);
@@ -53,9 +57,11 @@ public abstract class Match {
     void setScoreA(int scoreA){
         resultA=new Pair<>(equipeA,scoreA);
     };
+
     void setScoreB(int scoreB){
         resultB=new Pair<>(equipeB,scoreB);
     };
+
     void setLieu(String lieu){
         this.lieu=lieu;
     };
