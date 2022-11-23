@@ -1,7 +1,8 @@
-package fr.istic.pdl.ticpbackend.application;
+package fr.istic.pdl.ticpbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class TicpbackendApplication {

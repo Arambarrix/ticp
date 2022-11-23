@@ -1,9 +1,12 @@
 package fr.istic.pdl.ticpbackend.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
-public class MatchTableau implements Match{
+public class MatchTableau extends Match{
+    @OneToOne
+    @JoinColumn(name="tableau_id")
+    private Tableau tableau;
     @Override
     public Equipe getEquipeA() {
         return null;
@@ -52,5 +55,12 @@ public class MatchTableau implements Match{
     @Override
     public void setLieu(String lieu) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "MatchTableau{" +
+                "tableau=" + tableau.getNom() +
+                '}';
     }
 }
