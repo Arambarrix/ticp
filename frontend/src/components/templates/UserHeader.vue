@@ -1,13 +1,15 @@
 <script setup> 
-import { RouterLink, RouterView, useRouter } from "vue-router";
+import { RouterLink } from "vue-router";
 
 </script>
 
 
 <template>
 
-    <div class="flex items-center justify-between">
-      
+    <header 
+        class="flex justify-between fixed z-50 w-screen"
+        >
+
         <RouterLink to="/" class="text-md font-medium hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
             > TICP TOURNOI
         </RouterLink>
@@ -26,5 +28,5 @@ import { RouterLink, RouterView, useRouter } from "vue-router";
                 > <i class="fa-light fa-user-gear"></i> Admin</RouterLink>
         </div>
       
-    </div>
+    </header>
 </template>

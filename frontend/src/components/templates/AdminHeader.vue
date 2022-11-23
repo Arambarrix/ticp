@@ -1,29 +1,36 @@
 <script setup> 
-import { RouterLink, RouterView, useRouter } from "vue-router";
+import { RouterLink } from "vue-router";
 
 </script>
 
 <template>
     
-    <div class="flex flex-row w-full mt-8 items-center justify-between">
-      
-      <div class="flex items-center space-x-6 text-sm">
-          <RouterLink to="/" class="hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
-          ><i class="fa-light fa-house-blank"></i> Accueil</RouterLink>
+    <!-- Header -->
+    <div class="fixed w-full flex items-center h-14 text-white z-10 bg-white">
+        <div class="flex items-center justify-start md:justify-center w-14 md:w-64 h-14 bg-blue-800 border-none">
+          <span class="font-semibold text sm">    TICP TOURNOI</span> 
+        </div>
+        <div class="flex flex-row justify-between items-center h-14 header-right px-8">
 
-          <RouterLink to="/historique" class="hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
-              > <i class="fa-light fa-clock-rotate-left"></i> Historique</RouterLink>
+            <div class="flex items-center space-x-6 text-sm text-white">
+                <RouterLink to="/" class="bg-blue-900  py-1 px-3 hover:border-b-2  hover:border-gray-800 poppins"
+                    >Créer un tournoi
+                </RouterLink>
 
-          <RouterLink to="/galerie" class="hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
-              > <i class="fa-light fa-images"></i> Galerie</RouterLink>
-          
-          <RouterLink to="/admin" class="hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
-              > <i class="fa-light fa-user-gear"></i> Admin </RouterLink>
+                <RouterLink to="/" class="bg-red-900  py-1 px-3 hover:border-b-2  hover:border-gray-800 poppins"
+                    >  Modifier un tournoi
+                </RouterLink>
+
+                <RouterLink to="/" class="bg-red-600  py-1 px-3 hover:border-b-2  hover:border-gray-800 poppins"
+                    > Annuler un tournoi
+                </RouterLink>
+            </div>
+        </div>
+        <div class="flex flex-row justify-end items-center h-14 fixed right-8">
+            <RouterLink to="/" class="text-sm  hover:border-b-2 text-gray-800 hover:border-gray-800 hover:text-blue-500 poppins"
+                > Déconnexion <i class="fa-light fa-right-from-bracket"></i>
+            </RouterLink>
+        </div>
       </div>
 
-      <RouterLink to="/" class="text-sm hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
-          > Déconnexion <i class="fa-light fa-right-from-bracket"></i>
-      </RouterLink>
-    
-  </div>
   </template>
