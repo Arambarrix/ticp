@@ -10,7 +10,7 @@ import { RouterLink } from "vue-router";
         class="flex justify-between fixed z-50 w-screen"
         >
 
-        <RouterLink to="/" class="text-md font-medium hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
+        <RouterLink to="/" class="text sm md:text-md font-medium hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
             > TICP TOURNOI
         </RouterLink>
 

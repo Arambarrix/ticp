@@ -5,7 +5,17 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}", 
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'banner': "url('../img/banner.jpg')",
+      }, 
+      colors: {
+        'dark-brown': '#261515',
+        'clear-brown': '#3A1900',
+
+      },
+      
+    },
   },
   plugins: [],
 }
