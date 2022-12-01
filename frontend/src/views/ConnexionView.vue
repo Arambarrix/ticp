@@ -4,12 +4,12 @@
           <form v-on:submit.prevent="submit">
               <div class="form-group">
                   <label for="identifiant">Identifiant:</label>
-                  <input type="text" id="identifiant" v-model.trim="$v.identifiant.$model">
+                  <input type="text" id="identifiant" v-model.trim="identifiant">
               </div>
               
               <div class="form-group">
                   <label for="motDePasse">Mot de passe:</label>
-                  <input type="password" id="motdepasse" v-model.trim="$v.password.$model">
+                  <input type="password" id="motdepasse" v-model.trim="motdepasse">
               </div>
               <button class="bg-[#3A1900]" type="submit">Se connecter</button>
           </form>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import { required } from '@vuelidate/lib/validators'
+   // import { required } from '@vuelidate/lib/validators'
     export default{
         name:'connexionView',
         data: function () {
@@ -28,10 +28,11 @@
             }
             
         },
+        /*
         validations:{
             identifiant:{required},
             motdepasse:{required}
-        },
+        },*/
 
         methods:{
             submit:function(e){
