@@ -7,7 +7,7 @@
             <span>sur</span>
             <span>10</span>
         </div>
-        <div class="flex flex-row justify-between bg-dark-brown text-white text-xs">
+        <div class="flex flex-row justify-between bg-dark-brown text-white text-xs px-3 items-center">
             <i class="fa-sharp fa-solid fa-chevron-left"></i>
             <i class="fa-sharp fa-solid fa-chevron-right"></i> 
         </div>
