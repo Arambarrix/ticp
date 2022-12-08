@@ -8,3 +8,7 @@ A ce jour, seuls les services des tableaux n'ont pas été complètement implém
 - La détermination de la symétrie du tableau
 - La progression des équipes dans les tableaux.
 En tout et pour tout, l'implémentation des tableaux rendra complètement opérationnel le site web.
+
+Frontend :
+Création des pages de connexion, d'accueil (liste des équipes inscrites), des templates des vues réutilisable un peu partout
+Il reste les autres vues et le code pour lier les vues et l'api
