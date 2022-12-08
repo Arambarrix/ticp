@@ -1,8 +1,13 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class MatchTableau extends Match{
     @OneToOne
     @JoinColumn(name="tableau_id")

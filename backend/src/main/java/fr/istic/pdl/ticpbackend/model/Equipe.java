@@ -1,14 +1,18 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Equipe {
+public class Equipe implements Serializable {
 
     @Id
     @GeneratedValue
@@ -16,6 +20,7 @@ public class Equipe {
     @NotEmpty
     private String nom;
     @OneToMany(mappedBy="equipe")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Joueur> joueurs;
     @ManyToOne
     @JoinColumn(name="tournoi_id")
