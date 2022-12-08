@@ -1,20 +1,25 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Poule {
+public class Poule implements Serializable {
     @Id
     private Long id;
     private String nom;
     @OneToMany(mappedBy="poule")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<MatchPoule> listMatchs;
 
     public Poule() {
@@ -38,7 +43,7 @@ public class Poule {
     }
 
     public List<MatchPoule> getListMatchs() {
-        return Collections.unmodifiableList(listMatchs);
+        return listMatchs;
     }
 
     public void setListMatchs(List<MatchPoule> listMatchs) {

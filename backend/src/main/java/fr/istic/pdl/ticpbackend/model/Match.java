@@ -1,68 +1,77 @@
 package fr.istic.pdl.ticpbackend.model;
 
 import javafx.util.Pair;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class Match {
+@DynamicUpdate
+public abstract class Match implements Serializable {
     @Id
+    @GeneratedValue
     private Long id;
     @OneToOne
     @JoinColumn(name="equipeA_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Equipe equipeA;
 
     @OneToOne
     @JoinColumn(name="equipeB_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Equipe equipeB;
 
-    private Pair<Equipe,Integer> resultA;
+    private Integer resultA;
 
-    private Pair<Equipe,Integer> resultB;
+    private Integer resultB;
 
     private String lieu;
 
     public Match() {
     }
 
-    Equipe getEquipeA() {
+    public Equipe getEquipeA() {
         return equipeA;
     }
 
-    Equipe getEquipeB(){
+    public Equipe getEquipeB(){
         return equipeB;
     }
 
-    int getScoreA(){
-        return resultA.getValue();
+    public int getScoreA(){
+        return resultA;
     };
 
-    int getScoreB(){
-        return resultB.getValue();
+    public int getScoreB(){
+        return resultB;
     };
 
-    String getLieu(){
+    public String getLieu(){
         return lieu;
     };
 
-    void setEquipeA(Equipe teamA){
+    public void setEquipeA(Equipe teamA){
         equipeA=teamA;
-        resultA = new Pair<>(teamA,0);
+        resultA = 0;
     };
-    void setEquipeB(Equipe teamB){
+    public void setEquipeB(Equipe teamB){
         equipeB=teamB;
-        resultB = new Pair<>(teamB,0);
+        resultB = 0;
     };
-    void setScoreA(int scoreA){
-        resultA=new Pair<>(equipeA,scoreA);
-    };
-
-    void setScoreB(int scoreB){
-        resultB=new Pair<>(equipeB,scoreB);
+    public void setScoreA(int scoreA){
+        resultA=scoreA;
     };
 
-    void setLieu(String lieu){
+    public void setScoreB(int scoreB){
+        resultB=scoreB;
+    };
+
+    public void setLieu(String lieu){
         this.lieu=lieu;
     };
 

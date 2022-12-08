@@ -1,19 +1,27 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
 @Entity
-public class Tournoi {
+public class Tournoi implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
 
     private String nom;
+
     @OneToMany(mappedBy="tournoi")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Equipe> equipes;
     private LocalDate dateDebutTournoi;
     private LocalDate dateFinInscription;
@@ -92,7 +100,11 @@ public class Tournoi {
     }
 
     public List<Equipe> getEquipes() {
-        return Collections.unmodifiableList(equipes);
+        return equipes;
+    }
+
+    public int tailleTournoi(){
+        return this.equipes.size();
     }
 
     public void setEquipes(List<Equipe> equipes) {

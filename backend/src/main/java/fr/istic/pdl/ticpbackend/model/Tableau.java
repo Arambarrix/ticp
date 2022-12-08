@@ -1,21 +1,22 @@
 package fr.istic.pdl.ticpbackend.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Tableau {
+public class Tableau implements Serializable {
     @Id
     private Long id;
     private String nom;
-
-    @OneToMany(mappedBy="tableau")
+    @OneToMany(mappedBy="tableau",cascade= CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<MatchTableau> listMatchs;
 
     public Tableau() {
@@ -38,8 +39,8 @@ public class Tableau {
         this.nom = nom;
     }
 
-    public List<Match> getListMatchs() {
-        return Collections.unmodifiableList(listMatchs);
+    public List<MatchTableau> getListMatchs() {
+        return listMatchs;
     }
 
     public void setListMatchs(List<MatchTableau> listMatchs) {

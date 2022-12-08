@@ -1,10 +1,11 @@
 package fr.istic.pdl.ticpbackend.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Joueur {
+public class Joueur implements Serializable {
     @Id
     private Long id;
     private String nom;
