@@ -17,7 +17,7 @@ public class MatchPoule extends Match {
 
     @Override
     public String toString() {
-        return "MatchPoule{" +
+        return super.toString()+"MatchPoule{" +
                 "poule=" + poule +
                 '}';
     }

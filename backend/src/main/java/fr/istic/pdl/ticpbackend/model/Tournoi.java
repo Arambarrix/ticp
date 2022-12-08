@@ -1,5 +1,7 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -17,6 +19,7 @@ public class Tournoi implements Serializable {
     private Long id;
 
     private String nom;
+
     @OneToMany(mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Equipe> equipes;

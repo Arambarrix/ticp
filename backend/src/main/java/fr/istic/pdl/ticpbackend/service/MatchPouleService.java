@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.service;
 
+import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.repository.MatchPouleRepository;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ public class MatchPouleService {
     public Optional<MatchPoule> getMatchPoule(Long id){
         return repository.findById(id);
     }
-    public void saveMatchPoule(MatchPoule match){
+    public void updateMatchPoule(MatchPoule match){
         repository.save(match);
     }
     public void deleteMatchPoule(Long id){

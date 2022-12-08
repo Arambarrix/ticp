@@ -12,6 +12,8 @@ public class MatchTableau extends Match{
     @OneToOne
     @JoinColumn(name="tableau_id")
     private Tableau tableau;
+    private int tour;
+
     @Override
     public Equipe getEquipeA() {
         return null;
@@ -64,8 +66,9 @@ public class MatchTableau extends Match{
 
     @Override
     public String toString() {
-        return "MatchTableau{" +
+        return super.toString()+"MatchTableau{" +
                 "tableau=" + tableau.getNom() +
+                ", tour=" + tour +
                 '}';
     }
 }

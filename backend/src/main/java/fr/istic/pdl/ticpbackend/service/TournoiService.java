@@ -23,9 +23,11 @@ public class TournoiService {
 
     public void saveTournoi(Tournoi tournoi) throws Exception {
         if(repository.findAll().size()==1 && !repository.existsById(tournoi.getId())){
-            throw new Exception("Il y a déjà un tournoi en cours !");
+            throw new Exception("Il y a déjà un tournoi "+tournoi.getNom()+" en cours !");
         }
-        repository.save(tournoi);
+        else {
+            repository.save(tournoi);
+        }
     }
 
     public void createGroupes(Tournoi tournoi){
