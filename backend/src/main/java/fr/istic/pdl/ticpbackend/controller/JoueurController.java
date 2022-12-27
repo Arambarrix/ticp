@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin("*")
 @AllArgsConstructor
-@RequestMapping("api/v1/joueur")
+@RequestMapping("api/v1/joueurs")
 public class JoueurController {
     JoueurService service;
 
