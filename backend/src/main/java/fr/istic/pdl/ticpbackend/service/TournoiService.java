@@ -5,9 +5,10 @@ import fr.istic.pdl.ticpbackend.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Table;
 import java.util.*;
-
+/**
+ * Ce service permet de créer les fonctionnalités du tournoi
+ */
 @Service
 @AllArgsConstructor
 public class TournoiService {
@@ -17,8 +18,9 @@ public class TournoiService {
     MatchPouleRepository matchPouleRepository;
     MatchTableauRepository matchTableauRepository;
 
-    public Tournoi getTournoi(int id){
-        return repository.findById(new Long(id)).get();
+    public Tournoi getTournoi(){
+
+        return repository.findAll().get(0);
     }
 
     public void saveTournoi(Tournoi tournoi) throws Exception {
@@ -26,14 +28,45 @@ public class TournoiService {
             throw new Exception("Il y a déjà un tournoi "+tournoi.getNom()+" en cours !");
         }
         else {
-            repository.save(tournoi);
+            Tournoi update = repository.getReferenceById(tournoi.getId());
+            update.setNom(tournoi.getNom());
+            update.setDateDebutTournoi(tournoi.getDateDebutTournoi());
+            if(tournoi.getDateDebutTournoi().isBefore(tournoi.getDateFinInscription())){
+                update.setDateFinInscription(tournoi.getDateFinInscription());
+                repository.save(update);
+
+            }
+            if(tournoi.getDateFinInscription().isBefore(tournoi.getDateDebutPoule())){
+                update.setDateDebutPoule(tournoi.getDateDebutPoule());
+                repository.save(update);
+
+            }
+            if(tournoi.getDateDebutPoule().isBefore(tournoi.getDateFinPoule())){
+                update.setDateFinPoule(tournoi.getDateFinPoule());
+                repository.save(update);
+
+            }
+            if(tournoi.getDateFinPoule().isBefore(tournoi.getDateDebutTableau())||tournoi.getDateFinPoule().isEqual(tournoi.getDateDebutTableau())){
+                update.setDateDebutTableau(tournoi.getDateDebutTableau());
+                repository.save(update);
+            }
+            if(tournoi.getDateDebutTableau().isBefore(tournoi.getDateFinTournoi())){
+                update.setDateFinTournoi(tournoi.getDateFinTournoi());
+                repository.save(update);
+            }
+            repository.save(update);
         }
     }
 
-    public void createGroupes(Tournoi tournoi){
-        Tournoi update = repository.getReferenceById(tournoi.getId());
+    /**
+     * Permet de créer les groupes
+     */
+    public void createGroupes(){
+        if(pouleRepository.findAll().size()>0){
+            throw new RuntimeException("On ne peut créer de groupe.");
+        }
+        Tournoi update = repository.findAll().get(0);;
         int nbEquipes = update.tailleTournoi();
-
         if(nbEquipes>5){
             List<Equipe> allTeams = update.getEquipes();
             List<Poule> poules = new ArrayList<>();
@@ -76,7 +109,6 @@ public class TournoiService {
                     poule.setId((long) i);
                     poule.setNom("Groupe " + (i+1));
                     poules.add(poule);
-                    //pouleRepository.save(poule);
                 }
 
                 HashMap<Poule, List<Equipe>> listHashMap = new HashMap<>();
@@ -146,12 +178,84 @@ public class TournoiService {
                 }
             }
         }
+
     public void deleteTournoi(){
         repository.deleteAll();
         pouleRepository.deleteAll();
         tableauRepository.deleteAll();
     }
 
-    public void createTableaux(Tournoi tournoi) {
+    /**
+     * Permet de créer tous les tableaux après la phase de groupes
+     */
+    public void createTableaux() {
+        if (tableauRepository.findAll().size() > 0) {
+            throw new RuntimeException("On ne peut créer de tableau.");
+        }
+
+        List<Integer> puissances = new ArrayList<>();
+        List<Tableau> tableaux = new ArrayList<>();
+        List<Equipe> vainqueurs = new ArrayList<>();
+        List<Equipe> seconds = new ArrayList<>();
+        List<Equipe> troisiemes = new ArrayList<>();
+        List<Equipe> quatriemes = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            puissances.add((int) Math.pow(2, i));
+        }
+        PouleService service = new PouleService(pouleRepository);
+        pouleRepository.findAll().forEach(groupe -> {
+            List<Equipe> equipes = service.getRanking(groupe.getId());
+            vainqueurs.add(equipes.get(0));
+            seconds.add(equipes.get(1));
+            troisiemes.add(equipes.get(2));
+            if (equipes.size() >= 4) {
+                quatriemes.add(equipes.get(3));
+            }
+        });
+        int nbTableauxAutres = (int) Math.ceil(((double) (troisiemes.size() + quatriemes.size()) / 16));
+        int totalPrincipal = vainqueurs.size() + seconds.size();
+        for (int i = 0; i <= nbTableauxAutres; i++) {
+            Tableau tableau = new Tableau();
+            tableau.setId((long) i + 1);
+            tableaux.add(tableau);
+        }
+        tableauRepository.saveAll(tableaux);
+
+        /**
+         * Tableau principal
+         */
+        int toursPrincipal = (int) Math.ceil(((Math.log(vainqueurs.size() + seconds.size()) / Math.log(2))));
+        List<MatchTableau> matchTableaux = new ArrayList<>();
+        for(int i=0;i<toursPrincipal;i++){
+            for(int j=0;j<totalPrincipal/(int)Math.pow(2,i+1);j++) {
+                MatchTableau match = new MatchTableau(tableaux.get(0),i);
+                match.setTour(i);
+                match.setLieu("Inconnu");
+                matchTableaux.add(match);
+                tableaux.get(0).setListMatchs(matchTableaux);
+
+            }
+        }
+        if(puissances.contains(totalPrincipal)){
+            for(MatchTableau matchTableau:matchTableaux){
+                if(!vainqueurs.isEmpty()&matchTableau.getTour()==0){
+                    Equipe premier = vainqueurs.get(new Random().nextInt(vainqueurs.size()));
+                    Equipe deuxieme = seconds.get(new Random().nextInt(seconds.size()));
+                    matchTableau.setEquipeA(premier);
+                    matchTableau.setEquipeB(deuxieme);
+                    tableaux.get(0).getListMatchs().set(tableaux.get(0).getListMatchs().indexOf(matchTableau),matchTableau);
+                    vainqueurs.remove(premier);
+                    seconds.remove(deuxieme);
+                }
+            }
+        }
+        else{
+            if(totalPrincipal%2==0){
+
+            }
+
+        }
+        matchTableauRepository.saveAll(matchTableaux);
     }
+
 }

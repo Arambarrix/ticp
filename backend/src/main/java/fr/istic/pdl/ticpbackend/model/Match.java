@@ -1,6 +1,8 @@
 package fr.istic.pdl.ticpbackend.model;
 
 import javafx.util.Pair;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
@@ -12,6 +14,7 @@ import java.util.Objects;
 
 @MappedSuperclass
 @DynamicUpdate
+@AllArgsConstructor
 public abstract class Match implements Serializable {
     @Id
     @GeneratedValue
@@ -33,6 +36,16 @@ public abstract class Match implements Serializable {
     private String lieu;
 
     public Match() {
+        resultA=0;
+        resultB=0;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Equipe getEquipeA() {

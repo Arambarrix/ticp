@@ -12,28 +12,33 @@ import java.util.*;
 @RestController
 @CrossOrigin("*")
 @AllArgsConstructor
-@RequestMapping("api/v1/poule")
+@RequestMapping("api/v1/groupes")
 public class PouleController {
     PouleService pouleService;
 
-    @GetMapping("/equipes/{id}")
-    private List<Equipe> getAllTeams(@PathVariable("id") int id){
-        return pouleService.getAllTeams((long)id);
+
+    @GetMapping("/ranking/{id}")
+    private List<Equipe> getRanking(@PathVariable("id") int id){
+        return pouleService.getRanking((long)id);
     }
 
     @GetMapping("/{id}")
     private Poule getPoule(@PathVariable("id")int id){
         return pouleService.getPoule((long)id).get();
     }
-
-    @PutMapping("/{id}")
-    private void updatePoule(@PathVariable("id")int id,@RequestBody Poule poule){
-        Poule update = pouleService.getPoule((long)id).get();
-        update=poule;
-        pouleService.savePoule(update);
+    @GetMapping("/all")
+    private List<Poule> getPoules(){
+        return pouleService.getPoules();
     }
 
-    @DeleteMapping("/{id}")
+    @PutMapping("/update/{id}")
+    private void updatePoule(@PathVariable("id")int id,@RequestBody Poule poule){
+        if(poule.getId()==id){
+            pouleService.savePoule(poule);
+        }
+
+    }
+    @DeleteMapping("/delete/{id}")
     private void deletePoule(@PathVariable("id")int id){
         pouleService.deletePoule((long)id);
     }

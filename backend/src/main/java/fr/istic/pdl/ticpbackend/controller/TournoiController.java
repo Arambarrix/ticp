@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class TournoiController {
     TournoiService tournoiService;
 
-    @GetMapping("/{id}")
-    private Tournoi getTournoi(@PathVariable("id") int id){
-        return tournoiService.getTournoi(id);
+    @GetMapping("/")
+    private Tournoi getTournoi(){
+        return tournoiService.getTournoi();
     }
 
-    @PostMapping
+    @PostMapping("/save")
     private void saveTournoi(@RequestBody Tournoi tournoi){
         try {
             tournoiService.saveTournoi(tournoi);
@@ -27,9 +27,9 @@ public class TournoiController {
         }
     }
 
-    @PutMapping("/{id}")
-    private void updateTournoi(@RequestBody Tournoi tournoi, @PathVariable("id") int id){
-        Tournoi tour = tournoiService.getTournoi(id);
+    @PutMapping("/update")
+    private void updateTournoi(@RequestBody Tournoi tournoi){
+        Tournoi tour = tournoiService.getTournoi();
         tour = tournoi;
         try {
             tournoiService.saveTournoi(tour);
@@ -37,15 +37,15 @@ public class TournoiController {
             e.printStackTrace();
         }
     }
-    @PutMapping("/groupes/{id}")
-    private void createGroupes(@RequestBody Tournoi tournoi, @PathVariable("id") int id){
-        tournoiService.createGroupes(tournoi);
+    @PutMapping("/create-groupes")
+    private void createGroupes(){
+        tournoiService.createGroupes();
     }
-    @PutMapping("/tableaux/{id}")
-    private void createTableaux(@RequestBody Tournoi tournoi, @PathVariable("id") int id){
-        tournoiService.createTableaux(tournoi);
+    @PutMapping("/create-tableaux")
+    private void createTableaux(){
+        tournoiService.createTableaux();
     }
-    @DeleteMapping
+    @DeleteMapping("/delete")
     private void deleteTournoi(){
         tournoiService.deleteTournoi();
     }
