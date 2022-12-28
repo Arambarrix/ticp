@@ -1,6 +1,8 @@
 package fr.istic.pdl.ticpbackend.controller;
 
+import fr.istic.pdl.ticpbackend.model.Joueur;
 import fr.istic.pdl.ticpbackend.service.EquipeService;
+import fr.istic.pdl.ticpbackend.service.JoueurService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import fr.istic.pdl.ticpbackend.model.Equipe;
@@ -35,6 +37,15 @@ public class EquipeController {
     @DeleteMapping("/{id}")
     private void deleteEquipe(@PathVariable("id") long id){
         equipeService.deleteEquipe(id);
+    }
+
+    @GetMapping("/get-joueurs/id")
+    private List<Joueur> getJoueurs(@PathVariable("id")int id){
+        return equipeService.getEquipe((long)id).get().getJoueurs();
+    }
+    @GetMapping("/get-joueur/idequipe/idjoueur")
+    private Joueur getJoueur(@PathVariable("idequipe")int idequipe, @PathVariable("idjoueur")int idjoueur){
+        return equipeService.getJoueur(idequipe,idjoueur);
     }
 
 }

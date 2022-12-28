@@ -5,6 +5,7 @@ import fr.istic.pdl.ticpbackend.repository.JoueurRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,6 +16,14 @@ import java.util.Optional;
 @AllArgsConstructor
 public class JoueurService {
     JoueurRepository repository;
+
+    /**
+     * Récupère tous les joueurs du tournoi
+     * @return tous les joueurs du tournoi
+     */
+    public List<Joueur> getJoueurs(){
+        return repository.findAll();
+    }
 
     /**
      * Retourne un joueur

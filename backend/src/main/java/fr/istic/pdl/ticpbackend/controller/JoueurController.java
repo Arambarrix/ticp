@@ -1,9 +1,12 @@
 package fr.istic.pdl.ticpbackend.controller;
 
+import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.Joueur;
 import fr.istic.pdl.ticpbackend.service.JoueurService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Ce controlleur permet d'utiliser les services des joueurs
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 public class JoueurController {
     JoueurService service;
 
-
+    @GetMapping("/")
+    private List<Joueur> getJoueurs(){
+        return service.getJoueurs();
+    }
     @GetMapping("/id")
     private Joueur getJoueur(@PathVariable("id")int id){
         return service.getJoueur((long)id).get();
@@ -36,6 +42,11 @@ public class JoueurController {
     @DeleteMapping("/delete/id")
     private void deleteJoueur(@PathVariable("id")int id){
         service.deleteJoueur((long)id);
+    }
+
+    @GetMapping("/get-equipe/id")
+    private Equipe getEquipe(@PathVariable("id")int id){
+        return service.getJoueur((long)id).get().getEquipe();
     }
 
 }
