@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-
+/**
+ * Ce controlleur permet d'utiliser les services des poules
+ */
 @RestController
 @CrossOrigin("*")
 @AllArgsConstructor

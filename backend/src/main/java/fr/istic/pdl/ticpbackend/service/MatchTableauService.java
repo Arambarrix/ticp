@@ -29,6 +29,7 @@ public class MatchTableauService {
     /**
      * Permet de mettre à jour un match de tableay
      * @param match le match de tableau à mettre à jour
+     * @throws RuntimeException si le match n'existe pas
      */
     public void updateMatchTableau(MatchTableau match){
         if(repository.existsById(match.getId())){

@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import fr.istic.pdl.ticpbackend.model.Equipe;
 import java.util.*;
-
-
+/**
+ * Ce controlleur permet d'utiliser les services des équipes
+ */
 
 @RestController
 @CrossOrigin("*")

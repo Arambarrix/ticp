@@ -4,7 +4,9 @@ import fr.istic.pdl.ticpbackend.model.Tableau;
 import fr.istic.pdl.ticpbackend.service.TableauService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+/**
+ * Ce controlleur permet d'utiliser les services des tableaux
+ */
 @RestController
 @CrossOrigin("*")
 @AllArgsConstructor

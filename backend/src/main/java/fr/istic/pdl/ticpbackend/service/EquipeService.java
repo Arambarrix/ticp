@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Ce service définit les fonctions propres aux équipes
+ */
 @Service
 @AllArgsConstructor
 public class EquipeService {

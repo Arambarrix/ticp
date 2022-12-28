@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface TableauRepository extends JpaRepository<Tableau,Long> {
-    @Query("SELECT m FROM Tableau t, MatchTableau  m  WHERE t.id = m.tableau.id and m.tableau.id= ?1")
+    @Query("SELECT m FROM MatchTableau  m  WHERE m.tableau.id= ?1")
     List<MatchTableau> findMatchsTableaux(Long id);
 }

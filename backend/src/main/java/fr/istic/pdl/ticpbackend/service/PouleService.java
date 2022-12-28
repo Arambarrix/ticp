@@ -18,24 +18,41 @@ import java.util.*;
 @AllArgsConstructor
 public class PouleService {
     PouleRepository repository;
+
+    /**
+     * Retourne une poule existante
+     * @param id l'identifiant d'une poule existante
+     * @return une poule existante ou pas
+     */
     public Optional<Poule> getPoule(Long id){
         return repository.findById(id);
     }
+
+    /**
+     * Met à jour une poule
+     * @param poule à mettre à jour
+     * @throws RuntimeException si la poule n'existe pas
+     */
     public void savePoule(Poule poule){
         if(repository.existsById(poule.getId())){
             Poule update = repository.getReferenceById(poule.getId());
             update.setNom(poule.getNom());
             repository.save(poule);
         }
+        else {
+            throw new RuntimeException("Poule/groupe inexistant");
+        }
 
     }
+
+    /**
+     * Supprime une poule du tournoi
+     * @param id l'identifiant de la poule
+     */
     public void deletePoule(Long id){
         repository.deleteById(id);
     }
 
-    public List<Equipe> getAllTeams(Long id){
-        return repository.findAllTeamsByPouleQuery(id);
-    }
 
     /**
      * Cette méthode permet de faire le classement d'une poule.
@@ -98,6 +115,11 @@ public class PouleService {
         return equipes;
 
     }
+
+    /**
+     * Récupère toutes les poules du tournoi
+     * @return une liste de poules
+     */
     public List<Poule> getPoules(){
         return repository.findAll();
     }

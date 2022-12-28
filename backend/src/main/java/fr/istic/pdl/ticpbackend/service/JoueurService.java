@@ -7,17 +7,56 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Ce service définit les fonctions propres aux joueurs
+ */
+
 @Service
 @AllArgsConstructor
 public class JoueurService {
     JoueurRepository repository;
+
+    /**
+     * Retourne un joueur
+     * @param id l'identifiant d'un joueur
+     * @return un joueur, s'il existe
+     */
     public Optional<Joueur> getJoueur(Long id){
         return repository.findById(id);
     }
+
+    /**
+     * Enregistre un joueur
+     * @param joueur
+     */
     public void saveJoueur(Joueur joueur){
         repository.save(joueur);
     }
+
+    /**
+     * Supprime un joueur
+     * @param id
+     */
     public void deleteJoueur(Long id){
         repository.deleteById(id);
+    }
+
+    /**
+     * Met à jour un joueur
+     * @param joueur à mettre à jour
+     * @throws RuntimeException si le joueur n'a pas d'équipe
+     */
+    public void updateJoueur(Joueur joueur){
+        if(repository.existsById(joueur.getId())){
+            Joueur update = repository.getReferenceById(joueur.getId());
+            update.setNom(joueur.getNom());
+            if(joueur.getEquipe()!=null){
+                update.setEquipe(joueur.getEquipe());
+                repository.save(update);
+            }
+            else{
+                throw new RuntimeException("Equipe manquante !");
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ public class TournoiServiceTests {
     void createTournoi() throws Exception {
 
         tournoiService.saveTournoi(tournoi);
-        assertEquals(tournoi,tournoiService.getTournoi(1));
+        assertEquals(tournoi,tournoiService.getTournoi());
     }
     @Test
     void uniqueTournoi(){

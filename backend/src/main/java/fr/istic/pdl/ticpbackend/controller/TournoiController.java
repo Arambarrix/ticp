@@ -29,10 +29,10 @@ public class TournoiController {
 
     @PutMapping("/update")
     private void updateTournoi(@RequestBody Tournoi tournoi){
-        Tournoi tour = tournoiService.getTournoi();
-        tour = tournoi;
         try {
-            tournoiService.saveTournoi(tour);
+            if(tournoi.getId()==tournoiService.getTournoi().getId()){
+                tournoiService.updateTournoi(tournoi);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
