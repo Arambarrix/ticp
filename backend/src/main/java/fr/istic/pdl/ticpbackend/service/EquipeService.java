@@ -153,6 +153,12 @@ public class EquipeService {
             return joueur;
         }
     }
+
+    /**
+     * Retourne la liste des joueurs d'une équipe
+     * @param id identifiant de l'équipe
+     * @return liste de joueurs
+     */
     public List<Joueur> getJoueurs(Long id){
         return repository.getReferenceById(id).getJoueurs();
     }

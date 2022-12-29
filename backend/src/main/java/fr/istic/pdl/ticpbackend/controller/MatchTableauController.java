@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 /**
- * Ce controlleur permet d'utiliser les services des matchs de tableau
+ * Ce controller permet d'utiliser les services des matchs de tableau
  */
 @RestController
 @CrossOrigin("*")

@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Ce controller permet d'utiliser les services du tournoi
+ */
+
 @RestController
 @AllArgsConstructor
 @CrossOrigin("*")

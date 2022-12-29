@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Ce controlleur permet d'utiliser les services des tableaux
+ * Ce controller permet d'utiliser les services des tableaux
  */
 @RestController
 @CrossOrigin("*")

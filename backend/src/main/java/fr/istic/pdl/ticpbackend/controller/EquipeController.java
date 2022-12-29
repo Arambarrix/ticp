@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 /**
- * Ce controlleur permet d'utiliser les services des équipes
+ * Ce controller permet d'utiliser les services des équipes
  */
 
 @RestController
