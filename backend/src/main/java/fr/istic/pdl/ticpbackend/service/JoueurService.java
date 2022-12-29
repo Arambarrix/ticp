@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.service;
 
+import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.Joueur;
 import fr.istic.pdl.ticpbackend.repository.JoueurRepository;
 import lombok.AllArgsConstructor;
@@ -67,5 +68,8 @@ public class JoueurService {
                 throw new RuntimeException("Equipe manquante !");
             }
         }
+    }
+    public Equipe getEquipe(Long id){
+        return repository.getReferenceById(id).getEquipe();
     }
 }

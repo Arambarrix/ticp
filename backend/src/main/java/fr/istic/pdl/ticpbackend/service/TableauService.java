@@ -23,9 +23,8 @@ public class TableauService {
      * @param id l'identifiant du tableau
      * @return un tableau
      */
-
-    public Tableau getTableau(int id) {
-        return repository.findById(new Long(id)).get();
+    public Tableau getTableau(Long id) {
+        return repository.findById(id).get();
     }
 
     /**
@@ -51,6 +50,10 @@ public class TableauService {
 
     public void deleteTableau(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<MatchTableau> getMatchsTableau(Long id){
+        return repository.getReferenceById(id).getListMatchs();
     }
 
     /**
@@ -156,6 +159,10 @@ public class TableauService {
                 }
             }
         }
+    }
+
+    public List<Tableau> getTableaux() {
+        return repository.findAll();
     }
 }
 

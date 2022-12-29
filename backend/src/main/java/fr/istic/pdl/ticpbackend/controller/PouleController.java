@@ -1,6 +1,8 @@
 package fr.istic.pdl.ticpbackend.controller;
 
 import fr.istic.pdl.ticpbackend.model.Equipe;
+import fr.istic.pdl.ticpbackend.model.MatchPoule;
+import fr.istic.pdl.ticpbackend.model.MatchTableau;
 import fr.istic.pdl.ticpbackend.model.Poule;
 import fr.istic.pdl.ticpbackend.service.PouleService;
 import lombok.AllArgsConstructor;
@@ -39,6 +41,10 @@ public class PouleController {
             pouleService.savePoule(poule);
         }
 
+    }
+    @GetMapping("/get-matchs/{id}")
+    private List<MatchPoule> getMatchs(@PathVariable("id")int id){
+        return pouleService.getMatchsPoules((long)id);
     }
     @DeleteMapping("/delete/{id}")
     private void deletePoule(@PathVariable("id")int id){

@@ -123,4 +123,7 @@ public class PouleService {
     public List<Poule> getPoules(){
         return repository.findAll();
     }
+    public List<MatchPoule> getMatchsPoules(Long id){
+        return repository.getReferenceById(id).getListMatchs();
+    }
 }

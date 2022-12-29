@@ -22,7 +22,7 @@ public class JoueurController {
     private List<Joueur> getJoueurs(){
         return service.getJoueurs();
     }
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     private Joueur getJoueur(@PathVariable("id")int id){
         return service.getJoueur((long)id).get();
     }
@@ -32,21 +32,21 @@ public class JoueurController {
         service.saveJoueur(joueur);
     }
 
-    @PutMapping("/update/id")
+    @PutMapping("/update/{id}")
     private void updateJoueur(@PathVariable("id")int id,@RequestBody Joueur joueur){
         if(joueur.getId()==id){
             service.updateJoueur(joueur);
         }
     }
 
-    @DeleteMapping("/delete/id")
+    @DeleteMapping("/delete/{id}")
     private void deleteJoueur(@PathVariable("id")int id){
         service.deleteJoueur((long)id);
     }
 
-    @GetMapping("/get-equipe/id")
+    @GetMapping("/get-equipe/{id}")
     private Equipe getEquipe(@PathVariable("id")int id){
-        return service.getJoueur((long)id).get().getEquipe();
+        return service.getEquipe((long)id);
     }
 
 }
