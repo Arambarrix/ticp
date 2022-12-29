@@ -11,8 +11,7 @@
     const teams = computed(()=>{
         return [{'name':"BABA", 'nb_joueur':5}, {'name':"Nom Equipe", 'nb_joueur':5}, {'name':"BABA", 'nb_joueur':5},
         {'name':"Nom Equipe long", 'nb_joueur':5},{'name':"Nom Equipe très long", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5}, {'name':"BABA", 'nb_joueur':5}, {'name':"Nom Equipe", 'nb_joueur':5}, {'name':"BABA", 'nb_joueur':5},
-        {'name':"Nom Equipe long", 'nb_joueur':5},{'name':"Nom Equipe très long", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5}, {'name':"Nom Equipe", 'nb_joueur':5}, {'name':"BABA", 'nb_joueur':5},
-        {'name':"Nom Equipe long", 'nb_joueur':5},{'name':"Nom Equipe très long", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5}]
+        {'name':"Nom Equipe long", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5}]
     });
 </script>
 <template>
@@ -26,8 +25,8 @@
             </div>
         </div>
 
-        <div class="flex flex-col px-2 pt-10">
-            <div class="grid grid-rows-5 grid-cols-2 md:grid-cols-4">
+        <div class="flex flex-col px-2 pt-10 pb-8">
+            <div class="grid grid-rows-5 grid-cols-2 md:grid-cols-4 gap-2">
                 <TeamVue v-for="team in teams" :name="team.name" :nb_joueur="team.nb_joueur"/>
             </div>
         </div>
