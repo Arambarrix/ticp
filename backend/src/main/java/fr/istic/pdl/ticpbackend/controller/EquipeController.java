@@ -2,7 +2,6 @@ package fr.istic.pdl.ticpbackend.controller;
 
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.service.EquipeService;
-import fr.istic.pdl.ticpbackend.service.JoueurService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

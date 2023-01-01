@@ -6,7 +6,6 @@ import fr.istic.pdl.ticpbackend.model.Poule;
 import fr.istic.pdl.ticpbackend.repository.PouleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.util.Optional;
 import java.util.*;
@@ -55,7 +54,8 @@ public class PouleService {
 
 
     /**
-     * Cette méthode permet de faire le classement d'une poule.
+     * Cette méthode permet de faire le classement d'une poule par nombre de victoires premièrement et une meilleure différence de points.
+     * Une différence de points est représentée par Nombre de points marqués - Nombre de points encaissés
      * @param id est l'identifiant de la poule à classer
      */
     public List<Equipe> getRanking(Long id){
@@ -64,13 +64,13 @@ public class PouleService {
         if(!repository.existsById(id)){
             try {
                 throw new RuntimeException("Poule inexistante");
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         else{
 
-            Map<Equipe,List<MatchPoule>> victoiresEquipes = new HashMap<>();
-            Map<Equipe,Integer> pointsEquipes = new HashMap<>();
+            Map<Equipe,List<MatchPoule>> victoiresEquipes = new HashMap<>();//Map entre les équipes et leurs victoires en matchs de poule
+            Map<Equipe,Integer> pointsEquipes = new HashMap<>(); //Map entre les équipes et leur nombre de points respectifs
             for(Equipe equipe:equipes){
                 List<MatchPoule> victoires = new ArrayList<>();
                 List<Integer> points = new ArrayList<>();
@@ -123,6 +123,12 @@ public class PouleService {
     public List<Poule> getPoules(){
         return repository.findAll();
     }
+
+    /**
+     * Récupère tous les matchs d'une poule
+     * @param id l'identifiant de la poule
+     * @return une liste des matchs d'une poule
+     */
     public List<MatchPoule> getMatchsPoules(Long id){
         return repository.getReferenceById(id).getListMatchs();
     }

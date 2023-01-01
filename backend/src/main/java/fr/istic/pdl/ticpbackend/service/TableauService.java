@@ -29,7 +29,7 @@ public class TableauService {
 
     /**
      * Met à jour un tableau
-     * @param tableau
+     * @param tableau à mettre à jour
      * @throws RuntimeException si le tableau n'existe pas
      */
     public void updateTableau(Tableau tableau) {
@@ -72,12 +72,11 @@ public class TableauService {
             if(Collections.frequency(rounds,i)>1){
                 rounds.remove(i);
             }
-            System.out.println(i);
         }
         Map<Integer, Map<Equipe, MatchTableau>> vainqueursRounds = new HashMap<>();
         List<Equipe> offices = new ArrayList<>();
         for(MatchTableau matchTableau:matchTableauList){
-            System.out.println("Tableau "+matchTableau.getTableau().getId());
+            //System.out.println("Tableau "+matchTableau.getTableau().getId());
             if(matchTableau.getTour()==1 & matchTableau.getEquipeA()!=null){
                 if(matchTableau.getEquipeA() != matchTableauRepository.findEquipeByMatchInTour(matchTableau.getEquipeA().getId(),matchTableau.getTour()-1)){
                     offices.add(matchTableau.getEquipeA());
@@ -93,7 +92,7 @@ public class TableauService {
         for (int i = 0; i < rounds.size(); i++) {
             Map<Equipe, MatchTableau> vainqueurs = new HashMap<>();
             for (MatchTableau matchTableau : matchTableauList) {
-                System.out.println("Tableau "+matchTableau.getTableau().getId());
+                //System.out.println("Tableau "+matchTableau.getTableau().getId());
                 if (matchTableau.getTour() == i & (matchTableau.getEquipeA() != null || matchTableau.getEquipeB() != null)) {
                     if (matchTableau.getScoreA() > matchTableau.getScoreB()) {
                         vainqueurs.put(matchTableau.getEquipeA(), matchTableau);
@@ -108,15 +107,15 @@ public class TableauService {
         for (Map.Entry<Integer, Map<Equipe, MatchTableau>> val : vainqueursRounds.entrySet()) {
             for(Equipe equipe:val.getValue().keySet()){
                 for(MatchTableau matchTableau: matchTableauRepository.findMatchsByTours(val.getKey()+1)){
-                    System.out.println("Tableau "+matchTableau.getTableau().getId());
-                    System.out.println("Pour le match "+matchTableau.getId());
+                    //System.out.println("Tableau "+matchTableau.getTableau().getId());
+                    //System.out.println("Pour le match "+matchTableau.getId());
                     if(matchTableau.getTableau().getId()==id && equipe!=matchTableauRepository.findEquipeByMatchInTour(equipe.getId(), val.getKey()+1) & matchTableau.getTour()< rounds.size()-1 & matchTableau.getEquipeA()==null){
-                        System.out.println("Non, il n'y a pas de qualifié en position A dans ce match prévu");
+                        //System.out.println("Non, il n'y a pas de qualifié en position A dans ce match prévu") ;
                         matchTableau.setEquipeA(equipe);
                         matchTableauRepository.save(matchTableau);
                     }
                     else if(matchTableau.getTableau().getId()==id && equipe!=matchTableauRepository.findEquipeByMatchInTour(equipe.getId(), val.getKey()+1) & matchTableau.getTour()< rounds.size()-1 & !(val.getValue().containsKey(matchTableau.getEquipeA())||offices.contains(matchTableau.getEquipeA()))){
-                        System.out.println("Non, il n'y a pas de qualifié d'office en position A dans ce match prévu");
+                        //System.out.println("Non, il n'y a pas de qualifié d'office en position A dans ce match prévu") ;
                         matchTableau.setEquipeA(equipe);
                         matchTableauRepository.save(matchTableau);
 
@@ -125,15 +124,15 @@ public class TableauService {
             }
             for(Equipe equipe:val.getValue().keySet()){
                 for(MatchTableau matchTableau: matchTableauRepository.findMatchsByTours(val.getKey()+1)){
-                    System.out.println("Tableau "+matchTableau.getTableau().getId());
-                    System.out.println("Pour le match "+matchTableau.getId());
+                    //System.out.println("Tableau "+matchTableau.getTableau().getId());
+                    //System.out.println("Pour le match "+matchTableau.getId());
                     if(matchTableau.getTableau().getId()==id && equipe!=matchTableauRepository.findEquipeByMatchInTour(equipe.getId(), val.getKey()+1) & matchTableau.getTour()< rounds.size()-1 & matchTableau.getEquipeB()==null){
-                        System.out.println("Non, il n'y a pas de qualifié en position B dans ce match prévu");
+                        //System.out.println("Non, il n'y a pas de qualifié en position B dans ce match prévu") ;
                         matchTableau.setEquipeB(equipe);
                         matchTableauRepository.save(matchTableau);
                     }
                     else if(matchTableau.getTableau().getId()==id && equipe!=matchTableauRepository.findEquipeByMatchInTour(equipe.getId(), val.getKey()+1) & matchTableau.getTour()< rounds.size()-1 & !(val.getValue().containsKey(matchTableau.getEquipeB())||offices.contains(matchTableau.getEquipeB()))){
-                        System.out.println("Non, il n'y a pas de qualifié d'office en position B dans ce match prévu");
+                        //System.out.println("Non, il n'y a pas de qualifié d'office en position B dans ce match prévu") ;
                         matchTableau.setEquipeB(equipe);
                         matchTableauRepository.save(matchTableau);
 
@@ -141,18 +140,18 @@ public class TableauService {
                 }
             }
             for(MatchTableau matchTableau: matchTableauRepository.findMatchsByTours(val.getKey()+1)){
-                System.out.println("Tableau "+matchTableau.getTableau().getId());
-                System.out.println("Pour le match "+matchTableau.getId());
-                System.out.println(!(val.getValue().containsKey(matchTableau.getEquipeA())||offices.contains(matchTableau.getEquipeA())));
-                System.out.println(!(val.getValue().containsKey(matchTableau.getEquipeB())||offices.contains(matchTableau.getEquipeB())));
+                //System.out.println("Tableau "+matchTableau.getTableau().getId());
+                //System.out.println("Pour le match "+matchTableau.getId());
+                //System.out.println(!(val.getValue().containsKey(matchTableau.getEquipeA())||offices.contains(matchTableau.getEquipeA())));
+                //System.out.println(!(val.getValue().containsKey(matchTableau.getEquipeB())||offices.contains(matchTableau.getEquipeB())));
                 if(matchTableau.getTableau().getId()==id && matchTableau.getTour()< rounds.size()-1 & !(val.getValue().containsKey(matchTableau.getEquipeA())||offices.contains(matchTableau.getEquipeA()))){
-                    System.out.println("L'équipe en position A n'est pas qualifiée d'office, ni méritante");
+                    //System.out.println("L'équipe en position A n'est pas qualifiée d'office, ni méritante");
                     matchTableau.setEquipeA(null);
                     matchTableau.setScoreA(0);
                     matchTableauRepository.save(matchTableau);
                 }
                 if(matchTableau.getTableau().getId()==id && matchTableau.getTour()< rounds.size()-1 & !(val.getValue().containsKey(matchTableau.getEquipeB())||offices.contains(matchTableau.getEquipeB()))) {
-                    System.out.println("L'équipe en position B n'est pas qualifiée,ni méritante");
+                    //System.out.println("L'équipe en position B n'est pas qualifiée, ni méritante");
                     matchTableau.setEquipeB(null);
                     matchTableau.setScoreB(0);
                     matchTableauRepository.save(matchTableau);

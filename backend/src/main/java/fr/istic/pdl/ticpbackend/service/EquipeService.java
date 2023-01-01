@@ -93,9 +93,9 @@ public class EquipeService {
     }
 
     /**
-     * Retourne la progression d'une équipe dans un tableau, implicitement un seul tableau
+     * Retourne la progression d'une équipe dans un tableau, implicitement un seul
      * @param id l'identifiant d'une équipe
-     * @return liste des matchs de tableau
+     * @return liste des matchs de tableau d'une équipe
      */
     public List<MatchTableau> getMatchsTableau(Long id){
         List<MatchTableau> matchsTableau=new ArrayList<>();

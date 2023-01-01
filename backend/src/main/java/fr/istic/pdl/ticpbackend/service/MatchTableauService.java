@@ -1,6 +1,5 @@
 package fr.istic.pdl.ticpbackend.service;
 
-import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.model.MatchTableau;
 import fr.istic.pdl.ticpbackend.repository.MatchTableauRepository;
 import lombok.AllArgsConstructor;

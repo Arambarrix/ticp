@@ -91,10 +91,9 @@ public class TournoiService {
         }
         Tournoi update = repository.findAll().get(0);//Le tournoi en cours dont on doit récupérer les équipes
         int nbEquipes = update.tailleTournoi();
-        /**
-         * Si le nombre d'équipes est inférieur à 5, on ne peut créer une phase de groupes, le tournoi ne peut être
-         * lancé
-         */
+
+        //Si le nombre d'équipes est inférieur à 5, on ne peut créer une phase de groupes, le tournoi ne peut être lancé
+
         if(nbEquipes>5){
             List<Equipe> allTeams = update.getEquipes();
             List<Poule> poules = new ArrayList<>();
@@ -111,9 +110,7 @@ public class TournoiService {
                 }
             }
             else{
-                /**
-                 * On recherche le nombre de groupes de 4 équipes et celui de 3.
-                 */
+                //On recherche le nombre de groupes de 4 équipes et celui de 3.
                 if(nbEquipes<18){
 
                     for(int i=0;i<=(nbEquipes)/4;i++){
@@ -136,18 +133,14 @@ public class TournoiService {
                     }
                 }
             }
-            /**
-             * On crée des groupes en fonction du nombre des groupes de 4 + celui des groupes de 3 trouvés
-             */
+            //On crée des groupes en fonction du nombre des groupes de 4 + celui des groupes de 3 trouvés
             for(int i=0;i<nbGroupes;i++) {
                 Poule poule = new Poule();
                 poule.setId((long) i);
                 poule.setNom("Groupe " + (i+1));
                 poules.add(poule);
             }
-            /**
-             * On associe chaque poule à une liste d'équipes
-             */
+            //On associe chaque poule à une liste d'équipes
             HashMap<Poule, List<Equipe>> listHashMap = new HashMap<>();
             if(nombreQuatre>nombreTrois){
                 //Si le nombre de groupes de 4 est supérieur à celui des groupes de 3, on applique cet algorithme
@@ -165,8 +158,6 @@ public class TournoiService {
             }
             else if(nombreQuatre<=nombreTrois){
                 //Sinon si le nombre de groupes de 4 est inférieur à celui des 3, on recense les groupes de 4 et ceux des groupes de 3
-
-
                 for(int i=0;i<nombreQuatre;i++){
                     Poule poule = new Poule();
                     poule.setId((long)i+1);
@@ -204,9 +195,9 @@ public class TournoiService {
                 poules=groupeQuatre;
                 poules.addAll(groupeTrois);
             }
-            /**
-             * On crée les matchs de chaque poule
-             */
+
+            //On crée les matchs de chaque poule
+
             for(Poule groupe: poules){
                 for(int i=0;i<listHashMap.get(groupe).size()-1;i++){
                     for(int j=i+1;j<listHashMap.get(groupe).size();j++){
@@ -233,6 +224,7 @@ public class TournoiService {
 
     /**
      * Permet de créer tous les tableaux après la phase de groupes
+     * @throws RuntimeException S'il existe déjà un tableau. On ne peut pas créer de tableaux supplémentaires quand tous les tableaux ont été créés.
      */
     public void createTableaux() {
         if (tableauRepository.findAll().size() > 0) {
@@ -269,21 +261,15 @@ public class TournoiService {
         }
         tableauRepository.saveAll(tableaux);
 
-        /**
-         * Implémentation des tableaux en deux étapes :
-         * 1- Implémentation du tableau principal, car il a une contrainte de premier vs deuxième
-         * 2- Implémentation des autres tableaux sans contrainte particulière
-         */
+        //Implémentation des tableaux en deux étapes :
+        //1- Implémentation du tableau principal, car il a une contrainte de premier vs deuxième
+        //2- Implémentation des autres tableaux sans contrainte particulière
 
-        /**
-         * 1- Implémentation du tableau principal
-         */
+
+        //1- Implémentation du tableau principal
         int toursPrincipal = (int) Math.ceil(((Math.log(vainqueurs.size() + seconds.size()) / Math.log(2))));//Nombre de tours du tableau principal
         List<MatchTableau> matchTableaux = new ArrayList<>();//Liste des matchs du tableau principal
-        /**
-         * totalPrincipal ne peut jamais être impair. S'il manque une équipe, personne ne la remplace. On considère
-         * qu'elle gagne sur tapis vert. Le tableau principal est toujour équilibré. C'est pour cela qu'il est traité à part.
-         */
+
         if(puissances.contains(totalPrincipal)){
             //Si le nombre d'équipes du tableau principal est parfaitement pair, l'implémentation est directe
             for(int i=0;i<toursPrincipal;i++){
@@ -320,9 +306,8 @@ public class TournoiService {
                         break;
                     }
                 }
-                /**
-                 * On crée les matchs des deux premiers tours
-                 */
+
+                //On crée les matchs des deux premiers tours
                 Map<Integer,Integer> relation2 = new HashMap<>();
                 int tours = (int) Math.ceil(((Math.log(totalPrincipal) / Math.log(2))));
                 if(tours>=2){
@@ -331,9 +316,7 @@ public class TournoiService {
                     }
                 }
 
-                /**
-                 * On met à jour le nombre de matchs de chaque tour
-                 */
+                //On met à jour le nombre de matchs de chaque tour
                 for(Map.Entry<Integer,Integer> val: relation2.entrySet()){
                     int ancien0=0;
                     System.out.println();
@@ -343,9 +326,8 @@ public class TournoiService {
                         relation2.replace(1,nombreDeMatchsADeplacer+(ancien0/2));
                     }
                 }
-                /**
-                 * On crée les matchs des autres tours en divisant progressivement ceux du deuxième tour.
-                 */
+
+                //On crée les matchs des autres tours en divisant progressivement ceux du deuxième tour.
                 for(int i=2;i<tours;i++){
                     relation2.put(i,relation2.get(1)/(int)Math.pow(2,i-1));
                 }
@@ -358,6 +340,8 @@ public class TournoiService {
                         tableaux.get(0).setListMatchs(matchTableaux);
                     }
                 }
+
+                //Après la création des matchs, on récupère toutes les équipes qui doivent jouer et on les associe à un match
                 for(MatchTableau matchTableau:matchTableaux){
                     if(!vainqueurs.isEmpty()&(matchTableau.getTour()==0||matchTableau.getTour()==1)){
                         Equipe premier = vainqueurs.get(new Random().nextInt(vainqueurs.size()));
@@ -372,9 +356,8 @@ public class TournoiService {
             }
         }
         matchTableauRepository.saveAll(matchTableaux);
-        /**
-         * 2- Implémentation des autres tableaux
-         */
+
+        //2- Implémentation des autres tableaux
         List<Equipe> equipeList;
         equipeList=troisiemes;
         equipeList.addAll(quatriemes);
@@ -393,9 +376,8 @@ public class TournoiService {
                         break;
                     }
                 }
-                /**
-                 * On crée les matchs des deux premiers tours
-                 */
+
+                //On crée les matchs des deux premiers tours
                 Map<Integer,Integer> relation = new HashMap<>();
                 if(tours>=2){
                     for(int j=0;j<2;j++){
@@ -403,9 +385,8 @@ public class TournoiService {
                     }
                 }
 
-                /**
-                 * On met à jour le nombre de matchs de chaque tour
-                 */
+
+                //On met à jour le nombre de matchs de chaque tour
                 for(Map.Entry<Integer,Integer> val: relation.entrySet()){
                     int ancien=0;
                     System.out.println();
@@ -415,9 +396,8 @@ public class TournoiService {
                         relation.replace(1,adeplacer+(ancien/2));
                     }
                 }
-                /**
-                 * On crée les matchs des autres tours en divisant progressivement ceux du deuxième tour.
-                 */
+
+                //On crée les matchs des autres tours en divisant progressivement ceux du deuxième tour.
                 for(int j=2;j<tours;j++){
                     relation.put(j,relation.get(1)/(int)Math.pow(2,j-1));
                 }
@@ -430,6 +410,8 @@ public class TournoiService {
                         tableaux.get(i).setListMatchs(matchs);
                     }
                 }
+                //Pour l'attribution des places dans les matchs du premier et deuxième tour, tous les troisièmes et quatrièmes sont dans la même liste.
+                //Il faut s'assurer que l'équipe en position A ne soit pas sélectionnée en position B.
                 for(MatchTableau matchTableau:matchs){
                     if(!equipeList.isEmpty()&(matchTableau.getTour()==0||matchTableau.getTour()==1)){
                         Equipe equipeA = equipeList.get(new Random().nextInt(equipeList.size()));
@@ -445,6 +427,9 @@ public class TournoiService {
                     }
                 }
                 matchTableauRepository.saveAll(matchs);
+            }
+            else{
+                //On peut déplacer une équipe dans le tour suivant ou lui attribuer une équipe fictive. Mais il faudra s'assurer que l'équipe fictive n'ait aucun groupe.
             }
         }
     }

@@ -37,7 +37,7 @@ public class JoueurService {
 
     /**
      * Enregistre un joueur
-     * @param joueur
+     * @param joueur à enregistrer
      */
     public void saveJoueur(Joueur joueur){
         repository.save(joueur);
@@ -45,7 +45,7 @@ public class JoueurService {
 
     /**
      * Supprime un joueur
-     * @param id
+     * @param id l'identifiant du joueur à supprimer
      */
     public void deleteJoueur(Long id){
         repository.deleteById(id);
@@ -54,18 +54,21 @@ public class JoueurService {
     /**
      * Met à jour un joueur
      * @param joueur à mettre à jour
-     * @throws RuntimeException si le joueur n'a pas d'équipe
+     * @throws RuntimeException si le joueur n'a pas d'équipe ou l'équipe est pleine (3 joueurs max)
      */
     public void updateJoueur(Joueur joueur){
         if(repository.existsById(joueur.getId())){
             Joueur update = repository.getReferenceById(joueur.getId());
             update.setNom(joueur.getNom());
-            if(joueur.getEquipe()!=null){
+            if(joueur.getEquipe()!=null & joueur.getEquipe().getJoueurs().size()<3){
                 update.setEquipe(joueur.getEquipe());
                 repository.save(update);
             }
-            else{
+            else if(joueur.getEquipe()==null){
                 throw new RuntimeException("Equipe manquante !");
+            }
+            else if(joueur.getEquipe().getJoueurs().size()>=3){
+                throw new RuntimeException("Equipe pleine !");
             }
         }
     }
