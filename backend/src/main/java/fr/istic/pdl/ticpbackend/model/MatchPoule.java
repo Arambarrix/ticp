@@ -14,6 +14,10 @@ public class MatchPoule extends Match {
     @JoinColumn(name="poule_id")
     private Poule poule;
 
+    public Poule getPoule() {
+        return poule;
+    }
+
 
     @Override
     public String toString() {

@@ -5,7 +5,9 @@ import fr.istic.pdl.ticpbackend.service.MatchPouleService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
-
+/**
+ * Ce controller permet d'utiliser les services des matchs de poule
+ */
 @RestController
 @CrossOrigin("*")
 @AllArgsConstructor

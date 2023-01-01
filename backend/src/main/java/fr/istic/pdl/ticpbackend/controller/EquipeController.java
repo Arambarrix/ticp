@@ -1,12 +1,14 @@
 package fr.istic.pdl.ticpbackend.controller;
 
+import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.service.EquipeService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import fr.istic.pdl.ticpbackend.model.Equipe;
+
 import java.util.*;
-
-
+/**
+ * Ce controller permet d'utiliser les services des équipes
+ */
 
 @RestController
 @CrossOrigin("*")
@@ -34,6 +36,44 @@ public class EquipeController {
     @DeleteMapping("/{id}")
     private void deleteEquipe(@PathVariable("id") long id){
         equipeService.deleteEquipe(id);
+    }
+
+    @GetMapping("/get-joueurs/{id}")
+    private List<Joueur> getJoueurs(@PathVariable("id")int id){
+        return equipeService.getJoueurs((long)id);
+    }
+    @GetMapping("/get-joueur/{idequipe}/{idjoueur}")
+    private Joueur getJoueur(@PathVariable("idequipe")int idequipe, @PathVariable("idjoueur")int idjoueur){
+        return equipeService.getJoueur((long)idequipe,(long)idjoueur);
+    }
+    @GetMapping("/progression/{id}")
+    private List<MatchTableau> getProgression(@PathVariable("id")int id){
+        return equipeService.getMatchsTableau((long)id);
+    }
+
+    @GetMapping("/get-match-tableau/{idequipe}/{idmatch}")
+    private MatchTableau getMatchTableau(@PathVariable("idequipe")int idequipe,@PathVariable("idmatch")int idmatch){
+        return equipeService.getMatchTableau((long)idequipe,(long)idmatch);
+    }
+
+    @GetMapping("/get-matchs-poule/{id}")
+    private List<MatchPoule> getMatchsPoule(@PathVariable("id")int id){
+        return equipeService.getMatchsPoules((long)id);
+    }
+
+    @GetMapping("/get-match-poule/{idequipe}/{idmatch}")
+    private MatchPoule getMatchPoule(@PathVariable("idequipe")int idequipe,@PathVariable("idmatch")int idmatch){
+        return equipeService.getMatchPoule((long)idequipe,(long)idmatch);
+    }
+
+    @GetMapping("/get-poule/{id}")
+    private Poule getPoule(@PathVariable("id")int id){
+        return equipeService.getPoule((long)id);
+    }
+
+    @GetMapping("/get-tableau/{id}")
+    private Tableau getTableau(@PathVariable("id")int id){
+        return equipeService.getTableau((long)id);
     }
 
 }

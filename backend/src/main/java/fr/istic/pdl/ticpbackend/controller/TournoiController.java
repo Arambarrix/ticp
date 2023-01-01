@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Ce controller permet d'utiliser les services du tournoi
+ */
+
 @RestController
 @AllArgsConstructor
 @CrossOrigin("*")
@@ -29,10 +33,10 @@ public class TournoiController {
 
     @PutMapping("/update")
     private void updateTournoi(@RequestBody Tournoi tournoi){
-        Tournoi tour = tournoiService.getTournoi();
-        tour = tournoi;
         try {
-            tournoiService.saveTournoi(tour);
+            if(tournoi.getId()==tournoiService.getTournoi().getId()){
+                tournoiService.updateTournoi(tournoi);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

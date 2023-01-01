@@ -1,6 +1,5 @@
 package fr.istic.pdl.ticpbackend.service;
 
-import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.repository.MatchPouleRepository;
 import lombok.AllArgsConstructor;
@@ -36,7 +35,7 @@ public class MatchPouleService {
     /**
      * Cette méthode permet de mettre à jour un match de poule
      * @param match que l'on doit mettre à jour
-     * @RuntimeException si le match n'existe pas
+     * @throws RuntimeException si le match n'existe pas
      */
     public void updateMatchPoule(MatchPoule match){
         if(repository.existsById(match.getId())){

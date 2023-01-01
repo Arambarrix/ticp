@@ -22,6 +22,10 @@ public class MatchTableau extends Match{
         this.tour = tour;
     }
 
+    public Tableau getTableau() {
+        return tableau;
+    }
+
     @Override
     public String toString() {
         return super.toString()+"MatchTableau{" +

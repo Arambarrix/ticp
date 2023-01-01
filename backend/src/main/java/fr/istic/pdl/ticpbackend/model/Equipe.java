@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,6 +12,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Entité représentant une équipe.
+ */
 @Entity
 public class Equipe implements Serializable {
 
@@ -21,10 +25,12 @@ public class Equipe implements Serializable {
     private String nom;
     @OneToMany(mappedBy="equipe")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<Joueur> joueurs;
     @ManyToOne
     @JoinColumn(name="tournoi_id")
     private Tournoi tournoi;
+
 
 
 
@@ -49,7 +55,7 @@ public class Equipe implements Serializable {
     }
 
     public List<Joueur> getJoueurs() {
-        return Collections.unmodifiableList(joueurs);
+        return joueurs;
     }
 
     public void setJoueurs(List<Joueur> joueurs) {
@@ -58,6 +64,9 @@ public class Equipe implements Serializable {
 
     public void addJoueur(Joueur joueur){
         this.joueurs.add(joueur);
+    }
+    public void deleteJoueur(Joueur joueur){
+        this.joueurs.remove(joueur);
     }
 
     @Override
@@ -78,7 +87,6 @@ public class Equipe implements Serializable {
         return "Equipe{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
-                ", joueurs=" + joueurs +
                 '}';
     }
 }

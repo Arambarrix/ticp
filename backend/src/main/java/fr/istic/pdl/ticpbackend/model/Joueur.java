@@ -1,5 +1,7 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class Joueur implements Serializable {
     private String prenom;
     @ManyToOne
     @JoinColumn(name="equipe_id")
+    @JsonIgnore
     private Equipe equipe;
 
     public Joueur() {
@@ -68,7 +71,6 @@ public class Joueur implements Serializable {
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
-                ", equipe=" + equipe.getNom() +
                 '}';
     }
 }

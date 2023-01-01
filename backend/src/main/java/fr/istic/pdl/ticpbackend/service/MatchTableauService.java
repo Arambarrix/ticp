@@ -1,6 +1,5 @@
 package fr.istic.pdl.ticpbackend.service;
 
-import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.model.MatchTableau;
 import fr.istic.pdl.ticpbackend.repository.MatchTableauRepository;
 import lombok.AllArgsConstructor;
@@ -29,6 +28,7 @@ public class MatchTableauService {
     /**
      * Permet de mettre à jour un match de tableay
      * @param match le match de tableau à mettre à jour
+     * @throws RuntimeException si le match n'existe pas
      */
     public void updateMatchTableau(MatchTableau match){
         if(repository.existsById(match.getId())){
