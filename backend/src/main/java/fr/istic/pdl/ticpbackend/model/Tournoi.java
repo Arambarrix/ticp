@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Tournoi implements Serializable {
 
     private String nom;
 
-    @OneToMany(mappedBy="tournoi")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Equipe> equipes;
     private LocalDate dateDebutTournoi;
@@ -33,7 +34,6 @@ public class Tournoi implements Serializable {
 
 
     public Tournoi() {
-
     }
 
     public Long getId() {
