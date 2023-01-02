@@ -432,15 +432,17 @@ public class TournoiService {
                 int adeplacer=0;
                 for(int j=0;j<nombreEquipes+1;j++){
                     if(puissances.contains(((nombreEquipes+1)/2)+j)){
-                        adeplacer=j;//On prend la plus petite valeur pour éviter de déplacer tout le tour
+                        adeplacer=j+1;//On prend la plus petite valeur pour éviter de déplacer tout le tour
                         break;
                     }
                 }
+                System.out.println("On déplace "+adeplacer+" matchs");
                 //On crée les matchs des deux premiers tours
                 Map<Integer,Integer> relation = new HashMap<>();
                 if(tours>=2){
                     for(int j=0;j<2;j++){
                         relation.put(j,((nombreEquipes+1)/(int)Math.pow(2,j+1)));
+                        System.out.println("Pour le tour "+j+" il y a "+((nombreEquipes+1)/(int)Math.pow(2,j+1))+"matchs");
                     }
                 }
 
@@ -492,28 +494,11 @@ public class TournoiService {
                         equipeList.remove(equipeB);
                     }
                 }
-                for(MatchTableau matchTableau:matchs){
-                    if(matchTableau.getTour()==1){
-                        matchTableau.setEquipeA(deplacee);
-                        break;
-                    }
-                }
-
-                System.out.println("Où est-ce que cela coince ? avant l'insertion dans la bd");
-                //après la création des matchs de base, on crée un nouveau match
-                /*MatchTableau matchTableau = new MatchTableau(tableaux.get(i),1);
+                //après la création des matchs de base, on crée un nouveau match sur tapis vert : l'équipe à déplacer est qualifiée
+                MatchTableau matchTableau = new MatchTableau(tableaux.get(i),0);
                 matchTableau.setEquipeA(deplacee);
-                List<MatchTableau> matchsTour = new ArrayList<>();
-                for(MatchTableau matchTableau1:matchs){
-                    if(matchTableau1.getTour()==1 & matchTableau1.getEquipeA()==null & matchTableau1.getEquipeB()==null);
-                    matchsTour.add(matchTableau1);
-                    matchs.remove(matchTableau1);
-                }
-                matchsTour.set(new Random().nextInt(matchs.size()),matchTableau);
-                matchs.addAll(matchsTour);
-
-                 */
-                //matchs.add(matchTableau);
+                matchTableau.setScoreA(3);
+                matchs.add(matchTableau);
 
 
                 matchTableauRepository.saveAll(matchs);
