@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -20,6 +21,7 @@ public class Poule implements Serializable {
     private String nom;
     @OneToMany(mappedBy="poule")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<MatchPoule> listMatchs;
 
     public Poule() {

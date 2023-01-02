@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -117,5 +118,20 @@ public class Tournoi implements Serializable {
 
     public void removeEquipe(Equipe equipe){
         this.equipes.remove(equipe);
+    }
+
+    @Override
+    public String toString() {
+        return "Tournoi{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", equipes=" + equipes +
+                ", dateDebutTournoi=" + dateDebutTournoi +
+                ", dateFinInscription=" + dateFinInscription +
+                ", dateDebutPoule=" + dateDebutPoule +
+                ", dateFinPoule=" + dateFinPoule +
+                ", dateDebutTableau=" + dateDebutTableau +
+                ", dateFinTournoi=" + dateFinTournoi +
+                '}';
     }
 }
