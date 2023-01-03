@@ -3,7 +3,6 @@ package fr.istic.pdl.ticpbackend;
 import fr.istic.pdl.ticpbackend.model.Tournoi;
 import fr.istic.pdl.ticpbackend.repository.*;
 import fr.istic.pdl.ticpbackend.service.TournoiService;
-import org.hibernate.Hibernate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
