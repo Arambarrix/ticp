@@ -16,7 +16,7 @@
 </script>
 
 <template>
-    <div class="flex flex-col space-y-2 rouded-lg text-white items-center font-bold py-4 rounded-xl divbody" :style="cssVars" >
+    <div class="flex flex-col space-y-2 rouded-lg text-white items-center font-bold py-4 rounded-lg divbody" :style="cssVars" >
         <div class="flex flex-row  space-x-5 items-center">
             <img :src="getImageUrl()" class="w-5 sm:w-7 md:w-10 h-auto rounded-xl opacity-75" alt="card image" />
 

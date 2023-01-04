@@ -55,7 +55,7 @@ const router = createRouter({
     },
 
     {
-      path: '/tableaux',
+      path: '/tableaux/:rang',
       name: 'tableaux',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route

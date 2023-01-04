@@ -15,7 +15,7 @@
 
   var banner_data= computed(() => {
     if(is_poules_created.value){
-      return {'list_text_links':[{'text':'Poules','link':"/poules" },{'text':'Tableaux','link':"/tableaux" } ,{'text':'Matchs','link':"/tableaux" } ,{'text':'Equipes','link':"/equipes" } ], 'actif':actif.value, 'is_fully_rounded':true};
+      return {'list_text_links':[{'text':'Poules','link':"/poules" },{'text':'Tableaux','link':"/tableaux/1" } ,{'text':'Matchs','link':"#" } ,{'text':'Equipes','link':"/equipes" } ], 'actif':actif.value, 'is_fully_rounded':true};
     }
     else{
       return {'list_text_links':[{'text':'Participer','link':"/inscrire_equipe" }], 'actif':"Participer", 'is_fully_rounded':false};
