@@ -2,17 +2,20 @@
   import BannerButtonListVue from './ButtonList.vue';
   import BaseVue from './Base.vue';
 
-  import { ref, computed } from 'vue'
+  import { computed } from 'vue'
 
-  const props = defineProps({'is_begin':Boolean});
+  const props = defineProps({'is_poules_created':Boolean, 'actif':String});
 
-  var is_begin = computed(() => {
-        return props.is_begin
+  var is_poules_created = computed(() => {
+        return props.is_poules_created
     });
+  var actif = computed(() => {
+      return props.actif
+  });
 
   var banner_data= computed(() => {
-    if(!is_begin.value){
-      return {'list_text_links':[{'text':'Poules','link':"/poules" },{'text':'Tableaux','link':"/tableaux" } ,{'text':'Matchs','link':"/tableaux" } ,{'text':'Equipes','link':"/tableaux" } ], 'actif':"Tableaux", 'is_fully_rounded':true};
+    if(is_poules_created.value){
+      return {'list_text_links':[{'text':'Poules','link':"/poules" },{'text':'Tableaux','link':"/tableaux" } ,{'text':'Matchs','link':"/tableaux" } ,{'text':'Equipes','link':"/equipes" } ], 'actif':actif.value, 'is_fully_rounded':true};
     }
     else{
       return {'list_text_links':[{'text':'Participer','link':"/inscrire_equipe" }], 'actif':"Participer", 'is_fully_rounded':false};
@@ -20,7 +23,7 @@
   });
 
   var banner_header= computed(() => {
-    if(!is_begin.value){
+    if(is_poules_created.value){
       return "Le Tournoi 2022 est lancé";
     }
     else{

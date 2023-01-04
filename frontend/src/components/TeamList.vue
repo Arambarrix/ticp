@@ -26,7 +26,7 @@
         </div>
 
         <div class="flex flex-col px-2 pt-10 pb-8">
-            <div class="grid grid-rows-5 grid-cols-2 md:grid-cols-4 gap-2">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
                 <TeamVue v-for="team in teams" :name="team.name" :nb_joueur="team.nb_joueur"/>
             </div>
         </div>

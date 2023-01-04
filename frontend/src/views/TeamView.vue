@@ -1,19 +1,15 @@
 <script setup>
   import BannerVue from '../components/banner/Banner.vue';
   import TeamListVue from '../components/TeamList.vue';
-  import PouleListVue from '../components/PouleList.vue';
-
   var is_poules_created = true;
-  var actif = "Poules";
+  var actif = "Equipes";
 
 </script>
 
 <template>
   <main>
     <BannerVue :is_poules_created="is_poules_created" :actif="actif"/>
-    <TeamListVue v-if="!is_poules_created"/>
-    <PouleListVue v-if="is_poules_created"/>
-
+    <TeamListVue v-if="is_poules_created"/>
   </main>
   
 </template>

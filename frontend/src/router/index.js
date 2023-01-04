@@ -43,7 +43,34 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/ConnexionView.vue')
-    }
+    },
+
+    {
+      path: '/poules',
+      name: 'poules',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/PouleView.vue')
+    },
+
+    {
+      path: '/tableaux',
+      name: 'tableaux',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/TableauView.vue')
+    },
+
+    {
+      path: '/equipes',
+      name: 'equipes',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/TeamView.vue')
+    },
 
   ]
 })
