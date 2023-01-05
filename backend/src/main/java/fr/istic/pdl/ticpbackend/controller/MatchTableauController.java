@@ -1,12 +1,11 @@
 package fr.istic.pdl.ticpbackend.controller;
 
 import fr.istic.pdl.ticpbackend.model.MatchTableau;
-import fr.istic.pdl.ticpbackend.model.MatchTableau;
-import fr.istic.pdl.ticpbackend.service.MatchTableauService;
 import fr.istic.pdl.ticpbackend.service.MatchTableauService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
+
+import java.util.List;
 /**
  * Ce controller permet d'utiliser les services des matchs de tableau
  */

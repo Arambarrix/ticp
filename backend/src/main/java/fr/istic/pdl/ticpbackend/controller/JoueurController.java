@@ -3,7 +3,6 @@ package fr.istic.pdl.ticpbackend.controller;
 import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.Joueur;
 import fr.istic.pdl.ticpbackend.service.JoueurService;
-import fr.istic.pdl.ticpbackend.strategy.SaveJoueurPhoto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,6 @@ import java.util.List;
 @RequestMapping("api/v1/joueurs")
 public class JoueurController {
     JoueurService service;
-    SaveJoueurPhoto saveJoueurPhoto;
 
     @GetMapping("/")
     private List<Joueur> getJoueurs(){
@@ -33,27 +31,14 @@ public class JoueurController {
     }
 
     @PostMapping("/save")
-    private void saveJoueur(@RequestBody Joueur joueur, @RequestAttribute("photo") File photo){
+    private void saveJoueur(@RequestBody Joueur joueur){
         service.saveJoueur(joueur);
-        try {
-            InputStream inputStream = new FileInputStream(photo);
-            saveJoueurPhoto.savePhoto(joueur.getId(),inputStream,"");
-        }catch (Exception e){
-
-        }
-
     }
 
     @PutMapping("/update/{id}")
-    private void updateJoueur(@PathVariable("id")int id,@RequestBody Joueur joueur, @RequestAttribute(required = false,value = "photo") File photo){
+    private void updateJoueur(@PathVariable("id")int id,@RequestBody Joueur joueur){
         if(joueur.getId()==id){
             service.updateJoueur(joueur);
-            try {
-                InputStream inputStream = new FileInputStream(photo);
-                saveJoueurPhoto.savePhoto(joueur.getId(),inputStream,"");
-            }catch (Exception e){
-
-            }
         }
     }
 

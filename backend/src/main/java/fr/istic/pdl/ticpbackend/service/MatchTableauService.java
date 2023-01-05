@@ -33,7 +33,7 @@ public class MatchTableauService {
      * @throws RuntimeException si le match n'existe pas
      */
     public void updateMatchTableau(MatchTableau match){
-        if(repository.existsById(match.getId()) & LocalDate.now().isBefore(tournoiService.getTournoi().getDateFinTournoi()) & (LocalDate.now().isAfter(tournoiService.getTournoi().getDateDebutTableau()))){
+        if(repository.existsById(match.getId()) & LocalDate.now().isBefore(repository.getTournoi(match.getId()).getDateFinTournoi()) & (LocalDate.now().isAfter(repository.getTournoi(match.getId()).getDateDebutTableau()))){
             MatchTableau matchTableau = repository.getReferenceById(match.getId());
             matchTableau.setScoreA(match.getScoreA());
             matchTableau.setScoreB(match.getScoreB());
@@ -43,7 +43,7 @@ public class MatchTableauService {
         else if(!repository.existsById(match.getId())){
             throw new RuntimeException("Match inexistant");
         }
-        else if(!(LocalDate.now().isBefore(tournoiService.getTournoi().getDateFinTournoi()) & (LocalDate.now().isAfter(tournoiService.getTournoi().getDateDebutTableau())))){
+        else if(!(LocalDate.now().isBefore(repository.getTournoi(match.getId()).getDateFinTournoi()) & (LocalDate.now().isAfter(repository.getTournoi(match.getId()).getDateDebutTableau())))){
             throw new RuntimeException("Modification interdite en dehors des dates réglementaires. Veuillez consulter les dates du tableau.");
         }
     }

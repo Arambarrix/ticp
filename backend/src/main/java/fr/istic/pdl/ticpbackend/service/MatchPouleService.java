@@ -2,12 +2,12 @@ package fr.istic.pdl.ticpbackend.service;
 
 import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.repository.MatchPouleRepository;
-import fr.istic.pdl.ticpbackend.repository.TournoiRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Ce service implémente les fonctions propres aux matchs de poule
@@ -41,7 +41,7 @@ public class MatchPouleService {
      * @throws RuntimeException si le match n'existe pas
      */
     public void updateMatchPoule(MatchPoule match){
-        if(repository.existsById(match.getId()) & LocalDate.now().isBefore(tournoiService.getTournoi().getDateFinPoule())){
+        if(repository.existsById(match.getId()) & LocalDate.now().isBefore(repository.getTournoi(match.getId()).getDateFinPoule())){
             MatchPoule matchPoule = repository.getReferenceById(match.getId());
             matchPoule.setScoreA(match.getScoreA());
             matchPoule.setScoreB(match.getScoreB());
@@ -51,7 +51,7 @@ public class MatchPouleService {
         else if(!repository.existsById(match.getId())){
             throw new RuntimeException("Match inexistant");
         }
-        else if(LocalDate.now().isEqual(tournoiService.getTournoi().getDateFinPoule()) || LocalDate.now().isAfter(tournoiService.getTournoi().getDateFinPoule())){
+        else if(LocalDate.now().isEqual(repository.getTournoi(match.getId()).getDateFinPoule()) || LocalDate.now().isAfter(repository.getTournoi(match.getId()).getDateFinPoule())){
             throw new RuntimeException("Phase de poule terminée");
         }
 

@@ -1,29 +1,21 @@
 package fr.istic.pdl.ticpbackend.controller;
 
-import com.flickr4java.flickr.FlickrException;
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.service.EquipeService;
-import fr.istic.pdl.ticpbackend.strategy.SaveEquipePhoto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.*;
+
 /**
  * Ce controller permet d'utiliser les services des équipes
  */
-
 @RestController
 @CrossOrigin("*")
 @AllArgsConstructor
 @RequestMapping("api/v1/equipes")
 public class EquipeController {
     EquipeService equipeService;
-    SaveEquipePhoto saveEquipePhoto;
-    // ecrire les methode ici
 
     @GetMapping("/{id}")
     private Optional<Equipe> getEquipe(@PathVariable("id") int id){
@@ -35,28 +27,12 @@ public class EquipeController {
     }
 
     @PostMapping("/")
-    private void saveEquipe(@RequestBody Equipe equipe, @RequestAttribute(value = "photo",required = false) File photo, @RequestAttribute(value = "description",required = false) String description){
+    private void saveEquipe(@RequestBody Equipe equipe){
         equipeService.saveEquipe(equipe);
-        try {
-            InputStream inputStream = new FileInputStream(photo);
-            saveEquipePhoto.savePhoto(equipe.getId(),inputStream,description);
-
-        } catch (FileNotFoundException|FlickrException e) {
-            throw new RuntimeException(e);
-        }
-
     }
     @PutMapping("/{id}")
-    private void updateEquipe(@RequestBody Equipe equipe, @RequestAttribute(required = false,value = "photo") File photo, @RequestAttribute(required = false,value = "description") String description, @PathVariable("id") int id){
-
+    private void updateEquipe(@RequestBody Equipe equipe, @PathVariable("id") int id){
         equipeService.updateEquipe(equipe);
-        try {
-            InputStream inputStream = new FileInputStream(photo);
-            saveEquipePhoto.savePhoto(equipe.getId(),inputStream,description);
-
-        } catch (FileNotFoundException|FlickrException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @DeleteMapping("/{id}")

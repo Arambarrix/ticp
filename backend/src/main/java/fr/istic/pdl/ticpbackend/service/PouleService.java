@@ -43,7 +43,6 @@ public class PouleService {
         }
 
     }
-
     /**
      * Supprime une poule du tournoi
      * @param id l'identifiant de la poule
