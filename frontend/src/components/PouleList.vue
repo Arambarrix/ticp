@@ -19,12 +19,11 @@
     ]
 
     var matchList =[
-        {"numero":"A1", "equipe1":"dzsfessdezf", "equipe2":"Tatat", "gagnant":"Tatat", "score":"2-1"},
-        {"numero":"A1", "equipe1":"parppp", "equipe2":"Tatat", "gagnant":"Tatat"},
-        {"numero":"A1", "equipe1":"sxzdsx ", "equipe2":"dzsxcc edzsxw", "gagnant":"c xdcxvdcx fdcx dc", "score":"20-56"},
-        {"numero":"A1", "equipe1":"parppp", "equipe2":"Tatat", "gagnant":"Tatat"},
-        {"numero":"A1", "equipe1":"parppp", "equipe2":"Tatat e dz dqq dq", "gagnant":"Tatat", "score":"502-52"},
-
+        {"id":1,"numero":"A1", "equipe1":"dzsfessdezf", "equipe2":"Tatat", "gagnant":"Tatat", "score1":2, "score2":1},
+        {"id":1,"numero":"A1", "equipe1":"parppp", "equipe2":"Tatat", "gagnant":""},
+        {"id":1,"numero":"A1", "equipe1":"sxzdsx ", "equipe2":"dzsxcc edzsx ", "gagnant":""},
+        {"id":1,"numero":"A1", "equipe1":"parppp", "equipe2":"Tatat", "gagnant":""},
+        {"id":1,"numero":"A1", "equipe1":"parppp", "equipe2":"Tatat e dz dqq dq", "gagnant":"Tatat s s s zasq zsq ", "score1":45, "score2":20},
     ]
 </script>
 <template>

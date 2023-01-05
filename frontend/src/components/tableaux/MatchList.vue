@@ -1,13 +1,10 @@
 <script setup>
     import { ref } from 'vue'
+    import RenseignerScoreModalVue from './RenseignerScoreModal.vue';
 
     const props = defineProps({'data':Object});
-    var is_modal_toggled = ref(false)
+   
 
-    function renseigner_score(){
-        is_modal_toggled.value = !is_modal_toggled.value
-        console.log(is_modal_toggled.value)
-    }
 </script>
 
 <template>
@@ -18,38 +15,39 @@
                     <table class="w-full flex flex-col space-y-2 table-auto	">
                         <thead class="bg-green-700 text-white font-bold uppercase rounded-md">
                             <tr class="flex flex-row justify-between ">
-                                <th scope="col" class="text-sm text-center px-6 py-3 text-left w-1/6">
+                                <th scope="col" class="text-sm text-center px-6 py-3 text-left w-1/5">
                                     N
                                 </th>
-                                <th scope="col" class="text-sm text-center px-6 py-3 text-left w-2/6">
+                                <th scope="col" class="text-sm text-center px-6 py-3 text-left w-2/5">
                                     Matchs
                                 </th>
-                                <th scope="col" class="text-sm text-center px-6 py-3 text-left w-2/6">
+                                <th scope="col" class="text-sm text-center px-6 py-3 text-left w-1/5">
                                     Gagnant
                                 </th>
-                                <th scope="col" class="text-sm  text-center px-6 py-3 text-left w-1/6">
+                                <th scope="col" class="text-sm  text-center px-6 py-3 text-left w-1/5">
                                     Score
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="flex flex-col space-y-2">
 
-                            <tr v-for="match in data" class="flex flex-row justify-between bg-gray-100  transition duration-300 ease-in-out rounded-md hover:bg-gray-200">
-                                <td class="w-1/6 px-6 py-3 whitespace-nowrap text-sm text-center font-medium text-gray-900">{{match.numero}}</td>
-                                <td class="w-2/6 text-sm text-gray-900 text-center font-light px-6 py-3 whitespace-nowrap overflow-hidden hover:overflow-visible hover:w-auto hover:whitespace-normal">
+                            <tr v-for="match in data" class="flex flex-row justify-between bg-gray-100  transition duration-300 ease-in-out rounded-md hover:bg-gray-200 whitespace-nowrap  overflow-hidden hover:overflow-visible hover:w-auto hover:whitespace-normal">
+                                <td class="w-1/5 px-6 py-3  text-sm text-center font-medium text-gray-900">{{match.numero}}</td>
+                                <td class="w-2/5 text-sm text-gray-900 text-center font-light px-6 py-3 overflow-hidden ">
                                     <div class="flex flex-row">
-                                        <span class="rounded-full px-3">{{match.equipe1}}</span>
+                                        <span class="rounded-full px-3 ">{{match.equipe1}}</span>
                                         <span class="rounded-full px-3">{{match.equipe2}}</span>
                                     </div>
                                 </td>
-                                <td class="w-2/6 text-sm text-gray-900 text-center font-light px-6 py-3 whitespace-nowrap overflow-hidden hover:overflow-visible hover:w-auto hover:whitespace-normal">
+                                <td class="w-1/5 text-sm text-gray-900 text-center font-light px-6 py-3  overflow-hidden">
                                     <span>{{match.gagnant}}</span>
                                 </td>
-                                <td class="w-1/6 text-sm text-white font-light px-6 py-3 whitespace-nowrap text-center">
-                                    <span v-if="match.score" class="text-gray-900 px-3">{{match.score}}</span>
-                                    <div v-else class="">
-                                        <i class="fa-thin fa-pen text-dark-brown cursor-pointer font-bold" @click="renseigner_score()" title="Renseigner Score"></i>
+                                <td class="w-1/5 text-sm text-white font-light px-6 py-3 text-center">
+                                    <span v-if="match.score1 && match.score2" class="text-gray-900 px-3">{{match.score1 + " - " + match.score2}}</span>
+                                    <div v-else>
+                                        <RenseignerScoreModalVue  :match="match"/>
                                     </div>
+
                                 </td>
                             </tr>
                             

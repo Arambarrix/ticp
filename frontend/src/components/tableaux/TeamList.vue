@@ -29,16 +29,16 @@ const props = defineProps({'data':Object});
                         </thead>
                         <tbody class="flex flex-col space-y-2">
 
-                            <tr v-for="equipe in data" class="flex flex-row justify-between bg-gray-100  transition duration-300 ease-in-out rounded-md hover:bg-gray-200">
-                                <td class="px-6 py-3 text-center whitespace-nowrap text-sm font-medium text-gray-900 w-1/5">{{equipe.rang}}</td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap overflow-hidden hover:overflow-visible hover:w-auto hover:whitespace-normal w-2/5">
+                            <tr v-for="equipe in data" class="flex flex-row justify-between bg-gray-100  transition duration-300 ease-in-out rounded-md hover:bg-gray-200 whitespace-nowrap hover:overflow-visible hover:w-auto hover:whitespace-normal">
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 w-1/5">{{equipe.rang}}</td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-3 overflow-hidden h w-2/5">
                                     {{equipe.nom}}
                                 </td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap w-1/5">
+                                <td class="text-sm text-gray-900 font-light px-6 py-3 w-1/5">
                                     {{equipe.point}}
                                 </td>
                                 <td class="bg-white px-1"></td>
-                                <td class="text-sm text-gray-900 font-light px-6 py-3 whitespace-nowrap text-center w-1/5">
+                                <td class="text-sm text-gray-900 font-light px-6 py-3 text-center w-1/5">
                                     {{equipe.matchJoue}} / {{equipe.matchTotal}}
                                 </td>
                             </tr>

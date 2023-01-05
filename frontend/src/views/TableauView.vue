@@ -61,14 +61,14 @@
     <BannerVue :is_poules_created="is_poules_created" :actif="actif"/>
     <div class="py-10 ">
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-16">
           <InfoCardVue v-bind="infoCardDatas.equipe"/>
           <InfoCardVue v-bind="infoCardDatas.match"/>
           <InfoCardVue v-bind="infoCardDatas.poule"/>
           <InfoCardVue v-bind="infoCardDatas.tableau"/>
       </div>
 
-      <div class="tableauColor flex flex-row justify-center space-x-10 text-white items-center font-bold py-2 rounded-lg" :style="cssVars">
+      <div class="tableauColor flex flex-row justify-center space-x-10 text-white items-center font-bold py-2  rounded-lg mb-12" :style="cssVars">
         <i class="fa-regular fa-angle-left cursor-pointer"  @click="previous()"></i>
         <span class="text-lg sm:text-xl md:text-3xl">Tableau <span class="capitalize">{{tableaux[rang-1].nom}}</span></span>
         <i class="fa-regular fa-angle-right cursor-pointer" @click="next()"></i>
