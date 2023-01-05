@@ -28,18 +28,18 @@ public class PouleController {
     private Poule getPoule(@PathVariable("id")int id){
         return pouleService.getPoule((long)id).get();
     }
-    @GetMapping("/all")
+    @GetMapping("/")
     private List<Poule> getPoules(){
         return pouleService.getPoules();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     private void updatePoule(@PathVariable("id")int id,@RequestBody Poule poule){
         if(poule.getId()==id){
             pouleService.savePoule(poule);
         }
     }
-    @GetMapping("/get-matchs/{id}")
+    @GetMapping("/matchs/{id}")
     private List<MatchPoule> getMatchs(@PathVariable("id")int id){
         return pouleService.getMatchsPoules((long)id);
     }

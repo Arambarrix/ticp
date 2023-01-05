@@ -24,8 +24,11 @@ public class TournoiService {
      * @return un tournoi en cours
      */
     public Tournoi getTournoi(Long id){
+        return repository.findById(id).get();
+    }
 
-        return repository.getReferenceById(id);
+    public int year(Long id){
+        return repository.findById(id).get().getDateDebutTournoi().getYear();
     }
 
     /**
@@ -34,20 +37,22 @@ public class TournoiService {
      * @throws Exception si un tournoi existe déjà
      */
     public void saveTournoi(Tournoi tournoi) throws Exception {
-        Tournoi encours = new Tournoi();
-        for(Tournoi tournoi1: repository.findAll()){
-            boolean fin = LocalDate.now().isEqual(tournoi1.getDateFinTournoi()) || LocalDate.now().isBefore(tournoi1.getDateFinTournoi());
-            boolean debut = LocalDate.now().isEqual(tournoi1.getDateDebutTournoi()) || LocalDate.now().isAfter(tournoi1.getDateDebutTournoi());
-            if(debut && fin){
-                encours=tournoi1;
-            }
+        if(tournoiByYear(tournoi)){
+            throw new Exception("Il y a déjà un tournoi pour l'année");
         }
-        if (repository.existsById(encours.getId())) {
-            throw new Exception("Il y a déjà un tournoi " + tournoi.getNom() + " en cours !");
-        } else {
+        else{
             repository.save(tournoi);
-            System.out.println("Tournoi enregistré");
         }
+
+    }
+
+    /**
+     * Permet de vérifier...
+     * @param tournoi
+     * @return
+     */
+    private boolean tournoiByYear(Tournoi tournoi){
+        return tournoi.getDateDebutTournoi()!=null & repository.getTournoiByYear(Long.valueOf(tournoi.getDateDebutTournoi().getYear()))>0;
     }
 
     /**
@@ -56,26 +61,23 @@ public class TournoiService {
      * @throws RuntimeException si le tournoi n'existe pas
      */
     public void updateTournoi(Tournoi tournoi)throws RuntimeException{
-
-        if(repository.existsById(tournoi.getId())){
+        if(repository.existsById(tournoi.getId()) & !tournoiByYear(tournoi)){
             Tournoi update = repository.getReferenceById(tournoi.getId());
             update.setNom(tournoi.getNom());
             update.setDateDebutTournoi(tournoi.getDateDebutTournoi());
-
             if(tournoi.getDateDebutTournoi()==null || tournoi.getDateFinTournoi()==null || tournoi.getDateDebutTournoi().isBefore(tournoi.getDateFinInscription())){
                 update.setDateFinInscription(tournoi.getDateFinInscription());
                 repository.save(update);
-
+            }else {
+                throw new RuntimeException("Date de fin inadmissible");
             }
             if(tournoi.getDateFinInscription()==null|| tournoi.getDateDebutPoule()==null||tournoi.getDateFinInscription().isBefore(tournoi.getDateDebutPoule())){
                 update.setDateDebutPoule(tournoi.getDateDebutPoule());
                 repository.save(update);
-
             }
             if(tournoi.getDateDebutPoule()==null || tournoi.getDateFinPoule()==null||tournoi.getDateDebutPoule().isBefore(tournoi.getDateFinPoule())){
                 update.setDateFinPoule(tournoi.getDateFinPoule());
                 repository.save(update);
-
             }
             if(tournoi.getDateFinPoule()==null || tournoi.getDateDebutTableau()==null||tournoi.getDateFinPoule().isBefore(tournoi.getDateDebutTableau())||tournoi.getDateFinPoule().isEqual(tournoi.getDateDebutTableau())){
                 update.setDateDebutTableau(tournoi.getDateDebutTableau());
@@ -86,12 +88,17 @@ public class TournoiService {
                 repository.save(update);
             }
             repository.save(update);
-
-
         }
         else{
             throw new RuntimeException("Tournoi introuvable");
         }
+    }
+    public List<Poule> getPoules(Long id){
+        return repository.findById(id).get().getPoules();
+    }
+
+    public List<Tableau> getTableaux(Long id){
+        return repository.findById(id).get().getTableaux();
     }
 
     /**
@@ -229,10 +236,8 @@ public class TournoiService {
     /**
      * Permet de supprimer entièrement un tournoi
      */
-    public void deleteTournoi(){
-        repository.deleteAll();
-        pouleRepository.deleteAll();
-        tableauRepository.deleteAll();
+    public void deleteTournoi(Long id){
+        repository.deleteById(id);
     }
 
     /**
@@ -512,11 +517,7 @@ public class TournoiService {
                 matchTableau.setEquipeA(deplacee);
                 matchTableau.setScoreA(3);
                 matchs.add(matchTableau);
-
-
                 matchTableauRepository.saveAll(matchs);
-
-
             }
         }
     }

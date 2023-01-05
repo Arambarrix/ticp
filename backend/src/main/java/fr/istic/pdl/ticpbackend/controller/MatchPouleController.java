@@ -14,7 +14,7 @@ import java.util.*;
 @RequestMapping("api/v1/match_poules")
 public class MatchPouleController {
     MatchPouleService matchPouleService;
-    @GetMapping("/all")
+    @GetMapping("/")
     private List<MatchPoule> getMatchsPoules(){
         return matchPouleService.getMatchsPoules();
     }
@@ -24,14 +24,14 @@ public class MatchPouleController {
         return matchPouleService.getMatchPoule((long)id).get();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     private void updateMatchPoule(@PathVariable("id")int id, @RequestBody MatchPoule matchPoule){
         if(matchPoule.getId()==id){
             matchPouleService.updateMatchPoule(matchPoule);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     private void deleteMatchPoule(@PathVariable("id")int id){
         matchPouleService.deleteMatchPoule((long)id);
     }
