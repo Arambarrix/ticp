@@ -5,6 +5,7 @@ import fr.istic.pdl.ticpbackend.repository.MatchTableauRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -14,6 +15,7 @@ import java.util.*;
 @AllArgsConstructor
 public class MatchTableauService {
     MatchTableauRepository repository;
+    TournoiService tournoiService;
 
     /**
      * Permet de retourner un match de tableau
@@ -31,15 +33,18 @@ public class MatchTableauService {
      * @throws RuntimeException si le match n'existe pas
      */
     public void updateMatchTableau(MatchTableau match){
-        if(repository.existsById(match.getId())){
+        if(repository.existsById(match.getId()) & LocalDate.now().isBefore(tournoiService.getTournoi().getDateFinTournoi()) & (LocalDate.now().isAfter(tournoiService.getTournoi().getDateDebutTableau()))){
             MatchTableau matchTableau = repository.getReferenceById(match.getId());
             matchTableau.setScoreA(match.getScoreA());
             matchTableau.setScoreB(match.getScoreB());
             matchTableau.setLieu(match.getLieu());
             repository.save(matchTableau);
         }
-        else {
+        else if(!repository.existsById(match.getId())){
             throw new RuntimeException("Match inexistant");
+        }
+        else if(!(LocalDate.now().isBefore(tournoiService.getTournoi().getDateFinTournoi()) & (LocalDate.now().isAfter(tournoiService.getTournoi().getDateDebutTableau())))){
+            throw new RuntimeException("Modification interdite en dehors des dates réglementaires. Veuillez consulter les dates du tableau.");
         }
     }
 

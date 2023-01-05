@@ -358,20 +358,17 @@ public class TournoiService {
         matchTableauRepository.saveAll(matchTableaux);
 
         //2- Implémentation des autres tableaux
-        List<Equipe> equipeList;
-        equipeList=troisiemes;
+        List<Equipe> equipeList=troisiemes;
         equipeList.addAll(quatriemes);
+        List<MatchTableau> matchs = new ArrayList<>();//Liste des matchs du tableau courant
         for(int i=1;i<tableaux.size();i++){
-            System.out.println("Tableau secondaire "+tableaux.get(i).getId());
-
             int nombreEquipes = equipeList.size();
             int tours = (int) Math.ceil(((Math.log(nombreEquipes) / Math.log(2))));//Nombre de tours du tableau courant
-            List<MatchTableau> matchs = new ArrayList<>();//Liste des matchs du tableau courant
             if(nombreEquipes%2==0){
                 //Si le total d'équipes est pair, mais pas parfaitement, on choisit le nombre de matchs du premier tour à déplacer dans le prochain.
                 int adeplacer=0;
                 for(int j=0;j<nombreEquipes;j++){
-                    if(puissances.contains((totalPrincipal/2)+j)){
+                    if(puissances.contains((nombreEquipes/2)+j)){
                         adeplacer=j;//On prend la plus petite valeur pour éviter de déplacer tout le tour
                         break;
                     }
@@ -429,7 +426,84 @@ public class TournoiService {
                 matchTableauRepository.saveAll(matchs);
             }
             else{
-                //On peut déplacer une équipe dans le tour suivant ou lui attribuer une équipe fictive. Mais il faudra s'assurer que l'équipe fictive n'ait aucun groupe.
+                //On peut déplacer une équipe dans le tour suivant ou lui attribuer une équipe fictive, mais il faudra s'assurer que l'équipe fictive n'ait aucun groupe.
+                //Solution : on déplace une équipe au tour suivant
+                Equipe deplacee = equipeList.get(new Random().nextInt(equipeList.size()));
+                int adeplacer=0;
+                for(int j=0;j<nombreEquipes+1;j++){
+                    if(puissances.contains(((nombreEquipes+1)/2)+j)){
+                        adeplacer=j+1;//On prend la plus petite valeur pour éviter de déplacer tout le tour
+                        break;
+                    }
+                }
+                System.out.println("On déplace "+adeplacer+" matchs");
+                //On crée les matchs des deux premiers tours
+                Map<Integer,Integer> relation = new HashMap<>();
+                if(tours>=2){
+                    for(int j=0;j<2;j++){
+                        relation.put(j,((nombreEquipes+1)/(int)Math.pow(2,j+1)));
+                        System.out.println("Pour le tour "+j+" il y a "+((nombreEquipes+1)/(int)Math.pow(2,j+1))+"matchs");
+                    }
+                }
+
+
+                //On met à jour le nombre de matchs de chaque tour
+                for(Map.Entry<Integer,Integer> val: relation.entrySet()){
+                    int ancien=0;
+                    if(val.getKey()==0){
+                        val.setValue(val.getValue()-adeplacer);
+                        ancien=val.getValue();
+                        relation.replace(1,adeplacer+(ancien/2));
+                    }
+                }
+                System.out.println("Où est-ce que cela coince ? avant la création des autres tours");
+                //On crée les matchs des autres tours en divisant progressivement ceux du deuxième tour.
+                for(int j=2;j<tours;j++){
+                    System.out.println("Où est-ce que cela coince ?");
+                    relation.put(j,relation.get(1)/(int)Math.pow(2,j-1));
+                    System.out.println("Où est-ce que cela coince ?");
+                }
+                System.out.println("Où est-ce que cela coince ? avant la création des matchs");
+                for(Map.Entry<Integer,Integer> val: relation.entrySet()){
+                    for(int j=0;j<val.getValue();j++){
+                        MatchTableau match = new MatchTableau(tableaux.get(i),val.getKey());
+                        match.setTour(val.getKey());
+                        match.setLieu("Inconnu");
+                        matchs.add(match);
+                        tableaux.get(i).setListMatchs(matchs);
+                    }
+                }
+                //Pour l'attribution des places dans les matchs du premier et deuxième tour, tous les troisièmes et quatrièmes sont dans la même liste.
+                //Il faut s'assurer que l'équipe en position A ne soit pas sélectionnée en position B.
+                System.out.println("Où est-ce que cela coince ? avant l'attribution des matchs");
+                equipeList.remove(deplacee);
+                for(MatchTableau matchTableau:matchs){
+                    if(!equipeList.isEmpty()&(matchTableau.getTour()==0||matchTableau.getTour()==1)){
+                        Equipe equipeA = equipeList.get(new Random().nextInt(equipeList.size()));
+                        while (equipeA==deplacee){
+                            equipeA = equipeList.get(new Random().nextInt(equipeList.size()));
+                        }
+                        Equipe equipeB = equipeList.get(new Random().nextInt(equipeList.size()));
+                        while(equipeB==equipeA || equipeB==deplacee){
+                            equipeB = equipeList.get(new Random().nextInt(equipeList.size()));
+                        }
+                        matchTableau.setEquipeA(equipeA);
+                        matchTableau.setEquipeB(equipeB);
+                        //tableaux.get(i).getListMatchs().set(tableaux.get(i).getListMatchs().indexOf(matchTableau),matchTableau);
+                        equipeList.remove(equipeA);
+                        equipeList.remove(equipeB);
+                    }
+                }
+                //après la création des matchs de base, on crée un nouveau match sur tapis vert : l'équipe à déplacer est qualifiée
+                MatchTableau matchTableau = new MatchTableau(tableaux.get(i),0);
+                matchTableau.setEquipeA(deplacee);
+                matchTableau.setScoreA(3);
+                matchs.add(matchTableau);
+
+
+                matchTableauRepository.saveAll(matchs);
+
+
             }
         }
     }

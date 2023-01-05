@@ -1,15 +1,13 @@
 package fr.istic.pdl.ticpbackend.model;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -19,10 +17,16 @@ public class Tournoi implements Serializable {
     private Long id;
 
     private String nom;
+    private String logo;
 
-    @OneToMany(mappedBy="tournoi")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<Equipe> equipes;
+    @Transient
+    private List<String> photos;
+    @Transient
+    private List<String> informations;
     private LocalDate dateDebutTournoi;
     private LocalDate dateFinInscription;
     private LocalDate dateDebutPoule;
@@ -32,7 +36,30 @@ public class Tournoi implements Serializable {
 
 
     public Tournoi() {
+    }
 
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
+
+    public List<String> getInformations() {
+        return informations;
+    }
+
+    public void setInformations(List<String> informations) {
+        this.informations = informations;
     }
 
     public Long getId() {
@@ -117,5 +144,20 @@ public class Tournoi implements Serializable {
 
     public void removeEquipe(Equipe equipe){
         this.equipes.remove(equipe);
+    }
+
+    @Override
+    public String toString() {
+        return "Tournoi{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", equipes=" + equipes +
+                ", dateDebutTournoi=" + dateDebutTournoi +
+                ", dateFinInscription=" + dateFinInscription +
+                ", dateDebutPoule=" + dateDebutPoule +
+                ", dateFinPoule=" + dateFinPoule +
+                ", dateDebutTableau=" + dateDebutTableau +
+                ", dateFinTournoi=" + dateFinTournoi +
+                '}';
     }
 }

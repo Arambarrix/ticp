@@ -2,9 +2,11 @@ package fr.istic.pdl.ticpbackend.service;
 
 import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.repository.MatchPouleRepository;
+import fr.istic.pdl.ticpbackend.repository.TournoiRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -14,6 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 public class MatchPouleService {
     MatchPouleRepository repository;
+    TournoiService tournoiService;
 
     /**
      * Cette méthode retourne tous les matchs de poule du tournoi
@@ -38,15 +41,18 @@ public class MatchPouleService {
      * @throws RuntimeException si le match n'existe pas
      */
     public void updateMatchPoule(MatchPoule match){
-        if(repository.existsById(match.getId())){
+        if(repository.existsById(match.getId()) & LocalDate.now().isBefore(tournoiService.getTournoi().getDateFinPoule())){
             MatchPoule matchPoule = repository.getReferenceById(match.getId());
             matchPoule.setScoreA(match.getScoreA());
             matchPoule.setScoreB(match.getScoreB());
             matchPoule.setLieu(match.getLieu());
             repository.save(matchPoule);
         }
-        else {
+        else if(!repository.existsById(match.getId())){
             throw new RuntimeException("Match inexistant");
+        }
+        else if(LocalDate.now().isEqual(tournoiService.getTournoi().getDateFinPoule()) || LocalDate.now().isAfter(tournoiService.getTournoi().getDateFinPoule())){
+            throw new RuntimeException("Phase de poule terminée");
         }
 
     }

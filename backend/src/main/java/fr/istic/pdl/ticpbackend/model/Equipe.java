@@ -23,19 +23,27 @@ public class Equipe implements Serializable {
     private Long id;
     @NotEmpty
     private String nom;
+    private String logo;
     @OneToMany(mappedBy="equipe")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<Joueur> joueurs;
     @ManyToOne
     @JoinColumn(name="tournoi_id")
+    @JsonIgnore
     private Tournoi tournoi;
-
 
 
 
     public Equipe() {
         joueurs = new ArrayList<>();
+    }
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String photo) {
+        this.logo = photo;
     }
 
     public Long getId() {

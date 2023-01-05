@@ -63,8 +63,10 @@ public class TableauService {
     public void nextRound(Long id) {
 
         List<MatchTableau> matchTableauList = repository.findMatchsTableaux(id);
-
         List<Integer> rounds = new ArrayList<>();
+        Map<Integer, Map<Equipe, MatchTableau>> vainqueursRounds = new HashMap<>();
+        List<Equipe> qualifiesFinale = new ArrayList<>();
+        List<Equipe> offices = new ArrayList<>();
         for(MatchTableau matchTableau:matchTableauList){
             rounds.add(matchTableau.getTour());
         }
@@ -73,10 +75,8 @@ public class TableauService {
                 rounds.remove(i);
             }
         }
-        Map<Integer, Map<Equipe, MatchTableau>> vainqueursRounds = new HashMap<>();
-        List<Equipe> offices = new ArrayList<>();
+        //Mise à jour de la progression jusqu'aux demi-finales
         for(MatchTableau matchTableau:matchTableauList){
-            //System.out.println("Tableau "+matchTableau.getTableau().getId());
             if(matchTableau.getTour()==1 & matchTableau.getEquipeA()!=null){
                 if(matchTableau.getEquipeA() != matchTableauRepository.findEquipeByMatchInTour(matchTableau.getEquipeA().getId(),matchTableau.getTour()-1)){
                     offices.add(matchTableau.getEquipeA());
@@ -92,7 +92,6 @@ public class TableauService {
         for (int i = 0; i < rounds.size(); i++) {
             Map<Equipe, MatchTableau> vainqueurs = new HashMap<>();
             for (MatchTableau matchTableau : matchTableauList) {
-                //System.out.println("Tableau "+matchTableau.getTableau().getId());
                 if (matchTableau.getTour() == i & (matchTableau.getEquipeA() != null || matchTableau.getEquipeB() != null)) {
                     if (matchTableau.getScoreA() > matchTableau.getScoreB()) {
                         vainqueurs.put(matchTableau.getEquipeA(), matchTableau);
@@ -107,15 +106,11 @@ public class TableauService {
         for (Map.Entry<Integer, Map<Equipe, MatchTableau>> val : vainqueursRounds.entrySet()) {
             for(Equipe equipe:val.getValue().keySet()){
                 for(MatchTableau matchTableau: matchTableauRepository.findMatchsByTours(val.getKey()+1)){
-                    //System.out.println("Tableau "+matchTableau.getTableau().getId());
-                    //System.out.println("Pour le match "+matchTableau.getId());
                     if(matchTableau.getTableau().getId()==id && equipe!=matchTableauRepository.findEquipeByMatchInTour(equipe.getId(), val.getKey()+1) & matchTableau.getTour()< rounds.size()-1 & matchTableau.getEquipeA()==null){
-                        //System.out.println("Non, il n'y a pas de qualifié en position A dans ce match prévu") ;
                         matchTableau.setEquipeA(equipe);
                         matchTableauRepository.save(matchTableau);
                     }
                     else if(matchTableau.getTableau().getId()==id && equipe!=matchTableauRepository.findEquipeByMatchInTour(equipe.getId(), val.getKey()+1) & matchTableau.getTour()< rounds.size()-1 & !(val.getValue().containsKey(matchTableau.getEquipeA())||offices.contains(matchTableau.getEquipeA()))){
-                        //System.out.println("Non, il n'y a pas de qualifié d'office en position A dans ce match prévu") ;
                         matchTableau.setEquipeA(equipe);
                         matchTableauRepository.save(matchTableau);
 
@@ -124,15 +119,11 @@ public class TableauService {
             }
             for(Equipe equipe:val.getValue().keySet()){
                 for(MatchTableau matchTableau: matchTableauRepository.findMatchsByTours(val.getKey()+1)){
-                    //System.out.println("Tableau "+matchTableau.getTableau().getId());
-                    //System.out.println("Pour le match "+matchTableau.getId());
                     if(matchTableau.getTableau().getId()==id && equipe!=matchTableauRepository.findEquipeByMatchInTour(equipe.getId(), val.getKey()+1) & matchTableau.getTour()< rounds.size()-1 & matchTableau.getEquipeB()==null){
-                        //System.out.println("Non, il n'y a pas de qualifié en position B dans ce match prévu") ;
                         matchTableau.setEquipeB(equipe);
                         matchTableauRepository.save(matchTableau);
                     }
                     else if(matchTableau.getTableau().getId()==id && equipe!=matchTableauRepository.findEquipeByMatchInTour(equipe.getId(), val.getKey()+1) & matchTableau.getTour()< rounds.size()-1 & !(val.getValue().containsKey(matchTableau.getEquipeB())||offices.contains(matchTableau.getEquipeB()))){
-                        //System.out.println("Non, il n'y a pas de qualifié d'office en position B dans ce match prévu") ;
                         matchTableau.setEquipeB(equipe);
                         matchTableauRepository.save(matchTableau);
 
@@ -140,24 +131,43 @@ public class TableauService {
                 }
             }
             for(MatchTableau matchTableau: matchTableauRepository.findMatchsByTours(val.getKey()+1)){
-                //System.out.println("Tableau "+matchTableau.getTableau().getId());
-                //System.out.println("Pour le match "+matchTableau.getId());
-                //System.out.println(!(val.getValue().containsKey(matchTableau.getEquipeA())||offices.contains(matchTableau.getEquipeA())));
-                //System.out.println(!(val.getValue().containsKey(matchTableau.getEquipeB())||offices.contains(matchTableau.getEquipeB())));
                 if(matchTableau.getTableau().getId()==id && matchTableau.getTour()< rounds.size()-1 & !(val.getValue().containsKey(matchTableau.getEquipeA())||offices.contains(matchTableau.getEquipeA()))){
-                    //System.out.println("L'équipe en position A n'est pas qualifiée d'office, ni méritante");
                     matchTableau.setEquipeA(null);
                     matchTableau.setScoreA(0);
                     matchTableauRepository.save(matchTableau);
                 }
                 if(matchTableau.getTableau().getId()==id && matchTableau.getTour()< rounds.size()-1 & !(val.getValue().containsKey(matchTableau.getEquipeB())||offices.contains(matchTableau.getEquipeB()))) {
-                    //System.out.println("L'équipe en position B n'est pas qualifiée, ni méritante");
                     matchTableau.setEquipeB(null);
                     matchTableau.setScoreB(0);
                     matchTableauRepository.save(matchTableau);
                 }
             }
         }
+        //Mise à jour de la finale d'un tableau
+        for (MatchTableau matchTableau : matchTableauList) {
+            if (matchTableau.getTableau().getId()==id & matchTableau.getTour() == rounds.size()-2 & (matchTableau.getEquipeA() != null || matchTableau.getEquipeB() != null)) {
+                if (matchTableau.getScoreA() > matchTableau.getScoreB()) {
+                    qualifiesFinale.add(matchTableau.getEquipeA());
+                } else if (matchTableau.getScoreA() < matchTableau.getScoreB()) {
+                    qualifiesFinale.add(matchTableau.getEquipeB());
+                }
+            }
+        }
+
+        if(qualifiesFinale.size()<2){
+            throw new RuntimeException("Il faudra attendre le résultat des deux matchs pour créer la finale");
+        }
+        else{
+            List<MatchTableau> finales = matchTableauRepository.findMatchsByTours((rounds.size())-1);
+            for(MatchTableau matchTableau:finales){
+                if(matchTableau.getTableau().getId()==id){
+                    matchTableau.setEquipeA(qualifiesFinale.get(0));
+                    matchTableau.setEquipeB(qualifiesFinale.get(1));
+                    matchTableauRepository.save(matchTableau);
+                }
+            }
+        }
+
     }
 
     public List<Tableau> getTableaux() {

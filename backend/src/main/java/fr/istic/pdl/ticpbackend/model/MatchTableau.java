@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 public class MatchTableau extends Match{
     @OneToOne
     @JoinColumn(name="tableau_id")
+    @JsonIgnore
     private Tableau tableau;
     private int tour;
 

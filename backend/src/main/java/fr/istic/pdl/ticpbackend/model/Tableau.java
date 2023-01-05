@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -17,6 +18,7 @@ public class Tableau implements Serializable {
     private String nom;
     @OneToMany(mappedBy="tableau",cascade= CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private List<MatchTableau> listMatchs;
 
     public Tableau() {

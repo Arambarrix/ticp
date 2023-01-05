@@ -3,6 +3,9 @@ package fr.istic.pdl.ticpbackend.service;
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.repository.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +30,12 @@ public class EquipeService {
      */
     public Optional<Equipe> getEquipe(Long id){
         return repository.findById(id);
+    }
+    public List<Equipe> getEquipes(Long pageNo, Long pageSize){
+        Pageable pageable = PageRequest.of(pageNo.intValue(),pageSize.intValue());
+        Page<Equipe> equipes = repository.findAll(pageable);
+        List<Equipe> list = equipes.getContent();
+        return list;
     }
 
     /**
