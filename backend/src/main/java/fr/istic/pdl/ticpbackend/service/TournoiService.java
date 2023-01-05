@@ -24,8 +24,11 @@ public class TournoiService {
      * @return un tournoi en cours
      */
     public Tournoi getTournoi(Long id){
+        return repository.findById(id).get();
+    }
 
-        return repository.getReferenceById(id);
+    public int year(Long id){
+        return repository.findById(id).get().getDateDebutTournoi().getYear();
     }
 
     /**
@@ -36,8 +39,8 @@ public class TournoiService {
     public void saveTournoi(Tournoi tournoi) throws Exception {
         Tournoi encours = new Tournoi();
         for(Tournoi tournoi1: repository.findAll()){
-            boolean fin = LocalDate.now().isEqual(tournoi1.getDateFinTournoi()) || LocalDate.now().isBefore(tournoi1.getDateFinTournoi());
             boolean debut = LocalDate.now().isEqual(tournoi1.getDateDebutTournoi()) || LocalDate.now().isAfter(tournoi1.getDateDebutTournoi());
+            boolean fin = LocalDate.now().isEqual(tournoi1.getDateFinTournoi()) || LocalDate.now().isBefore(tournoi1.getDateFinTournoi());
             if(debut && fin){
                 encours=tournoi1;
             }
