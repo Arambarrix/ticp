@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("api/v1/match_tableaux")
 public class MatchTableauController {
     MatchTableauService service;
-    @GetMapping("/all")
+    @GetMapping("/")
     private List<MatchTableau> getMatchTableaux(){
         return service.getMatchsTableaux();
     }
@@ -25,14 +25,14 @@ public class MatchTableauController {
         return service.getMatchTableau((long)id).get();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     private void updateMatchTableau(@PathVariable("id")int id, @RequestBody MatchTableau matchTableau){
         if(matchTableau.getId()==id){
             service.updateMatchTableau(matchTableau);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     private void deleteMatchTableau(@PathVariable("id")int id){
         service.deleteMatchTableau((long)id);
     }

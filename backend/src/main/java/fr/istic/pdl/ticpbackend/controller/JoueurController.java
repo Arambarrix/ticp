@@ -30,19 +30,19 @@ public class JoueurController {
         return service.getJoueur((long)id).get();
     }
 
-    @PostMapping("/save")
+    @PostMapping("/")
     private void saveJoueur(@RequestBody Joueur joueur){
         service.saveJoueur(joueur);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     private void updateJoueur(@PathVariable("id")int id,@RequestBody Joueur joueur){
         if(joueur.getId()==id){
             service.updateJoueur(joueur);
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     private void deleteJoueur(@PathVariable("id")int id){
         service.deleteJoueur((long)id);
     }

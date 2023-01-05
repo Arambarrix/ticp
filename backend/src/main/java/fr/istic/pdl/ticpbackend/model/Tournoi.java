@@ -22,6 +22,17 @@ public class Tournoi implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<Equipe> equipes;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="tournoi")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private List<Poule> poules;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="tournoi")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private List<Tableau> tableaux;
+
     @Transient
     private List<String> photos;
     @Transient
@@ -135,6 +146,22 @@ public class Tournoi implements Serializable {
 
     public void removeEquipe(Equipe equipe){
         this.equipes.remove(equipe);
+    }
+
+    public List<Poule> getPoules() {
+        return poules;
+    }
+
+    public void setPoules(List<Poule> poules) {
+        this.poules = poules;
+    }
+
+    public List<Tableau> getTableaux() {
+        return tableaux;
+    }
+
+    public void setTableaux(List<Tableau> tableaux) {
+        this.tableaux = tableaux;
     }
 
     @Override

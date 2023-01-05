@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +15,10 @@ public class Poule implements Serializable {
     @Id
     private Long id;
     private String nom;
+    @ManyToOne
+    @JoinColumn(name="tournoi_id")
+    @JsonIgnore
+    private Tournoi tournoi;
     @OneToMany(mappedBy="poule")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
@@ -48,6 +50,14 @@ public class Poule implements Serializable {
 
     public void setListMatchs(List<MatchPoule> listMatchs) {
         this.listMatchs = listMatchs;
+    }
+
+    public Tournoi getTournoi() {
+        return tournoi;
+    }
+
+    public void setTournoi(Tournoi tournoi) {
+        this.tournoi = tournoi;
     }
 
     @Override

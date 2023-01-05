@@ -10,5 +10,6 @@ import java.util.Date;
 
 @Repository
 public interface TournoiRepository extends JpaRepository<Tournoi,Long> {
-
+    @Query("SELECT COUNT(t) FROM Tournoi t WHERE YEAR(t.dateDebutTournoi)=?1")
+    int getTournoiByYear(Long year);
 }

@@ -15,6 +15,11 @@ public class Tableau implements Serializable {
     @Id
     private Long id;
     private String nom;
+    private int rang;
+    @ManyToOne
+    @JoinColumn(name="tournoi_id")
+    @JsonIgnore
+    private Tournoi tournoi;
     @OneToMany(mappedBy="tableau",cascade= CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
@@ -47,7 +52,13 @@ public class Tableau implements Serializable {
     public void setListMatchs(List<MatchTableau> listMatchs) {
         this.listMatchs = listMatchs;
     }
+    public Tournoi getTournoi() {
+        return tournoi;
+    }
 
+    public void setTournoi(Tournoi tournoi) {
+        this.tournoi = tournoi;
+    }
 
     @Override
     public boolean equals(Object o) {
