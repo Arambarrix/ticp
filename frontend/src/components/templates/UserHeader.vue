@@ -7,7 +7,7 @@ import { RouterLink } from "vue-router";
 <template>
 
     <header 
-        class="flex justify-between fixed z-50 w-screen"
+        class="flex justify-between z-50 w-screen"
         >
 
         <RouterLink to="/" class="text sm md:text-md font-medium hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
