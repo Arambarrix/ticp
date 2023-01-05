@@ -3,9 +3,10 @@ package fr.istic.pdl.ticpbackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 @AllArgsConstructor

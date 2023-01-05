@@ -2,13 +2,12 @@ package fr.istic.pdl.ticpbackend.controller;
 
 import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.MatchPoule;
-import fr.istic.pdl.ticpbackend.model.MatchTableau;
 import fr.istic.pdl.ticpbackend.model.Poule;
 import fr.istic.pdl.ticpbackend.service.PouleService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Ce controller permet d'utiliser les services des poules
@@ -19,7 +18,6 @@ import java.util.*;
 @RequestMapping("api/v1/groupes")
 public class PouleController {
     PouleService pouleService;
-
 
     @GetMapping("/ranking/{id}")
     private List<Equipe> getRanking(@PathVariable("id") int id){
@@ -40,7 +38,6 @@ public class PouleController {
         if(poule.getId()==id){
             pouleService.savePoule(poule);
         }
-
     }
     @GetMapping("/get-matchs/{id}")
     private List<MatchPoule> getMatchs(@PathVariable("id")int id){

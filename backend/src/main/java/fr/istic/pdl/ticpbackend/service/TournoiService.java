@@ -5,6 +5,7 @@ import fr.istic.pdl.ticpbackend.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 /**
  * Ce service permet de créer les groupes et les tableaux du tournoi
@@ -22,9 +23,9 @@ public class TournoiService {
      * Permet de retourner le tournoi en cours
      * @return un tournoi en cours
      */
-    public Tournoi getTournoi(){
+    public Tournoi getTournoi(Long id){
 
-        return repository.findAll().get(0);
+        return repository.getReferenceById(id);
     }
 
     /**
@@ -33,10 +34,19 @@ public class TournoiService {
      * @throws Exception si un tournoi existe déjà
      */
     public void saveTournoi(Tournoi tournoi) throws Exception {
-        if (repository.findAll().size() == 1 && !repository.existsById(tournoi.getId())) {
+        Tournoi encours = new Tournoi();
+        for(Tournoi tournoi1: repository.findAll()){
+            boolean fin = LocalDate.now().isEqual(tournoi1.getDateFinTournoi()) || LocalDate.now().isBefore(tournoi1.getDateFinTournoi());
+            boolean debut = LocalDate.now().isEqual(tournoi1.getDateDebutTournoi()) || LocalDate.now().isAfter(tournoi1.getDateDebutTournoi());
+            if(debut && fin){
+                encours=tournoi1;
+            }
+        }
+        if (repository.existsById(encours.getId())) {
             throw new Exception("Il y a déjà un tournoi " + tournoi.getNom() + " en cours !");
         } else {
             repository.save(tournoi);
+            System.out.println("Tournoi enregistré");
         }
     }
 
@@ -51,29 +61,32 @@ public class TournoiService {
             Tournoi update = repository.getReferenceById(tournoi.getId());
             update.setNom(tournoi.getNom());
             update.setDateDebutTournoi(tournoi.getDateDebutTournoi());
-            if(tournoi.getDateDebutTournoi().isBefore(tournoi.getDateFinInscription())){
+
+            if(tournoi.getDateDebutTournoi()==null || tournoi.getDateFinTournoi()==null || tournoi.getDateDebutTournoi().isBefore(tournoi.getDateFinInscription())){
                 update.setDateFinInscription(tournoi.getDateFinInscription());
                 repository.save(update);
 
             }
-            if(tournoi.getDateFinInscription().isBefore(tournoi.getDateDebutPoule())){
+            if(tournoi.getDateFinInscription()==null|| tournoi.getDateDebutPoule()==null||tournoi.getDateFinInscription().isBefore(tournoi.getDateDebutPoule())){
                 update.setDateDebutPoule(tournoi.getDateDebutPoule());
                 repository.save(update);
 
             }
-            if(tournoi.getDateDebutPoule().isBefore(tournoi.getDateFinPoule())){
+            if(tournoi.getDateDebutPoule()==null || tournoi.getDateFinPoule()==null||tournoi.getDateDebutPoule().isBefore(tournoi.getDateFinPoule())){
                 update.setDateFinPoule(tournoi.getDateFinPoule());
                 repository.save(update);
 
             }
-            if(tournoi.getDateFinPoule().isBefore(tournoi.getDateDebutTableau())||tournoi.getDateFinPoule().isEqual(tournoi.getDateDebutTableau())){
+            if(tournoi.getDateFinPoule()==null || tournoi.getDateDebutTableau()==null||tournoi.getDateFinPoule().isBefore(tournoi.getDateDebutTableau())||tournoi.getDateFinPoule().isEqual(tournoi.getDateDebutTableau())){
                 update.setDateDebutTableau(tournoi.getDateDebutTableau());
                 repository.save(update);
             }
-            if(tournoi.getDateDebutTableau().isBefore(tournoi.getDateFinTournoi())){
+            if(tournoi.getDateDebutTableau()==null|| tournoi.getDateFinTournoi()==null||tournoi.getDateDebutTableau().isBefore(tournoi.getDateFinTournoi())){
                 update.setDateFinTournoi(tournoi.getDateFinTournoi());
                 repository.save(update);
             }
+            repository.save(update);
+
 
         }
         else{

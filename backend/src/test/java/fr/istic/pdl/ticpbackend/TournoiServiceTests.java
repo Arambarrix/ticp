@@ -41,7 +41,7 @@ public class TournoiServiceTests {
 
     @Test
     void createTournoi() throws Exception {
-        assertNotNull(tournoiService.getTournoi());
+        assertNotNull(tournoiService.getTournoi((long)1));
     }
     @Test
     void uniqueTournoi(){

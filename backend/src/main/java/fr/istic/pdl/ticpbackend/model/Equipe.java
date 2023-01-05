@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,11 +22,13 @@ public class Equipe implements Serializable {
     private Long id;
     @NotEmpty
     private String nom;
-    private String logo;
     @OneToMany(mappedBy="equipe")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<Joueur> joueurs;
+
+
+
     @ManyToOne
     @JoinColumn(name="tournoi_id")
     @JsonIgnore
@@ -38,14 +39,10 @@ public class Equipe implements Serializable {
     public Equipe() {
         joueurs = new ArrayList<>();
     }
-    public String getLogo() {
-        return logo;
-    }
 
-    public void setLogo(String photo) {
-        this.logo = photo;
+    public Tournoi getTournoi() {
+        return tournoi;
     }
-
     public Long getId() {
         return id;
     }

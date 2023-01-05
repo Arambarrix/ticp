@@ -17,7 +17,6 @@ public class Tournoi implements Serializable {
     private Long id;
 
     private String nom;
-    private String logo;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -36,14 +35,6 @@ public class Tournoi implements Serializable {
 
 
     public Tournoi() {
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public List<String> getPhotos() {

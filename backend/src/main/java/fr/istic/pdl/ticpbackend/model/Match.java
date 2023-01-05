@@ -1,9 +1,6 @@
 package fr.istic.pdl.ticpbackend.model;
 
-import javafx.util.Pair;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

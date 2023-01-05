@@ -12,21 +12,12 @@ public class Joueur implements Serializable {
     private Long id;
     private String nom;
     private String prenom;
-    private String photo;
     @ManyToOne
     @JoinColumn(name="equipe_id")
     @JsonIgnore
     private Equipe equipe;
 
     public Joueur() {
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public Long getId() {
