@@ -1,6 +1,8 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -19,11 +21,11 @@ public class Tableau implements Serializable {
     private int rang;
     @ManyToOne
     @JoinColumn(name="tournoi_id")
-    @JsonIgnore
+    @JsonBackReference
     private Tournoi tournoi;
     @OneToMany(mappedBy="tableau",cascade= CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonManagedReference
     private List<MatchTableau> listMatchs;
 
     public Tableau() {

@@ -16,4 +16,5 @@ public interface PouleRepository extends JpaRepository<Poule,Long> {
 
     @Query("SELECT m FROM Poule p, MatchPoule  m  WHERE p.id = m.poule.id and m.poule.id= ?1")
     List<MatchPoule> findMatchsPoulesByPoule(Long id);
+
 }
