@@ -4,7 +4,7 @@ import AdminHeader from './components/templates/AdminHeader.vue'
 import UserHeader from './components/templates/UserHeader.vue'
 import AdminLeftMenu from './components/templates/AdminLeftMenu.vue'
 
-var is_admin = false;
+var is_admin = true;
 </script>
 
 <template>
@@ -17,7 +17,7 @@ var is_admin = false;
   <div v-if="is_admin" class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white text-black">
     <AdminHeader  />
     <AdminLeftMenu />
-    <div class="flex flex-col mb-5 px-8 w-full">
+    <div class="flex flex-col mb-5 px-8 w-full fixed left-14 md:left-64 top-14">
       <RouterView />
     </div>
   </div>
