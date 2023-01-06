@@ -2,6 +2,7 @@ package fr.istic.pdl.ticpbackend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
@@ -21,19 +22,19 @@ public class Tournoi implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Equipe> equipes;
 
     @OneToMany(mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Poule> poules;
 
     @OneToMany(mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Tableau> tableaux;
 
     @Transient

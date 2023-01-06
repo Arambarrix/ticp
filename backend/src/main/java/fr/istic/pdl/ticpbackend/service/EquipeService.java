@@ -59,6 +59,9 @@ public class EquipeService {
         if(tournoiRepository.findAll().isEmpty()){
             throw new RuntimeException("Impossible d'enregistrer une équipe sans tournoi");
         }
+        else if(equipe.getTournoi()==null){
+            throw new RuntimeException("Il faut obligatoirement un tournoi");
+        }
         else {
             repository.save(equipe);
         }

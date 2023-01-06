@@ -181,10 +181,7 @@ public class TournoiService {
         else {
             Tournoi update = repository.findById(id).get();//Le tournoi en cours dont on doit récupérer les équipes
             int nbEquipes = update.tailleTournoi();
-
             //Si le nombre d'équipes est inférieur à 5, on ne peut créer une phase de groupes, le tournoi ne peut être lancé
-
-
             List<Equipe> allTeams = update.getEquipes();
             List<Poule> poules = new ArrayList<>();
             int nbGroupes = (int) Math.ceil(((double) nbEquipes / 4));
@@ -192,6 +189,7 @@ public class TournoiService {
             int nombreTrois = 0;
             List<Poule> groupeQuatre = new ArrayList<>();
             List<Poule> groupeTrois = new ArrayList<>();
+            Map<Poule, List<Equipe>> listHashMap = new HashMap<>();
             //On recherche le nombre de groupes de 4 équipes et celui de 3.
             if (nbEquipes < 18) {
                 for (int i = 0; i <= (nbEquipes) / 4; i++) {
@@ -217,13 +215,11 @@ public class TournoiService {
             //On crée des groupes en fonction du nombre des groupes de 4 + celui des groupes de 3 trouvés
             for (int i = 0; i < nbGroupes; i++) {
                 Poule poule = new Poule();
-                poule.setId((long) i);
                 poule.setNom("Groupe " + (i + 1));
                 poule.setTournoi(update);
                 poules.add(poule);
             }
             //On associe chaque poule à une liste d'équipes
-            HashMap<Poule, List<Equipe>> listHashMap = new HashMap<>();
             if (nombreQuatre > nombreTrois) {
                 //Si le nombre de groupes de 4 est supérieur à celui des groupes de 3, on applique cet algorithme
                 for (Poule groupe : poules) {
@@ -235,6 +231,7 @@ public class TournoiService {
                             allTeams.remove(equipe);
                         }
                     }
+                    System.out.println("Taille du groupe : "+listHashMap.get(groupe).size());
                     pouleRepository.save(groupe);
                 }
             }
@@ -242,14 +239,12 @@ public class TournoiService {
                 //Sinon si le nombre de groupes de 4 est inférieur à celui des 3, on recense les groupes de 4 et ceux des groupes de 3
                 for (int i = 0; i < nombreQuatre; i++) {
                     Poule poule = new Poule();
-                    poule.setId((long) i + 1);
                     poule.setNom("Groupe " + (i + 1));
                     poule.setTournoi(update);
                     groupeQuatre.add(poule);
                 }
                 for (int i = 0; i < nombreTrois; i++) {
                     Poule poule = new Poule();
-                    poule.setId((long) i + nombreQuatre + 1);
                     poule.setNom("Groupe " + (i + nombreQuatre + 1));
                     poule.setTournoi(update);
                     groupeTrois.add(poule);
@@ -278,18 +273,23 @@ public class TournoiService {
                 }
                 poules = groupeQuatre;
                 poules.addAll(groupeTrois);
+
+            }
+            for(Poule poule:poules){
+                System.out.println("Taille du groupe : "+poule);
             }
 
             //On crée les matchs de chaque poule
             for (Poule groupe : poules) {
+                System.out.println(listHashMap.get(groupe).size());
                 for (int i = 0; i < listHashMap.get(groupe).size() - 1; i++) {
                     for (int j = i + 1; j < listHashMap.get(groupe).size(); j++) {
                         MatchPoule match = new MatchPoule(groupe);
                         match.setEquipeA(listHashMap.get(groupe).get(i));
                         match.setEquipeB(listHashMap.get(groupe).get(j));
                         match.setLieu("Inconnu");
+                        System.out.println(match);
                         groupe.getListMatchs().add(match);
-                        matchPouleRepository.save(match);
                     }
                 }
             }
