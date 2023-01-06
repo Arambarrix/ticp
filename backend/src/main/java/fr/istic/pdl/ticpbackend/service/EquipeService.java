@@ -22,20 +22,33 @@ public class EquipeService {
     JoueurRepository joueurRepository;
     MatchPouleRepository matchPouleRepository;
     MatchTableauRepository matchTableauRepository;
+    TournoiRepository tournoiRepository;
+    PouleRepository pouleRepository;
+    TableauRepository tableauRepository;
 
     /**
      * Retourne une équipe dans le tournoi
      * @param id l'identifiant d'une équipe
      * @return une équipe
      */
-    public Optional<Equipe> getEquipe(Long id){
-        return repository.findById(id);
+    public Equipe getEquipe(Long id){
+        if(!repository.existsById(id)){
+            throw new RuntimeException("Equipe inexistante");
+        }
+        else{
+            return repository.findById(id).get();
+        }
     }
     public List<Equipe> getEquipes(Long pageNo, Long pageSize){
         Pageable pageable = PageRequest.of(pageNo.intValue(),pageSize.intValue());
-        Page<Equipe> equipes = repository.findAll(pageable);
-        List<Equipe> list = equipes.getContent();
-        return list;
+        if(repository.findAll(pageable).isEmpty()){
+            throw new RuntimeException("Aucune équipe récupérable");
+        }
+        else {
+            Page<Equipe> equipes = repository.findAll(pageable);
+            List<Equipe> list = equipes.getContent();
+            return list;
+        }
     }
 
     /**
@@ -43,7 +56,12 @@ public class EquipeService {
      * @param equipe à enregistrer
      */
     public void saveEquipe(Equipe equipe){
-        repository.save(equipe);
+        if(tournoiRepository.findAll().isEmpty()){
+            throw new RuntimeException("Impossible d'enregistrer une équipe sans tournoi");
+        }
+        else {
+            repository.save(equipe);
+        }
     }
 
     /**
@@ -51,20 +69,28 @@ public class EquipeService {
      * @param id l'identifiant de l'équipe
      */
     public void deleteEquipe(Long id){
-        repository.deleteById(id);
+        if(!repository.existsById(id)){
+            throw new RuntimeException("Equipe introuvable");
+        }
+        else{
+            repository.deleteById(id);
+        }
     }
 
     /**
      * Met à jour une équipe
      * @param equipe à mettre à jour
      */
-    public void updateEquipe(Equipe equipe){
-        if(repository.existsById(equipe.getId()))
+    public void updateEquipe(Long id, Equipe equipe){
+        if(repository.existsById(id))
         {
-            Equipe update = repository.getReferenceById(equipe.getId());
+            Equipe update = repository.findById(id).get();
             update.setNom(equipe.getNom());
             update.setJoueurs(equipe.getJoueurs());
             repository.save(update);
+        }
+        else {
+            throw new RuntimeException("Equipe introuvable");
         }
     }
 
@@ -74,7 +100,15 @@ public class EquipeService {
      * @return une poule
      */
     public Poule getPoule(Long id){
-        return repository.findPoule(id);
+        if(!repository.existsById(id)){
+            throw new RuntimeException("Equipe introuvable");
+        }
+        else if(!pouleRepository.existsById(repository.findPoule(id).getId())){
+            throw new RuntimeException("Poule introuvable");
+        }
+        else{
+            return repository.findPoule(id);
+        }
     }
 
     /**
@@ -83,7 +117,15 @@ public class EquipeService {
      * @return un tableau
      */
     public Tableau getTableau(Long id){
-        return repository.findTableau(id);
+        if(!repository.existsById(id)){
+            throw new RuntimeException("Equipe introuvable");
+        }
+        else if(!tableauRepository.existsById(repository.findTableau(id).getId())){
+            throw new RuntimeException("Tableau introuvable");
+        }
+        else {
+            return repository.findTableau(id);
+        }
     }
 
     /**
@@ -113,7 +155,12 @@ public class EquipeService {
                 matchsTableau.add(matchTableau);
             }
         }
-        return matchsTableau;
+        if(matchsTableau.isEmpty()){
+            throw new RuntimeException("Aucun match tableau disponible");
+        }
+        else {
+            return matchsTableau;
+        }
     }
 
     /**

@@ -30,7 +30,7 @@ public class MatchTableauController {
     @GetMapping("/{id}")
     private ResponseEntity<Object> getMatchTableau(@PathVariable("id") int id){
         try{
-            return new ResponseEntity<>(service.getMatchTableau((long)id).get(),HttpStatus.OK);
+            return new ResponseEntity<>(service.getMatchTableau((long)id),HttpStatus.OK);
         }catch (RuntimeException e){
             return Constants.error(e,HttpStatus.NOT_FOUND);
         }

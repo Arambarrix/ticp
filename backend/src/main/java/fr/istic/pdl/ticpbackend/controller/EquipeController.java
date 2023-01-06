@@ -49,8 +49,8 @@ public class EquipeController {
     @PutMapping("/{id}")
     private ResponseEntity<Object> updateEquipe(@RequestBody Equipe equipe, @PathVariable("id") int id){
         try{
-            equipeService.updateEquipe(equipe);
-            return new ResponseEntity<>(equipe,OK);
+            equipeService.updateEquipe((long)id,equipe);
+            return new ResponseEntity<>(equipeService.getEquipe((long)id),OK);
         }catch (RuntimeException e){
             return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
         }

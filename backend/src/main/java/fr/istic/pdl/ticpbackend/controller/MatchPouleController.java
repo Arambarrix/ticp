@@ -29,7 +29,7 @@ public class MatchPouleController {
     @GetMapping("/{id}")
     private ResponseEntity<Object> getMatchPoule(@PathVariable("id") int id){
         try{
-            return new ResponseEntity<>(matchPouleService.getMatchPoule((long)id).get(),HttpStatus.OK);
+            return new ResponseEntity<>(matchPouleService.getMatchPoule((long)id),HttpStatus.OK);
         }catch (RuntimeException e){
             return Constants.error(e,HttpStatus.NOT_FOUND);
         }
