@@ -22,7 +22,7 @@ public class MatchPouleController {
         try{
             return new ResponseEntity<>(matchPouleService.getMatchsPoules(), HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
 
@@ -31,7 +31,7 @@ public class MatchPouleController {
         try{
             return new ResponseEntity<>(matchPouleService.getMatchPoule((long)id),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
 
@@ -41,7 +41,7 @@ public class MatchPouleController {
             matchPouleService.updateMatchPoule(matchPoule);
             return new ResponseEntity<>(matchPoule,HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 
@@ -51,7 +51,7 @@ public class MatchPouleController {
             matchPouleService.deleteMatchPoule((long)id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 }

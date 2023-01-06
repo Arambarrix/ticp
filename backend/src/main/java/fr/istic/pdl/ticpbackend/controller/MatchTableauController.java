@@ -23,7 +23,7 @@ public class MatchTableauController {
         try{
             return new ResponseEntity<>(service.getMatchsTableaux(), HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
 
@@ -32,7 +32,7 @@ public class MatchTableauController {
         try{
             return new ResponseEntity<>(service.getMatchTableau((long)id),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
 
@@ -42,7 +42,7 @@ public class MatchTableauController {
             service.updateMatchTableau(matchTableau);
             return new ResponseEntity<>(matchTableau,HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 
@@ -52,7 +52,7 @@ public class MatchTableauController {
             service.deleteMatchTableau((long)id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 }

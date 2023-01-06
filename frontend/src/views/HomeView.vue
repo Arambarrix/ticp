@@ -1,19 +1,29 @@
 <script setup>
-  import BannerVue from '../components/banner/Banner.vue';
-  import TeamListVue from '../components/TeamList.vue';
-  import PouleListVue from '../components/PouleList.vue';
+  import { Tournois } from "@/stores/user/tournoi"
+  import { computed } from "vue";
+  import { useRouter, } from "vue-router";
 
-  var is_poules_created = true;
-  var actif = "Poules";
+  const router = useRouter()
+
+  const tournoiStore = Tournois();
+  tournoiStore.getActualTournoiInfo()
+
+
+  const is_tournoi_launched = computed(()=>tournoiStore.isTournoiLaunched );
+  const is_registration_ended = computed(()=>tournoiStore.isRegistrationEnded );
+
+  if(is_tournoi_launched.value && is_registration_ended.value) {
+    router.push({
+      name: 'poules',
+    })
+  }
+  else{
+    router.push({
+      name: 'equipes',
+    })
+  }
 
 </script>
 
 <template>
-  <main>
-    <BannerVue :is_poules_created="is_poules_created" :actif="actif"/>
-    <TeamListVue v-if="!is_poules_created"/>
-    <PouleListVue v-if="is_poules_created"/>
-
-  </main>
-  
 </template>

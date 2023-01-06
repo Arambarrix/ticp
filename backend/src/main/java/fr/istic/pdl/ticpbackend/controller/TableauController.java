@@ -25,7 +25,7 @@ public class TableauController {
         try{
             return new ResponseEntity<>(tableauService.getTableau((long)id), HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
     @GetMapping("/")
@@ -33,7 +33,7 @@ public class TableauController {
         try{
             return new ResponseEntity<>(tableauService.getTableaux(),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
     @DeleteMapping("/{id}")
@@ -42,7 +42,7 @@ public class TableauController {
             tableauService.deleteTableau((long)id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
     @PutMapping("/{id}")
@@ -51,7 +51,7 @@ public class TableauController {
             tableauService.updateTableau(tableau);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
     @GetMapping("/{id}/matchs")
@@ -59,7 +59,7 @@ public class TableauController {
         try{
             return new ResponseEntity<>(tableauService.getMatchsTableau((long)id),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
     @PutMapping("/{id}/next-round")
@@ -68,7 +68,7 @@ public class TableauController {
             tableauService.nextRound((long) id);
             return new ResponseEntity<>("Mise à jour de la progression des équipes", HttpStatus.OK);
         } catch (RuntimeException e) {
-            return Constants.error(e, HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e, 404);
         }
     }
 }
