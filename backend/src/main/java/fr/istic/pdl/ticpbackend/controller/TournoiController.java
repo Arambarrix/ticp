@@ -1,16 +1,12 @@
 package fr.istic.pdl.ticpbackend.controller;
 
-import fr.istic.pdl.ticpbackend.model.Poule;
 import fr.istic.pdl.ticpbackend.model.Tournoi;
 import fr.istic.pdl.ticpbackend.service.TournoiService;
 import fr.istic.pdl.ticpbackend.utils.Constants;
 import lombok.AllArgsConstructor;
-import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 /**
@@ -46,7 +42,7 @@ public class TournoiController {
             tournoiService.saveTournoi(tournoi);
             return new ResponseEntity<>(tournoi, HttpStatus.OK);
 
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return Constants.error(e,HttpStatus.FORBIDDEN);
         }
     }
