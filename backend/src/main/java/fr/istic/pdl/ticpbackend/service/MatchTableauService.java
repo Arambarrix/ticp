@@ -23,9 +23,15 @@ public class MatchTableauService {
      * @return un match de tableau s'il existe
      *
      */
-    public Optional<MatchTableau> getMatchTableau(Long id){
-        return repository.findById(id);
+    public MatchTableau getMatchTableau(Long id){
+        if(!repository.existsById(id)){
+            throw new RuntimeException("Match de tableau inexistant");
+        }
+        else{
+            return repository.findById(id).get();
+        }
     }
+
 
     /**
      * Permet de mettre à jour un match de tableay
@@ -53,7 +59,12 @@ public class MatchTableauService {
      * @param id du match à supprimer
      */
     public void deleteMatchTableau(Long id){
-        repository.deleteById(id);
+        if(!repository.existsById(id)){
+            throw new RuntimeException("Match de tableau inexistant");
+        }
+        else{
+            repository.deleteById(id);
+        }
     }
 
     /**
@@ -61,6 +72,11 @@ public class MatchTableauService {
      * @return la liste des matchs de tableau du tournoi
      */
     public List<MatchTableau> getMatchsTableaux() {
-        return repository.findAll();
+        if(repository.findAll().isEmpty()){
+            throw new RuntimeException("Aucun match tableau créé");
+        }
+        else{
+            return repository.findAll();
+        }
     }
 }

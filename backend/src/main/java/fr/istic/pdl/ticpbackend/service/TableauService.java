@@ -24,7 +24,12 @@ public class TableauService {
      * @return un tableau
      */
     public Tableau getTableau(Long id) {
-        return repository.findById(id).get();
+        if(!matchTableauRepository.existsById(id)){
+            throw new RuntimeException("Tableau inexistant");
+        }
+        else{
+            return repository.findById(id).get();
+        }
     }
 
     /**

@@ -71,7 +71,7 @@ public class JoueurController {
         }
     }
 
-    @GetMapping("/get-equipe/{id}")
+    @GetMapping("/{id}/equipe")
     private ResponseEntity<Object> getEquipe(@PathVariable("id")int id){
         try{
             return new ResponseEntity<>(service.getEquipe((long)id),HttpStatus.OK);

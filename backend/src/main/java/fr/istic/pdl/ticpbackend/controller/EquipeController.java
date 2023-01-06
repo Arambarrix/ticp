@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -75,7 +74,7 @@ public class EquipeController {
             return Constants.error(e,HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/{idequipe}/joueur/{idjoueur}")
+    @GetMapping("/{idequipe}/joueurs/{idjoueur}")
     private ResponseEntity<Object> getJoueur(@PathVariable("idequipe")int idequipe, @PathVariable("idjoueur")int idjoueur){
         try{
             return new ResponseEntity<>(equipeService.getJoueur((long)idequipe,(long)idjoueur),OK);
