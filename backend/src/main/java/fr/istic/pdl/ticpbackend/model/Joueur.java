@@ -9,6 +9,7 @@ import java.util.Objects;
 @Entity
 public class Joueur implements Serializable {
     @Id
+    @GeneratedValue
     private Long id;
     private String nom;
     private String prenom;

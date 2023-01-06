@@ -2,7 +2,10 @@ package fr.istic.pdl.ticpbackend.controller;
 
 import fr.istic.pdl.ticpbackend.model.MatchTableau;
 import fr.istic.pdl.ticpbackend.service.MatchTableauService;
+import fr.istic.pdl.ticpbackend.utils.Constants;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,24 +19,40 @@ import java.util.List;
 public class MatchTableauController {
     MatchTableauService service;
     @GetMapping("/")
-    private List<MatchTableau> getMatchTableaux(){
-        return service.getMatchsTableaux();
+    private ResponseEntity<Object> getMatchTableaux(){
+        try{
+            return new ResponseEntity<>(service.getMatchsTableaux(), HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}")
-    private MatchTableau getMatchTableau(@PathVariable("id") int id){
-        return service.getMatchTableau((long)id).get();
+    private ResponseEntity<Object> getMatchTableau(@PathVariable("id") int id){
+        try{
+            return new ResponseEntity<>(service.getMatchTableau((long)id).get(),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")
-    private void updateMatchTableau(@PathVariable("id")int id, @RequestBody MatchTableau matchTableau){
-        if(matchTableau.getId()==id){
+    private ResponseEntity<Object> updateMatchTableau(@PathVariable("id")int id, @RequestBody MatchTableau matchTableau){
+        try {
             service.updateMatchTableau(matchTableau);
+            return new ResponseEntity<>(matchTableau,HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
 
     @DeleteMapping("/{id}")
-    private void deleteMatchTableau(@PathVariable("id")int id){
-        service.deleteMatchTableau((long)id);
+    private ResponseEntity<Object> deleteMatchTableau(@PathVariable("id")int id){
+        try {
+            service.deleteMatchTableau((long)id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
 }

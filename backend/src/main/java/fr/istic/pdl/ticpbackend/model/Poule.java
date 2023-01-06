@@ -13,6 +13,7 @@ import java.util.Objects;
 @Entity
 public class Poule implements Serializable {
     @Id
+    @GeneratedValue
     private Long id;
     private String nom;
     @ManyToOne

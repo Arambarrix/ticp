@@ -34,7 +34,7 @@ public class TableauService {
      */
     public void updateTableau(Tableau tableau) {
         if(repository.existsById(tableau.getId())) {
-            Tableau update = repository.getReferenceById(tableau.getId());
+            Tableau update = repository.findById(tableau.getId()).get();
             update.setNom(tableau.getNom());
             repository.save(update);
         }

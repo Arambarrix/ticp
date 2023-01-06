@@ -3,7 +3,10 @@ package fr.istic.pdl.ticpbackend.controller;
 import fr.istic.pdl.ticpbackend.model.MatchTableau;
 import fr.istic.pdl.ticpbackend.model.Tableau;
 import fr.istic.pdl.ticpbackend.service.TableauService;
+import fr.istic.pdl.ticpbackend.utils.Constants;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,29 +21,54 @@ import java.util.List;
 public class TableauController {
     TableauService tableauService;
     @GetMapping("/{id}")
-    private Tableau getTableau(@PathVariable("id")int id){
-        return tableauService.getTableau((long)id);
-    }
-    @GetMapping("/")
-    private List<Tableau> getTableaux(){
-        return tableauService.getTableaux();
-    }
-    @DeleteMapping("/{id}")
-    private void deleteTableau(@PathVariable("id")int id){
-        tableauService.deleteTableau((long)id);
-    }
-    @PutMapping("/update/{id}")
-    private void updateTableau(@PathVariable("id")int id, @RequestBody Tableau tableau){
-        if(tableau.getId()==id){
-            tableauService.updateTableau(tableau);
+    private ResponseEntity<Object> getTableau(@PathVariable("id")int id){
+        try{
+            return new ResponseEntity<>(tableauService.getTableau((long)id), HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/get-matchs/{id}")
-    private List<MatchTableau> getMatchs(@PathVariable("id")int id){
-        return tableauService.getMatchsTableau((long)id);
+    @GetMapping("/")
+    private ResponseEntity<Object> getTableaux(){
+        try{
+            return new ResponseEntity<>(tableauService.getTableaux(),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
-    @PutMapping("/next-round/{id}")
-    private void nextRound(@PathVariable("id")int id){
-        tableauService.nextRound((long)id);
+    @DeleteMapping("/{id}")
+    private ResponseEntity<Object> deleteTableau(@PathVariable("id")int id){
+        try{
+            tableauService.deleteTableau((long)id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.FORBIDDEN);
+        }
+    }
+    @PutMapping("/{id}")
+    private ResponseEntity<Object> updateTableau(@PathVariable("id")int id, @RequestBody Tableau tableau){
+        try{
+            tableauService.updateTableau(tableau);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+        }
+    }
+    @GetMapping("/{id}/matchs")
+    private ResponseEntity<Object> getMatchs(@PathVariable("id")int id){
+        try{
+            return new ResponseEntity<>(tableauService.getMatchsTableau((long)id),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/{id}/next-round")
+    private ResponseEntity<Object> nextRound(@PathVariable("id")int id) {
+        try {
+            tableauService.nextRound((long) id);
+            return new ResponseEntity<>("Mise à jour de la progression des équipes", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return Constants.error(e, HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
 }

@@ -3,7 +3,10 @@ package fr.istic.pdl.ticpbackend.controller;
 import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.Joueur;
 import fr.istic.pdl.ticpbackend.service.JoueurService;
+import fr.istic.pdl.ticpbackend.utils.Constants;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -22,34 +25,59 @@ public class JoueurController {
     JoueurService service;
 
     @GetMapping("/")
-    private List<Joueur> getJoueurs(){
-        return service.getJoueurs();
+    private ResponseEntity<Object> getJoueurs(){
+        try{
+            return new ResponseEntity<>(service.getJoueurs(), HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
     @GetMapping("/{id}")
-    private Joueur getJoueur(@PathVariable("id")int id){
-        return service.getJoueur((long)id).get();
+    private ResponseEntity<Object> getJoueur(@PathVariable("id")int id){
+        try{
+            return new ResponseEntity<>(service.getJoueur((long)id).get(),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/")
-    private void saveJoueur(@RequestBody Joueur joueur){
-        service.saveJoueur(joueur);
+    private ResponseEntity<Object> saveJoueur(@RequestBody Joueur joueur){
+        try{
+            service.saveJoueur(joueur);
+            return new ResponseEntity<>(joueur,HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
 
     @PutMapping("/{id}")
-    private void updateJoueur(@PathVariable("id")int id,@RequestBody Joueur joueur){
-        if(joueur.getId()==id){
+    private ResponseEntity<Object> updateJoueur(@PathVariable("id")int id,@RequestBody Joueur joueur){
+        try{
             service.updateJoueur(joueur);
+            return new ResponseEntity<>(joueur,HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
 
     @DeleteMapping("/{id}")
-    private void deleteJoueur(@PathVariable("id")int id){
-        service.deleteJoueur((long)id);
+    private ResponseEntity<Object> deleteJoueur(@PathVariable("id")int id){
+        try{
+            service.deleteJoueur((long)id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
 
     @GetMapping("/get-equipe/{id}")
-    private Equipe getEquipe(@PathVariable("id")int id){
-        return service.getEquipe((long)id);
+    private ResponseEntity<Object> getEquipe(@PathVariable("id")int id){
+        try{
+            return new ResponseEntity<>(service.getEquipe((long)id),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
 
 }
