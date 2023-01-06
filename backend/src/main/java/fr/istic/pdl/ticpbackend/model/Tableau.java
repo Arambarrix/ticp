@@ -13,6 +13,7 @@ import java.util.Objects;
 @Entity
 public class Tableau implements Serializable {
     @Id
+    @GeneratedValue
     private Long id;
     private String nom;
     private int rang;
@@ -58,6 +59,14 @@ public class Tableau implements Serializable {
 
     public void setTournoi(Tournoi tournoi) {
         this.tournoi = tournoi;
+    }
+
+    public int getRang() {
+        return rang;
+    }
+
+    public void setRang(int rang) {
+        this.rang = rang;
     }
 
     @Override

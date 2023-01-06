@@ -2,7 +2,10 @@ package fr.istic.pdl.ticpbackend.controller;
 
 import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.service.MatchPouleService;
+import fr.istic.pdl.ticpbackend.utils.Constants;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
 /**
@@ -15,24 +18,40 @@ import java.util.*;
 public class MatchPouleController {
     MatchPouleService matchPouleService;
     @GetMapping("/")
-    private List<MatchPoule> getMatchsPoules(){
-        return matchPouleService.getMatchsPoules();
+    private ResponseEntity<Object> getMatchsPoules(){
+        try{
+            return new ResponseEntity<>(matchPouleService.getMatchsPoules(), HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}")
-    private MatchPoule getMatchPoule(@PathVariable("id") int id){
-        return matchPouleService.getMatchPoule((long)id).get();
+    private ResponseEntity<Object> getMatchPoule(@PathVariable("id") int id){
+        try{
+            return new ResponseEntity<>(matchPouleService.getMatchPoule((long)id).get(),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")
-    private void updateMatchPoule(@PathVariable("id")int id, @RequestBody MatchPoule matchPoule){
-        if(matchPoule.getId()==id){
+    private ResponseEntity<Object> updateMatchPoule(@PathVariable("id")int id, @RequestBody MatchPoule matchPoule){
+        try{
             matchPouleService.updateMatchPoule(matchPoule);
+            return new ResponseEntity<>(matchPoule,HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
 
     @DeleteMapping("/{id}")
-    private void deleteMatchPoule(@PathVariable("id")int id){
-        matchPouleService.deleteMatchPoule((long)id);
+    private ResponseEntity<Object> deleteMatchPoule(@PathVariable("id")int id){
+        try{
+            matchPouleService.deleteMatchPoule((long)id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
 }

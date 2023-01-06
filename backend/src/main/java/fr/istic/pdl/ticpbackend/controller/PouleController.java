@@ -4,7 +4,10 @@ import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.model.Poule;
 import fr.istic.pdl.ticpbackend.service.PouleService;
+import fr.istic.pdl.ticpbackend.utils.Constants;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,32 +22,64 @@ import java.util.List;
 public class PouleController {
     PouleService pouleService;
 
-    @GetMapping("/ranking/{id}")
-    private List<Equipe> getRanking(@PathVariable("id") int id){
-        return pouleService.getRanking((long)id);
+    @GetMapping("/{id}/equipes")
+    private ResponseEntity<Object> getRanking(@PathVariable("id") int id){
+        try{
+            return new ResponseEntity<>(pouleService.getRanking((long)id),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+        }
+    }
+    @GetMapping("/{id}/classement")
+    private ResponseEntity<Object> getClassement(@PathVariable("id")int id){
+        try{
+            return new ResponseEntity<>(pouleService.getClassement((long)id), HttpStatus.ACCEPTED);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.FORBIDDEN);
+        }
     }
 
     @GetMapping("/{id}")
-    private Poule getPoule(@PathVariable("id")int id){
-        return pouleService.getPoule((long)id).get();
+    private ResponseEntity<Object> getPoule(@PathVariable("id")int id){
+        try{
+            return new ResponseEntity<>(pouleService.getPoule((long)id).get(),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
     @GetMapping("/")
-    private List<Poule> getPoules(){
-        return pouleService.getPoules();
+    private ResponseEntity<Object> getPoules(){
+        try{
+            return new ResponseEntity<>(pouleService.getPoules(),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")
-    private void updatePoule(@PathVariable("id")int id,@RequestBody Poule poule){
-        if(poule.getId()==id){
+    private ResponseEntity<Object> updatePoule(@PathVariable("id")int id,@RequestBody Poule poule){
+        try{
             pouleService.savePoule(poule);
+            return new ResponseEntity<>(poule,HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
-    @GetMapping("/matchs/{id}")
-    private List<MatchPoule> getMatchs(@PathVariable("id")int id){
-        return pouleService.getMatchsPoules((long)id);
+    @GetMapping("/{id}/matchs")
+    private ResponseEntity<Object> getMatchs(@PathVariable("id")int id){
+        try{
+            return new ResponseEntity<>(pouleService.getMatchsPoules((long)id),HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.NOT_FOUND);
+        }
     }
-    @DeleteMapping("/delete/{id}")
-    private void deletePoule(@PathVariable("id")int id){
-        pouleService.deletePoule((long)id);
+    @DeleteMapping("/{id}")
+    private ResponseEntity<Object> deletePoule(@PathVariable("id")int id){
+        try{
+            pouleService.deletePoule((long)id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (RuntimeException e){
+            return Constants.error(e,HttpStatus.FORBIDDEN);
+        }
     }
 }
