@@ -27,7 +27,7 @@ public class PouleController {
         try{
             return new ResponseEntity<>(pouleService.getRanking((long)id),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
     @GetMapping("/{id}/classement")
@@ -35,7 +35,7 @@ public class PouleController {
         try{
             return new ResponseEntity<>(pouleService.getClassement((long)id), HttpStatus.ACCEPTED);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
 
@@ -44,7 +44,7 @@ public class PouleController {
         try{
             return new ResponseEntity<>(pouleService.getPoule((long)id).get(),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
     @GetMapping("/")
@@ -52,7 +52,7 @@ public class PouleController {
         try{
             return new ResponseEntity<>(pouleService.getPoules(),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
 
@@ -62,7 +62,7 @@ public class PouleController {
             pouleService.savePoule(poule);
             return new ResponseEntity<>(poule,HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
     @GetMapping("/{id}/matchs")
@@ -70,7 +70,7 @@ public class PouleController {
         try{
             return new ResponseEntity<>(pouleService.getMatchsPoules((long)id),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
     @DeleteMapping("/{id}")
@@ -79,7 +79,7 @@ public class PouleController {
             pouleService.deletePoule((long)id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
 }

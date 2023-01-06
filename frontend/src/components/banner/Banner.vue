@@ -1,30 +1,30 @@
 <script setup>
   import BannerButtonListVue from './ButtonList.vue';
   import BaseVue from './Base.vue';
-
+  import { Tournois } from "@/stores/user/tournoi"
   import { computed } from 'vue'
 
-  const props = defineProps({'is_poules_created':Boolean, 'actif':String});
+  const props = defineProps({'actif':String});
+  const tournoiStore = Tournois();
 
-  var is_poules_created = computed(() => {
-        return props.is_poules_created
-    });
-  var actif = computed(() => {
-      return props.actif
-  });
+  const is_tournoi_launched = computed(()=>tournoiStore.isTournoiLaunched );
+  const is_registration_ended = computed(()=>tournoiStore.isRegistrationEnded );
+  var actif = computed(() =>  props.actif);
+
 
   var banner_data= computed(() => {
-    if(is_poules_created.value){
-      return {'list_text_links':[{'text':'Poules','link':"/poules" },{'text':'Tableaux','link':"/tableaux/1" } ,{'text':'Matchs','link':"#" } ,{'text':'Equipes','link':"/equipes" } ], 'actif':actif.value, 'is_fully_rounded':true};
-    }
-    else{
+    if(is_tournoi_launched.value && !is_registration_ended.value){
       return {'list_text_links':[{'text':'Participer','link':"/inscrire_equipe" }], 'actif':"Participer", 'is_fully_rounded':false};
     }
+    else if(is_tournoi_launched.value && is_registration_ended.value){
+      return {'list_text_links':[{'text':'Poules','link':"/poules" },{'text':'Tableaux','link':"/tableaux/1" } ,{'text':'Equipes','link':"/equipes" } ], 'actif':actif.value, 'is_fully_rounded':true};
+    }
+    return {'list_text_links':[], 'actif':"", 'is_fully_rounded':false};
   });
 
   var banner_header= computed(() => {
-    if(is_poules_created.value){
-      return "Le Tournoi 2022 est lancé";
+    if(is_tournoi_launched.value){
+      return "Le Tournoi "+new Date().getFullYear()+" est lancé";
     }
     else{
       return "Bienvenue au Tournoi Annuel de Pétanque";

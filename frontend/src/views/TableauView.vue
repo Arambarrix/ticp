@@ -58,7 +58,7 @@
 
 <template>
   <main>
-    <BannerVue :is_poules_created="is_poules_created" :actif="actif"/>
+    <BannerVue :actif="actif"/>
     <div class="py-10 ">
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-16">

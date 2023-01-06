@@ -25,7 +25,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getEquipe(Long.valueOf(id)), OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
     @GetMapping("/")
@@ -33,7 +33,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getEquipes((long) pageNo, (long) pageSize), OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,404);
         }
     }
 
@@ -43,7 +43,7 @@ public class EquipeController {
             equipeService.saveEquipe(equipe);
             return new ResponseEntity<>(equipe,OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
     @PutMapping("/{id}")
@@ -52,7 +52,7 @@ public class EquipeController {
             equipeService.updateEquipe((long)id,equipe);
             return new ResponseEntity<>(equipeService.getEquipe((long)id),OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 
@@ -62,7 +62,7 @@ public class EquipeController {
             equipeService.deleteEquipe(id);
             return new ResponseEntity<>(OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 
@@ -71,7 +71,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getJoueurs((long)id), OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
     @GetMapping("/{idequipe}/joueurs/{idjoueur}")
@@ -79,7 +79,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getJoueur((long)idequipe,(long)idjoueur),OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
     @GetMapping("/{id}/progression")
@@ -87,7 +87,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getMatchsTableau((long)id),OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_ACCEPTABLE);
+            return Constants.error(e,404);
         }
     }
 
@@ -96,7 +96,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getMatchTableau((long)idequipe,(long)idmatch),OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
 
@@ -105,7 +105,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getMatchsPoules((long)id),OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,404);
         }
     }
 
@@ -114,7 +114,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getMatchPoule((long)idequipe,(long)idmatch),OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
 
@@ -123,7 +123,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getPoule((long)id),OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
 
@@ -132,7 +132,7 @@ public class EquipeController {
         try{
             return new ResponseEntity<>(equipeService.getTableau((long)id),OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
 

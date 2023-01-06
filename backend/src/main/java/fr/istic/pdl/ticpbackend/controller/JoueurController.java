@@ -29,7 +29,7 @@ public class JoueurController {
         try{
             return new ResponseEntity<>(service.getJoueurs(), HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
     @GetMapping("/{id}")
@@ -37,7 +37,7 @@ public class JoueurController {
         try{
             return new ResponseEntity<>(service.getJoueur((long)id).get(),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
 
@@ -47,7 +47,7 @@ public class JoueurController {
             service.saveJoueur(joueur);
             return new ResponseEntity<>(joueur,HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 
@@ -57,7 +57,7 @@ public class JoueurController {
             service.updateJoueur(joueur);
             return new ResponseEntity<>(joueur,HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 
@@ -67,7 +67,7 @@ public class JoueurController {
             service.deleteJoueur((long)id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.METHOD_NOT_ALLOWED);
+            return Constants.error(e,404);
         }
     }
 
@@ -76,7 +76,7 @@ public class JoueurController {
         try{
             return new ResponseEntity<>(service.getEquipe((long)id),HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,403);
         }
     }
 

@@ -9,7 +9,7 @@
 
 <template>
   <main>
-    <BannerVue :is_poules_created="is_poules_created" :actif="actif"/>
+    <BannerVue :actif="actif"/>
     <PouleListVue v-if="is_poules_created"/>
 
   </main>
