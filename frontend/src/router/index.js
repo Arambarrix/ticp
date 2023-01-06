@@ -52,7 +52,16 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/PouleView.vue')
-    },
+      },
+
+      {
+          path: '/admin/poules/:year',
+          name: 'admin_poule',
+          // route level code-splitting
+          // this generates a separate chunk (About.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import('../views/admin/PouleView.vue')
+      },
 
     {
       path: '/tableaux/:rang',
@@ -61,7 +70,16 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/TableauView.vue')
-    },
+      },
+
+      {
+          path: '/admin/tableaux/:year',
+          name: 'tableaux_admin',
+          // route level code-splitting
+          // this generates a separate chunk (About.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import('../views/TableauView.vue')
+      },
 
     {
       path: '/equipes',
@@ -79,7 +97,26 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CreateTeamView.vue')
-    },
+      },
+
+    {
+        path: '/admin/accueil',
+        name: 'accueil',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('../views/admin/accueilAdmin.vue')
+      },
+
+
+      {
+          path: '/admin/information_utile',
+          name: 'historique',
+          // route level code-splitting
+          // this generates a separate chunk (About.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import('../views/admin/historique.vue')
+      },
 
   ]
 })
