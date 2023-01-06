@@ -2,29 +2,27 @@
   import BannerVue from '../components/banner/Banner.vue';
   import TeamListVue from '../components/TeamList.vue';
   import { computed, onMounted } from "vue";
+
+  import { Tournois } from "@/stores/user/tournoi"
   import { Teams } from "@/stores/user/team"
 
   const teamStore = Teams();
+  const tournoiStore = Tournois();
 
-  var is_poules_created = true;
+  tournoiStore.getActualTournoiInfo()
+
+
   var actif = "Equipes";
-/*
-  const teams = computed(()=>{
-        return [{'name':"BABA", 'nb_joueur':5}, {'name':"Nom Equipe", 'nb_joueur':5}, {'name':"BABA", 'nb_joueur':5},
-        {'name':"Nom Equipe long", 'nb_joueur':5},{'name':"Nom Equipe très long", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5}, {'name':"BABA", 'nb_joueur':5}, {'name':"Nom Equipe", 'nb_joueur':5}, {'name':"BABA", 'nb_joueur':5},
-        {'name':"Nom Equipe long", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5},{'name':"BABA", 'nb_joueur':5}]
-    });
-    */
    
-    teamStore.getAllByYear(new Date().getFullYear())
-    const teams = computed(()=>teamStore.getTeams );
+  teamStore.getAllByYear(new Date().getFullYear())
+  const teams = computed(()=>teamStore.getTeams );
    
 </script>
 
 <template>
   <main>
     <BannerVue :actif="actif"/>
-    <TeamListVue v-if="is_poules_created" :teams="teams" :total="0"/>
+    <TeamListVue :teams="teams" :total="teams.length"/>
   </main>
   
 </template>

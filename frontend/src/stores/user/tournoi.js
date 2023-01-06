@@ -6,8 +6,8 @@ export const Tournois = defineStore("tournois", {
   state: () => ({
     tournois:[],
     current_tournoi: {},
-    is_tournoi_launched: localStorage.getItem('is_tournoi_launched') || false,
-    is_registration_ended: localStorage.getItem('is_registration_ended') || false,
+    is_tournoi_launched: Boolean(localStorage.getItem('is_tournoi_launched')) || false,
+    is_registration_ended: Boolean(localStorage.getItem('is_registration_ended')) || false,
     errors:[],
     success:[]
   }),

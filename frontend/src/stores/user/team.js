@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from 'axios'
 import {Constants} from "../constants";
+import router from "@/router"
 
 export const Teams = defineStore("teams", {
   state: () => ({
@@ -44,19 +45,25 @@ export const Teams = defineStore("teams", {
             }
           }
       );
-      console.log(result)
       if(result.data.code ==200){
-        var team =  data.data.data
-        membres.forEach(nom => {
+        var team =  result.data.data
+        data.membres.forEach(nom => {
+          axios.post(constants.APIURI + "joueurs/", 
+              {
+                "nom":nom,
+                "equipe":{
+                    "id":team.id
+                }
+              }
+          );
           
         });
-
-        this.getAllByYear(constants.year)
+        router.push("/equipes");
+        //this.getAllByYear(constants.year)
       }
       else{
         this.errors =  result.data.errors
       }
-      console.log(data.data)
                
     },
 

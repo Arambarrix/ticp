@@ -41,7 +41,7 @@ public class EquipeController {
     private ResponseEntity<Object> saveEquipe(@RequestBody Equipe equipe){
         try {
             equipeService.saveEquipe(equipe);
-            return new ResponseEntity<>(equipe,OK);
+            return Constants.success(equipe, 200);
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }
@@ -50,7 +50,8 @@ public class EquipeController {
     private ResponseEntity<Object> updateEquipe(@RequestBody Equipe equipe, @PathVariable("id") int id){
         try{
             equipeService.updateEquipe((long)id,equipe);
-            return new ResponseEntity<>(equipeService.getEquipe((long)id),OK);
+            return Constants.success(equipeService.getEquipe((long)id), 200);
+
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }
@@ -69,7 +70,8 @@ public class EquipeController {
     @GetMapping("/{id}/joueurs/")
     private ResponseEntity<Object> getJoueurs(@PathVariable("id")int id){
         try{
-            return new ResponseEntity<>(equipeService.getJoueurs((long)id), OK);
+            return Constants.success(equipeService.getJoueurs((long)id), 200);
+
         }catch (RuntimeException e){
             return Constants.error(e,403);
         }
@@ -85,7 +87,8 @@ public class EquipeController {
     @GetMapping("/{id}/progression")
     private ResponseEntity<Object> getProgression(@PathVariable("id")int id){
         try{
-            return new ResponseEntity<>(equipeService.getMatchsTableau((long)id),OK);
+            return Constants.success(equipeService.getMatchsTableau((long)id), 200);
+
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }

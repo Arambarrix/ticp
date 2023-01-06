@@ -6,7 +6,6 @@
   const router = useRouter()
 
   const tournoiStore = Tournois();
-
   tournoiStore.getActualTournoiInfo()
 
 

@@ -4,8 +4,12 @@
   import InfoCardVue from '../components/InfoCard.vue';
   import { useRoute,useRouter, RouterLink } from "vue-router";
   import { ref, computed} from 'vue'
+  import { Tournois } from "@/stores/user/tournoi"
+
   const route = useRoute();
   const router = useRouter()
+  const tournoiStore = Tournois();
+  tournoiStore.getActualTournoiInfo()
 
   var is_poules_created = true;
   var actif = "Tableaux";

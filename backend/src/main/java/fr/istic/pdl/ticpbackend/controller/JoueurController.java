@@ -45,7 +45,7 @@ public class JoueurController {
     private ResponseEntity<Object> saveJoueur(@RequestBody Joueur joueur){
         try{
             service.saveJoueur(joueur);
-            return new ResponseEntity<>(joueur,HttpStatus.OK);
+            return Constants.success(joueur, 200);
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }

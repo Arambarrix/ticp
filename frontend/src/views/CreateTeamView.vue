@@ -26,8 +26,8 @@ async function store() {
     }    
     else{
         var membres =[membre1.value, membre2.value]
-        if(membre3 !="") membres.push(membre3.value)
-        if(membre4 !="") membres.push(membre4.value)
+        if(membre3.value !="") membres.push(membre3.value)
+        if(membre4.value !="") membres.push(membre4.value)
 
         await teamStore.store({
         "nom":nom.value,
