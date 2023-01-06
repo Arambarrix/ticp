@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MatchTableau extends Match{
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="tableau_id")
     @JsonBackReference
     private Tableau tableau;

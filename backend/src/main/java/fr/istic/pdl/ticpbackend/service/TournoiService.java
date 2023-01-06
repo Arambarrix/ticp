@@ -189,7 +189,6 @@ public class TournoiService {
             int nombreTrois = 0;
             List<Poule> groupeQuatre = new ArrayList<>();
             List<Poule> groupeTrois = new ArrayList<>();
-            Map<Poule, List<Equipe>> listHashMap = new HashMap<>();
             //On recherche le nombre de groupes de 4 équipes et celui de 3.
             if (nbEquipes < 18) {
                 for (int i = 0; i <= (nbEquipes) / 4; i++) {
@@ -200,8 +199,7 @@ public class TournoiService {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 for (int i = 0; i <= (nbEquipes) / 4; i++) {
                     for (int j = 0; j <= i; j++) {
                         if (4 * i + 3 * j == nbEquipes) {
@@ -219,7 +217,7 @@ public class TournoiService {
                 poule.setTournoi(update);
                 poules.add(poule);
             }
-            //On associe chaque poule à une liste d'équipes
+            Map<Poule, List<Equipe>> listHashMap = new HashMap<>();
             if (nombreQuatre > nombreTrois) {
                 //Si le nombre de groupes de 4 est supérieur à celui des groupes de 3, on applique cet algorithme
                 for (Poule groupe : poules) {
@@ -229,9 +227,10 @@ public class TournoiService {
                             Equipe equipe = allTeams.get(new Random().nextInt(allTeams.size()));
                             listHashMap.get(groupe).add(equipe);
                             allTeams.remove(equipe);
+                        }else{
+                            throw new RuntimeException("Plus d'équipes disponible");
                         }
                     }
-                    System.out.println("Taille du groupe : "+listHashMap.get(groupe).size());
                     pouleRepository.save(groupe);
                 }
             }
@@ -273,23 +272,16 @@ public class TournoiService {
                 }
                 poules = groupeQuatre;
                 poules.addAll(groupeTrois);
-
             }
-            for(Poule poule:poules){
-                System.out.println("Taille du groupe : "+poule);
-            }
-
-            //On crée les matchs de chaque poule
-            for (Poule groupe : poules) {
-                System.out.println(listHashMap.get(groupe).size());
-                for (int i = 0; i < listHashMap.get(groupe).size() - 1; i++) {
-                    for (int j = i + 1; j < listHashMap.get(groupe).size(); j++) {
-                        MatchPoule match = new MatchPoule(groupe);
-                        match.setEquipeA(listHashMap.get(groupe).get(i));
-                        match.setEquipeB(listHashMap.get(groupe).get(j));
+            for(Map.Entry<Poule, List<Equipe>> val : listHashMap.entrySet()){
+                System.out.println(val.getValue().size());
+                for(int i=0;i<val.getValue().size()-1;i++){
+                    for(int j=i+1;j<val.getValue().size();j++){
+                        MatchPoule match = new MatchPoule(val.getKey());
+                        match.setEquipeA(val.getValue().get(i));
+                        match.setEquipeB(val.getValue().get(j));
                         match.setLieu("Inconnu");
-                        System.out.println(match);
-                        groupe.getListMatchs().add(match);
+                        matchPouleRepository.save(match);
                     }
                 }
             }
@@ -319,7 +311,6 @@ public class TournoiService {
         }
 
         else{
-
             List<Integer> puissances = new ArrayList<>();
             List<Tableau> tableaux = new ArrayList<>();
             List<Equipe> vainqueurs = new ArrayList<>();//Tous les premiers
@@ -346,7 +337,6 @@ public class TournoiService {
             int totalPrincipal = vainqueurs.size() + seconds.size();//Total des équipes du tableau principal.
             for (int i = 0; i <= nbTableauxAutres; i++) {
                 Tableau tableau = new Tableau();
-                tableau.setId((long) i + 1);
                 tableau.setTournoi(repository.findById(id).get());
                 tableau.setRang(i);
                 tableaux.add(tableau);
@@ -372,7 +362,6 @@ public class TournoiService {
                         match.setLieu("Inconnu");
                         matchTableaux.add(match);
                         tableaux.get(0).setListMatchs(matchTableaux);
-
                     }
                 }
                 for (MatchTableau matchTableau : matchTableaux) {
@@ -450,7 +439,9 @@ public class TournoiService {
 
             //2- Implémentation des autres tableaux
             List<Equipe> equipeList = troisiemes;
-            equipeList.addAll(quatriemes);
+            if(!quatriemes.isEmpty()) {
+                equipeList.addAll(quatriemes);
+            }
             List<MatchTableau> matchs = new ArrayList<>();//Liste des matchs du tableau courant
             for (int i = 1; i < tableaux.size(); i++) {
                 int nombreEquipes = equipeList.size();
@@ -515,7 +506,8 @@ public class TournoiService {
                         }
                     }
                     matchTableauRepository.saveAll(matchs);
-                } else {
+                }
+                else {
                     //On peut déplacer une équipe dans le tour suivant ou lui attribuer une équipe fictive, mais il faudra s'assurer que l'équipe fictive n'ait aucun groupe.
                     //Solution : on déplace une équipe au tour suivant
                     Equipe deplacee = equipeList.get(new Random().nextInt(equipeList.size()));
