@@ -24,7 +24,7 @@
                 'text': 'Tableaux', 'link': "/admin/tableaux/" + year.value
             }, {
                 'text': 'Equipes', 'link': "/admin/equipe/" + year.value
-            }], 'actif': "Poules", 'is_fully_rounded': true
+            }], 'actif': "Tableaux", 'is_fully_rounded': true
         }
     });
 
