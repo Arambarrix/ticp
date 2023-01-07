@@ -1,6 +1,6 @@
 <script setup>
     import { ref } from 'vue'
-    import RenseignerScoreModalVue from './RenseignerScoreModal.vue';
+    import RenseignerScoreModalVue from '../tableaux/RenseignerScoreModal.vue';
 
     const props = defineProps({'data':Object});
    
@@ -9,8 +9,8 @@
 
 <template>
     <div class="flex flex-col">
-        <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-            <div class="py-2 inline-block min-w-full sm:px-2 lg:px-4">
+        <div class="overflow-x-auto ">
+            <div class="py-2 inline-block min-w-full ">
                 <div class="overflow-hidden">
                     <table class="w-full flex flex-col table-auto	">
                         <thead class="bg-green-700 text-white font-bold uppercase rounded-md">

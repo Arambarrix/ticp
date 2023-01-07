@@ -78,9 +78,9 @@ const router = createRouter({
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import('../views/TableauView.vue')
+          component: () => import('../views/admin/TableauView.vue')
       },
-
+      
     {
       path: '/equipes',
       name: 'equipes',
@@ -89,6 +89,15 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/TeamView.vue')
     },
+
+    {
+        path: '/admin/equipe/:year',
+        name: 'equipe_admin',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('../views/admin/EquipeView.vue')
+      },
 
     {
       path: '/inscrire_equipe',
@@ -105,7 +114,7 @@ const router = createRouter({
         // route level code-splitting
         // this generates a separate chunk (About.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('../views/admin/accueilAdmin.vue')
+        component: () => import('../views/admin/PouleView.vue')
       },
 
 
