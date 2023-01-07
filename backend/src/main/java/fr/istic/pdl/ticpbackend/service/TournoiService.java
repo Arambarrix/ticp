@@ -133,7 +133,7 @@ public class TournoiService {
             throw new RuntimeException("Date de fin du tournoi inadmissible");
         }
     }
-    private void addPhoto(String url,Tournoi tournoi){
+    public void addPhoto(String url,Tournoi tournoi){
         if(!repository.existsById(tournoi.getId())){
             throw new RuntimeException("Tournoi introuvable");
         }
@@ -147,15 +147,49 @@ public class TournoiService {
             photoRepository.save(photo);
         }
     }
-    private void removePhoto(Long id){
-        if(!photoRepository.existsById(id)){
-            throw new RuntimeException("Photo introuvable");
+    public void updatePhoto(Long idPhoto, Long idTournoi, Photo photo){
+        if(photo.getTournoi().getId()!=idTournoi){
+            throw new RuntimeException("Erreur identifiant de tournoi");
         }
-        else{
-            photoRepository.deleteById(id);
+        else if(!photoRepository.existsById(idPhoto)){
+            throw new RuntimeException("Erreur identifiant de la photo");
+        }
+        else if(photo.getUrl().isEmpty()){
+            throw new RuntimeException("Url obligatoire");
+        }
+        else {
+            Photo update = photoRepository.findById(idPhoto).get();
+            update.setUrl(photo.getUrl());
+            photoRepository.save(update);
         }
     }
-    private void addInformation(String info, Tournoi tournoi){
+    public List<Photo> getPhotos(Long id){
+        return repository.findById(id).get().getPhotos();
+    }
+    public Photo getPhoto(Long idPhoto, Long idTournoi){
+        Photo photo = photoRepository.findById(idPhoto).get();
+        if(photo.getTournoi().getId()==idTournoi){
+            return photo;
+        }
+        else {
+            throw new RuntimeException("Photo introuvable");
+        }
+    }
+    public void removePhoto(Long idPhoto, Long id){
+        if(!photoRepository.existsById(idPhoto)){
+            throw new RuntimeException("Photo introuvable");
+        }
+        else if(!repository.existsById(id)){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(photoRepository.findById(idPhoto).get().getTournoi().getId()!=id){
+            throw new RuntimeException("La photo ne correspond pas au tournoi");
+        }
+        else{
+            photoRepository.deleteById(idPhoto);
+        }
+    }
+    public void addInformation(String info, Tournoi tournoi){
         if(!repository.existsById(tournoi.getId())){
             throw new RuntimeException("Tournoi introuvable");
         }
@@ -169,11 +203,46 @@ public class TournoiService {
             informationRepository.save(information);
         }
     }
-    private void removeInformation(Long id){
-        if(!informationRepository.existsById(id)){
-            throw new RuntimeException("Information introuvable");
-        }else {
-            informationRepository.deleteById(id);
+    public List<Information> getInfos(Long id){
+        return repository.findById(id).get().getInformations();
+    }
+    public Information getInfo(Long idInfo, Long idTournoi){
+        Information information = informationRepository.findById(idInfo).get();
+        if(information.getTournoi().getId()==idTournoi){
+            return information;
+        }
+        else{
+            throw new RuntimeException("Introuvable");
+        }
+    }
+    public void updateInformation(Long idInfo, Long idTournoi, Information information){
+        if(information.getTournoi().getId()!=idTournoi){
+            throw new RuntimeException("Erreur identifiant de tournoi");
+        }
+        else if(!informationRepository.existsById(idInfo)){
+            throw new RuntimeException("Erreur identifiant information");
+        }
+        else if(information.getInfo().isEmpty()){
+            throw new RuntimeException("Url obligatoire");
+        }
+        else {
+            Information update = informationRepository.findById(idInfo).get();
+            update.setInfo(information.getInfo());
+            informationRepository.save(update);
+        }
+    }
+    public void removeInformation(Long idInfo, Long id){
+        if(!informationRepository.existsById(idInfo)){
+            throw new RuntimeException("Info introuvable");
+        }
+        else if(!repository.existsById(id)){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(informationRepository.findById(idInfo).get().getTournoi().getId()!=id){
+            throw new RuntimeException("L'info ne correspond pas au tournoi");
+        }
+        else{
+            informationRepository.deleteById(idInfo);
         }
     }
     public List<Equipe> getEquipes(Long id){
