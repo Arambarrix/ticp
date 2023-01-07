@@ -19,4 +19,6 @@ public interface EquipeRepository extends JpaRepository<Equipe,Long> {
     @Query("SELECT distinct t FROM Equipe e, Tableau t, MatchTableau  m  WHERE (e.id=m.equipeA.id or e.id=m.equipeB.id) AND t.id = m.tableau.id and e.id= ?1")    //This is using a named query method
     Tableau findTableau(Long id);
 
+    List<Equipe> findByNom(String nom);
+
 }
