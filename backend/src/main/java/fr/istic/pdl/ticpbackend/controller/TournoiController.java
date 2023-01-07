@@ -28,69 +28,73 @@ public class TournoiController {
     @GetMapping("/")
     private ResponseEntity<Object> getTournois(){
         try{
-            return new ResponseEntity<>(tournoiService.getTournois(),HttpStatus.OK);
+            return Constants.success(tournoiService.getTournois(),200);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
 
     }
     @GetMapping("/{id}")
     private ResponseEntity<Object> getTournoi(@PathVariable("id")int id){
         try {
-            return new ResponseEntity<>(tournoiService.getTournoi((long)id), HttpStatus.OK);
+            return Constants.success(tournoiService.getTournoi((long)id),200);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.NOT_FOUND);
+            return Constants.error(e,404);
         }
     }
     @PostMapping("/")
     private ResponseEntity<Object> createTournoi(@RequestBody Tournoi tournoi){
         try {
             tournoiService.saveTournoi(tournoi);
-            return new ResponseEntity<>(tournoi, HttpStatus.OK);
+            return Constants.success(tournoi,200);
 
         } catch (RuntimeException e) {
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
     @PutMapping("/{id}")
     private ResponseEntity<Object> updateTournoi(@PathVariable("id")int id,@RequestBody Tournoi tournoi){
         try{
             tournoiService.updateTournoi(tournoi,(long)id);
-            return new ResponseEntity<>(tournoi,HttpStatus.OK);
+            return Constants.success(tournoi,200);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
     @GetMapping("/{idtournoi}/poules")
     private ResponseEntity<Object>getPoules(@PathVariable("idtournoi") int id){
         try{
-            return new ResponseEntity<>(tournoiService.getPoules((long)id),HttpStatus.OK);
+            tournoiService.getTournoi((long)id);
+            return Constants.success(tournoiService.getPoules((long)id), 200);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
     @GetMapping("/{idtournoi}/tableaux")
     private ResponseEntity<Object>getTableaux(@PathVariable("idtournoi") int id){
         try{
-            return new ResponseEntity<>(tournoiService.getTableaux((long)id),HttpStatus.OK);
+            tournoiService.getTournoi((long)id);
+            return Constants.success(tournoiService.getTableaux((long)id), 200);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
     @GetMapping("/{idtournoi}/tableaux/{rang}")
     private ResponseEntity<Object>getTableauxByRang(@PathVariable("idtournoi") int id,@PathVariable("rang") int rang){
         try{
-            return new ResponseEntity<>(tournoiService.getTableauxByRang((long)id,(long)rang),HttpStatus.OK);
+            tournoiService.getTournoi((long)id);
+            return Constants.success(tournoiService.getTableauxByRang((long)id,(long)rang), 200);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
     @GetMapping("/{idtournoi}/equipes")
-    private ResponseEntity<Object>getEquipes(@PathVariable("idtournoi") int id){
+    private ResponseEntity<Object>getEquipes(@PathVariable("idtournoi") int id){       
         try{
-            return new ResponseEntity<>(tournoiService.getEquipes((long)id),HttpStatus.OK);
+            tournoiService.getTournoi((long)id);
+            return Constants.success(tournoiService.getEquipes((long)id), 200);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,404);
         }
     }
     @PutMapping("/{id}/create-groupes")
@@ -99,7 +103,7 @@ public class TournoiController {
             tournoiService.createGroupes((long)id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (RuntimeException e){
-            return Constants.error(e,HttpStatus.FORBIDDEN);
+            return Constants.error(e,403);
         }
     }
     @PutMapping("/{id}/create-tableaux")
@@ -108,7 +112,7 @@ public class TournoiController {
            tournoiService.createTableaux((long)id);
            return new ResponseEntity<>(HttpStatus.OK);
        }catch (RuntimeException e){
-           return Constants.error(e,HttpStatus.FORBIDDEN);
+           return Constants.error(e,403);
        }
     }
     @DeleteMapping("/{id}")
