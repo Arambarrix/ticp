@@ -9,7 +9,7 @@ export const useAuthStore = defineStore({
   id: "auth",
   state: () => ({
     //access: cookies.get("access") || "",
-    is_admin: '',
+    is_admin: false,
     errors: [],
   }),
   getters: {

@@ -4,8 +4,12 @@
   import InfoCardVue from '../components/InfoCard.vue';
   import { useRoute,useRouter, RouterLink } from "vue-router";
   import { ref, computed} from 'vue'
+  import { Tournois } from "@/stores/user/tournoi"
+
   const route = useRoute();
   const router = useRouter()
+  const tournoiStore = Tournois();
+  tournoiStore.getActualTournoiInfo()
 
   var is_poules_created = true;
   var actif = "Tableaux";
@@ -58,7 +62,7 @@
 
 <template>
   <main>
-    <BannerVue :is_poules_created="is_poules_created" :actif="actif"/>
+    <BannerVue :actif="actif"/>
     <div class="py-10 ">
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-16">

@@ -1,56 +1,33 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-public class MatchPoule implements Match{
-    @Override
-    public Equipe getEquipeA() {
-        return null;
+@AllArgsConstructor
+@NoArgsConstructor
+public class MatchPoule extends Match {
+    @ManyToOne
+    @JoinColumn(name="poule_id")
+    @JsonBackReference
+    private Poule poule;
+
+    public Poule getPoule() {
+        return poule;
     }
 
-    @Override
-    public Equipe getEquipeB() {
-        return null;
-    }
 
     @Override
-    public int getScoreA() {
-        return 0;
-    }
-
-    @Override
-    public int getScoreB() {
-        return 0;
-    }
-
-    @Override
-    public String getLieu() {
-        return null;
-    }
-
-    @Override
-    public void setEquipeA(Equipe teamA) {
-
-    }
-
-    @Override
-    public void setEquipeB(Equipe teamB) {
-
-    }
-
-    @Override
-    public void setScoreA(int scoreA) {
-
-    }
-
-    @Override
-    public void setScoreB(int scoreB) {
-
-    }
-
-    @Override
-    public void setLieu(String lieu) {
-
+    public String toString() {
+        return super.toString()+"MatchPoule{" +
+                "poule=" + poule +
+                '}';
     }
 }

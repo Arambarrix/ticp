@@ -1,6 +1,8 @@
 <script setup>
 import { ref, computed } from "vue";
+import { Teams } from "@/stores/user/team"
 
+const teamStore = Teams();
 
 const nom = ref("");
 const membre1 = ref("");
@@ -21,24 +23,18 @@ async function store() {
     errors.value=""
     if(validateFields() === false){
         errors.value = "Les champs nom, membre 1 et membre2 sont requis";
-    }
-    console.log(errors.value)
-    /*
+    }    
     else{
-        if(validateOld()){
-            await user.update(id, {
-            "score_equipe_1":score_equipe_1.value,
-            "score_equipe_2":score_equipe_2.value,
-            })
-        if(errors === ""){
-            toggleModal();
-        }
-        }
-        else{
-            errors = "Only people from old 13 to 35 are allowed !"
-        }
+        var membres =[membre1.value, membre2.value]
+        if(membre3.value !="") membres.push(membre3.value)
+        if(membre4.value !="") membres.push(membre4.value)
+
+        await teamStore.store({
+        "nom":nom.value,
+        "membres":membres,
+        })       
     }
-    */
+    
 }
 
 
