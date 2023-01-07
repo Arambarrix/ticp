@@ -15,6 +15,6 @@ import java.util.List;
 public interface TournoiRepository extends JpaRepository<Tournoi,Long> {
     @Query("SELECT COUNT(t) FROM Tournoi t WHERE YEAR(t.dateDebutTournoi)=?1")
     int getTournoiByYear(Long year);
-    @Query("SELECT tab FROM Tournoi t, Tableau tab WHERE t.id =tab.tournoi.id and t.id =?1 and tab.rang=?2")
+    @Query("SELECT tab FROM Tableau tab WHERE tab.tournoi.id =?1 and tab.rang=?2")
     List<Tableau> getTableauxByRang(Long tournoi, Long rang);
 }

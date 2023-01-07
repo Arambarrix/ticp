@@ -2,9 +2,11 @@ package fr.istic.pdl.ticpbackend.service;
 
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.repository.*;
+import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 /**
@@ -18,6 +20,7 @@ public class TournoiService {
     TableauRepository tableauRepository;
     MatchPouleRepository matchPouleRepository;
     MatchTableauRepository matchTableauRepository;
+
 
     /**
      * Permet de retourner le tournoi en cours
@@ -78,6 +81,7 @@ public class TournoiService {
             updateDateDebutTableau(tournoi,update);
             updateDateFinTournoi(tournoi,update);
             repository.save(update);
+
         }
         else{
             throw new RuntimeException("Tournoi introuvable");
@@ -156,11 +160,17 @@ public class TournoiService {
     }
 
     public List<Tableau> getTableauxByRang(Long id, Long rang){
-        if(repository.getTableauxByRang(id,rang).isEmpty()){
-            throw new RuntimeException("Aucun tableau");
+        List<Tableau> tableaux = new ArrayList<>();
+        for(Tableau tableau :repository.findById(id).get().getTableaux()){
+            if(tableau.getRang()==rang){
+                tableaux.add(tableau);
+            }
+        };
+        if(tableaux.isEmpty()){
+            throw new RuntimeException("Aucun tableau de rang "+rang);
         }
         else{
-            return repository.getTableauxByRang(id,rang);
+            return tableaux;
         }
     }
 
@@ -580,4 +590,31 @@ public class TournoiService {
             }
         }
     }
+    /*private void refreshTournois(){
+        for(Tournoi update:repository.findAll()){
+            try {
+                if(LocalDate.now().isEqual(update.getDateFinInscription())){
+                    createGroupes(update.getId());
+                }
+                if(LocalDate.now().isEqual(update.getDateFinPoule())){
+                    createTableaux(update.getId());
+                }
+            }
+            catch (RuntimeException e){
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+    private synchronized void periodicRefresh(){
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                refreshTournois();
+            }
+        }, 0, 5000);
+    }
+
+     */
 }
