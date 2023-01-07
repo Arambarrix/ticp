@@ -29,6 +29,7 @@ public class TournoiService {
      * @return un tournoi en cours
      */
     public Tournoi getTournoi(Long id){
+        
         if(!repository.existsById(id)){
             throw new RuntimeException("Tournoi inexistant !");
         }
@@ -36,13 +37,9 @@ public class TournoiService {
             return repository.findById(id).get();
         }
     }
+
     public List<Tournoi> getTournois(){
-        if(repository.findAll().size()==0){
-            throw new RuntimeException("Aucun tournoi présent");
-        }
-        else{
-            return repository.findAll();
-        }
+        return repository.findAll();
     }
 
 
@@ -73,7 +70,7 @@ public class TournoiService {
      * @throws RuntimeException si le tournoi n'existe pas
      */
     public void updateTournoi(Tournoi tournoi, Long id){
-        if(repository.existsById(tournoi.getId()) & tournoi.getId()==id){
+        if( repository.existsById(tournoi.getId()) ){
             Tournoi update = repository.getReferenceById(tournoi.getId());
             update.setNom(tournoi.getNom());
             updateDateDebutTournoi(tournoi,update);
@@ -180,28 +177,16 @@ public class TournoiService {
         }
     }
     public List<Equipe> getEquipes(Long id){
-        if(repository.findById(id).get().getEquipes().isEmpty()){
-            throw new RuntimeException("Aucune équipe");
-        }
-        else {
-            return repository.findById(id).get().getEquipes();
-        }
+        return repository.findById(id).get().getEquipes();
     }
     public List<Poule> getPoules(Long id){
-        if(repository.findById(id).get().getPoules().isEmpty()){
-            throw new RuntimeException("Aucune poule");
-        }else {
-            return repository.findById(id).get().getPoules();
-        }
+        
+        return repository.findById(id).get().getPoules();
     }
 
     public List<Tableau> getTableaux(Long id){
-        if(repository.findById(id).get().getTableaux().isEmpty()){
-            throw new RuntimeException("Aucun tableau");
-        }
-        else {
-            return repository.findById(id).get().getTableaux();
-        }
+        
+        return repository.findById(id).get().getTableaux();
     }
 
     public List<Tableau> getTableauxByRang(Long id, Long rang){
