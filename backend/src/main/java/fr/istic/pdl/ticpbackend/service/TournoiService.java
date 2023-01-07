@@ -20,6 +20,8 @@ public class TournoiService {
     TableauRepository tableauRepository;
     MatchPouleRepository matchPouleRepository;
     MatchTableauRepository matchTableauRepository;
+    InformationRepository informationRepository;
+    PhotoRepository photoRepository;
 
 
     /**
@@ -132,6 +134,49 @@ public class TournoiService {
         }
         else{
             throw new RuntimeException("Date de fin du tournoi inadmissible");
+        }
+    }
+    private void addPhoto(String url,Tournoi tournoi){
+        if(!repository.existsById(tournoi.getId())){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(url.isEmpty()){
+            throw new RuntimeException("Aucune photo à enregistrer");
+        }
+        else{
+            Photo photo = new Photo();
+            photo.setUrl(url);
+            photo.setTournoi(tournoi);
+            photoRepository.save(photo);
+        }
+    }
+    private void removePhoto(Long id){
+        if(!photoRepository.existsById(id)){
+            throw new RuntimeException("Photo introuvable");
+        }
+        else{
+            photoRepository.deleteById(id);
+        }
+    }
+    private void addInformation(String info, Tournoi tournoi){
+        if(!repository.existsById(tournoi.getId())){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(info.isEmpty()){
+            throw new RuntimeException("Aucune information à enregistrer");
+        }
+        else {
+            Information information= new Information();
+            information.setInfo(info);
+            information.setTournoi(tournoi);
+            informationRepository.save(information);
+        }
+    }
+    private void removeInformation(Long id){
+        if(!informationRepository.existsById(id)){
+            throw new RuntimeException("Information introuvable");
+        }else {
+            informationRepository.deleteById(id);
         }
     }
     public List<Equipe> getEquipes(Long id){

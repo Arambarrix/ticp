@@ -24,7 +24,6 @@ import java.util.TimerTask;
 public class TournoiController {
     TournoiService tournoiService;
 
-
     @GetMapping("/")
     private ResponseEntity<Object> getTournois(){
         try{

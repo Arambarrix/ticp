@@ -37,10 +37,16 @@ public class Tournoi implements Serializable {
     @JsonManagedReference
     private List<Tableau> tableaux;
 
-    @Transient
-    private List<String> photos;
-    @Transient
-    private List<String> informations;
+    @OneToMany(mappedBy="tournoi")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
+    private List<Photo> photos;
+    @OneToMany(mappedBy="tournoi")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonManagedReference
+    private List<Information> informations;
     private LocalDate dateDebutTournoi;
     private LocalDate dateFinInscription;
     private LocalDate dateDebutPoule;
@@ -52,19 +58,19 @@ public class Tournoi implements Serializable {
     public Tournoi() {
     }
 
-    public List<String> getPhotos() {
+    public List<Photo> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<String> photos) {
+    public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
 
-    public List<String> getInformations() {
+    public List<Information> getInformations() {
         return informations;
     }
 
-    public void setInformations(List<String> informations) {
+    public void setInformations(List<Information> informations) {
         this.informations = informations;
     }
 
