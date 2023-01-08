@@ -1,7 +1,10 @@
 package fr.istic.pdl.ticpbackend;
 
+import fr.istic.pdl.ticpbackend.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 
 
 @SpringBootApplication
