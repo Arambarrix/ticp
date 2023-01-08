@@ -21,6 +21,17 @@ public class AdminController {
         adminService.signUpUser(admin);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
+    @PutMapping("/login")
+    private ResponseEntity<Object> connecterAdmin(@RequestBody Admin admin){
+        adminService.seConnecter(admin.getUsername(),admin.getPassword());
+        return new ResponseEntity<>(admin+" connecté", HttpStatus.OK);
+    }
+    @PutMapping("/logout")
+    private ResponseEntity<Object> deConnecterAdmin(@RequestBody Admin admin){
+        adminService.seDeconnecter(admin);
+        return new ResponseEntity<>(admin+" déconnecté", HttpStatus.OK);
+    }
+
     @GetMapping("/confirm-token")
     public ResponseEntity<Object> confirm(@RequestParam("token") String token) {
         return new ResponseEntity<>(confirmationTokenService.getToken(token).get(),HttpStatus.OK);

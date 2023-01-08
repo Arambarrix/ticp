@@ -64,8 +64,49 @@ public class AdminService implements UserDetailsService {
 
         confirmationTokenService.saveConfirmationToken(
                 confirmationToken);
+        admin.setLogged(true);
 
 //        TODO: SEND EMAIL
+
+    }
+    public void seConnecter(String username, String password){
+        if(!adminRepository.findAll().contains(adminRepository.findByUsername(username))){
+            throw new RuntimeException("Utilisateur introuvable");
+        }
+        else if(!bCryptPasswordEncoder.matches(password,adminRepository.findByUsername(username).getPassword())){
+            throw new RuntimeException("Mot de passe erroné");
+        }
+        else if(adminRepository.findByUsername(username).isLogged()){
+            throw new RuntimeException("Utilisateur déjà connecté");
+        }
+        else {
+            String token = UUID.randomUUID().toString();
+            ConfirmationToken confirmationToken = new ConfirmationToken(
+                    token,
+                    LocalDateTime.now(),
+                    LocalDateTime.now().plusMinutes(15),
+                    adminRepository.findByUsername(username)
+            );
+            adminRepository.findByUsername(username).setLogged(true);
+            adminRepository.save(adminRepository.findByUsername(username));
+            confirmationTokenService.saveConfirmationToken(
+                    confirmationToken);
+
+
+        }
+
+    }
+    public void seDeconnecter(Admin admin){
+        if(!adminRepository.findAll().contains(adminRepository.findByUsername(admin.getUsername()))){
+            throw new RuntimeException("Utilisateur introuvable");
+        }
+        else if(!adminRepository.findByUsername(admin.getUsername()).isLogged()){
+            throw new RuntimeException("Utilisateur non connecté");
+        }
+        else {
+            adminRepository.findByUsername(admin.getUsername()).setLogged(false);
+            adminRepository.save(adminRepository.findByUsername(admin.getUsername()));
+        }
 
     }
 

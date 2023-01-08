@@ -35,4 +35,44 @@ public class ConfirmationToken {
     public void setAdmin(Admin admin) {
         this.admin = admin;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LocalDateTime getCreation() {
+        return creation;
+    }
+
+    public void setCreation(LocalDateTime creation) {
+        this.creation = creation;
+    }
+
+    public LocalDateTime getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(LocalDateTime expiration) {
+        this.expiration = expiration;
+    }
+
+    public LocalDateTime getConnexion() {
+        return connexion;
+    }
+
+    public void setConnexion(LocalDateTime connexion) {
+        this.connexion = connexion;
+    }
 }
