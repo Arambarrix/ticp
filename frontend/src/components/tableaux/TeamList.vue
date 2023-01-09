@@ -1,7 +1,9 @@
 <script setup>
+    import RenseignerScoreModalVue from './RenseignerScoreModal.vue';
 
-const props = defineProps({'data':Object});
-
+    const props = defineProps({'data':Object});
+    
+    var i =0
 </script>
 
 <template>

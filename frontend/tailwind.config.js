@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         'dark-brown': '#261515',
         'clear-brown': '#3A1900',
+        'd-color':'#897564'
 
       },
       
