@@ -9,12 +9,20 @@ export const Tournois = defineStore("tournois", {
     is_tournoi_launched: Boolean(localStorage.getItem('is_tournoi_launched')) || false,
     is_registration_ended: Boolean(localStorage.getItem('is_registration_ended')) || false,
     errors:[],
-    success:[]
+    success:[],
+    tableaux:[],
+    equipes:[],
+    poules:[]
+
   }),
   getters: {
     getCurrentTournoi: (state) => state.current_tournoi,
     isTournoiLaunched: (state) => state.is_tournoi_launched,
     isRegistrationEnded: (state) => state.is_registration_ended,
+    getTableaux: (state) => state.tableaux,
+    getPoules: (state) => state.poules,
+    getEquipes: (state) => state.equipes,
+
   },
   actions: {
     
@@ -22,7 +30,6 @@ export const Tournois = defineStore("tournois", {
 
         const constants = Constants();
         var year = new Date().getFullYear()
-        console.log(year)
 
         await axios.get(constants.APIURI + "tournoi/"+year)
                   .then((data) => {
@@ -35,7 +42,6 @@ export const Tournois = defineStore("tournois", {
 
                     }
                     this.updateTournoiInfo()
-                    console.log(data.data)
                 })
                 .catch(function (error) {
                   console.log(error);
@@ -65,8 +71,10 @@ export const Tournois = defineStore("tournois", {
     },
 
     async updateTournoiInfo(){
-      console.log(this.current_tournoi)
       if(this.current_tournoi.id){
+        this.tableaux = this.current_tournoi.tableaux
+        this.poules = this.current_tournoi.poules
+        this.equipes = this.current_tournoi.equipes
 
         const date = new Date();
         const start = new Date(this.current_tournoi.dateDebutTournoi);

@@ -7,7 +7,7 @@ export const Poules = defineStore("poules", {
   state: () => ({
     poules:[],
     poule: {},
-    errors:[],
+    errors:"",
     success:[]
   }),
   getters: {
@@ -28,12 +28,25 @@ export const Poules = defineStore("poules", {
                       this.poules =  []
 
                     }
-                    console.log(data.data)
                  })
                 .catch(function (error) {
                   console.log(error);
                 });
     },
+
+    async renseigner_score(id_match, data){
+      const constants = Constants();
+      let result = await axios.put(constants.APIURI + "match_poules/"+id_match,
+        data
+      );
+      if(result.data.code ==200){
+        this.getAllByYear(constants.year)
+      }
+      else{
+        this.errors =  result.data.errors
+      }
+    },
+   
 
     async launch_creation(data){
       const constants = Constants();
