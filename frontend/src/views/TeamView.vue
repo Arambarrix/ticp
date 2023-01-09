@@ -22,7 +22,7 @@
 <template>
   <main>
     <BannerVue :actif="actif"/>
-    <TeamListVue :teams="teams" :total="teams.length"/>
+    <TeamListVue :teams="teams" />
   </main>
   
 </template>
