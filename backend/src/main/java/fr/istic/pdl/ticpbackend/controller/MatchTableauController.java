@@ -40,7 +40,8 @@ public class MatchTableauController {
     private ResponseEntity<Object> updateMatchTableau(@PathVariable("id")int id, @RequestBody MatchTableau matchTableau){
         try {
             service.updateMatchTableau(matchTableau);
-            return new ResponseEntity<>(matchTableau,HttpStatus.OK);
+            return Constants.success(matchTableau,200);
+
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }

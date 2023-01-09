@@ -7,7 +7,7 @@ export const Teams = defineStore("teams", {
   state: () => ({
     teams:[],
     team: {},
-    errors:[],
+    errors:"",
     success:[]
   }),
   getters: {
@@ -28,7 +28,6 @@ export const Teams = defineStore("teams", {
                       this.teams =  []
 
                     }
-                    console.log(data.data)
                  })
                 .catch(function (error) {
                   console.log(error);
