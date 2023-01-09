@@ -21,21 +21,21 @@ public class TournoiServiceTests {
     @Autowired
     TournoiRepository tournoiRepository;
     @Autowired
-
     PouleRepository pouleRepository;
     @Autowired
-
     TableauRepository tableauRepository;
     @Autowired
-
     MatchPouleRepository matchPouleRepository;
     @Autowired
-
     MatchTableauRepository matchTableauRepository;
+    @Autowired
+    PhotoRepository photoRepository;
+    @Autowired
+    InformationRepository informationRepository;
     Tournoi tournoi;
     @BeforeEach
     void setUp() throws Exception {
-        tournoiService=new TournoiService(tournoiRepository,pouleRepository,tableauRepository,matchPouleRepository,matchTableauRepository);
+        tournoiService=new TournoiService(tournoiRepository,pouleRepository,tableauRepository,matchPouleRepository,matchTableauRepository,informationRepository,photoRepository);
         tournoi = new Tournoi();
         tournoi.setNom("ticp");
 
