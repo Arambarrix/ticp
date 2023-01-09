@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -56,16 +57,45 @@ public class EquipeService {
      * @param equipe à enregistrer
      */
     public void saveEquipe(Equipe equipe){
-        if(tournoiRepository.findAll().isEmpty()){
-            throw new RuntimeException("Impossible d'enregistrer une équipe sans tournoi");
-        }
-        else if(equipe.getTournoi()==null){
-            throw new RuntimeException("Il faut obligatoirement un tournoi");
+        if(equipe.getTournoi()!=null){
+            Tournoi tournoi = equipe.getTournoi();
+            LocalDate dateInscription = tournoiRepository.findById(tournoi.getId()).get().getDateFinInscription();
+            boolean hasDeadline = dateInscription!=null;
+            if(hasDeadline){
+                if(tournoiRepository.findAll().isEmpty()){
+                    throw new RuntimeException("Impossible d'enregistrer une équipe sans tournoi");
+                }
+                else if(LocalDate.now().isAfter(dateInscription)){
+                    throw new RuntimeException("Impossible de s'inscrire après les délais d'inscription");
+                }
+                else if(!repository.findByNom(equipe.getNom()).isEmpty()){
+                    throw new RuntimeException("Une équipe porte déjà ce nom");
+                }
+
+                else {
+                    repository.save(equipe);
+                }
+            }
+            else{
+                if(tournoiRepository.findAll().isEmpty()){
+                    throw new RuntimeException("Impossible d'enregistrer une équipe sans tournoi");
+                }
+                else if(!repository.findByNom(equipe.getNom()).isEmpty()){
+                    throw new RuntimeException("Une équipe porte déjà ce nom");
+                }
+
+                else {
+                    repository.save(equipe);
+                }
+            }
         }
         else {
-            repository.save(equipe);
+            throw new RuntimeException("Il faut obligatoirement un tournoi");
         }
+
+
     }
+
 
     /**
      * Supprime une équipe du tournoi

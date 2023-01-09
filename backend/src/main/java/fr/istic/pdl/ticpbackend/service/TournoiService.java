@@ -2,9 +2,11 @@ package fr.istic.pdl.ticpbackend.service;
 
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.repository.*;
+import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 /**
@@ -18,6 +20,9 @@ public class TournoiService {
     TableauRepository tableauRepository;
     MatchPouleRepository matchPouleRepository;
     MatchTableauRepository matchTableauRepository;
+    InformationRepository informationRepository;
+    PhotoRepository photoRepository;
+
 
     /**
      * Permet de retourner le tournoi en cours
@@ -75,6 +80,7 @@ public class TournoiService {
             updateDateDebutTableau(tournoi,update);
             updateDateFinTournoi(tournoi,update);
             repository.save(update);
+
         }
         else{
             throw new RuntimeException("Tournoi introuvable");
@@ -127,6 +133,118 @@ public class TournoiService {
             throw new RuntimeException("Date de fin du tournoi inadmissible");
         }
     }
+    public void addPhoto(String url,Tournoi tournoi){
+        if(!repository.existsById(tournoi.getId())){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(url.isEmpty()){
+            throw new RuntimeException("Aucune photo à enregistrer");
+        }
+        else{
+            Photo photo = new Photo();
+            photo.setUrl(url);
+            photo.setTournoi(tournoi);
+            photoRepository.save(photo);
+        }
+    }
+    public void updatePhoto(Long idPhoto, Long idTournoi, Photo photo){
+        if(photo.getTournoi().getId()!=idTournoi){
+            throw new RuntimeException("Erreur identifiant de tournoi");
+        }
+        else if(!photoRepository.existsById(idPhoto)){
+            throw new RuntimeException("Erreur identifiant de la photo");
+        }
+        else if(photo.getUrl().isEmpty()){
+            throw new RuntimeException("Url obligatoire");
+        }
+        else {
+            Photo update = photoRepository.findById(idPhoto).get();
+            update.setUrl(photo.getUrl());
+            photoRepository.save(update);
+        }
+    }
+    public List<Photo> getPhotos(Long id){
+        return repository.findById(id).get().getPhotos();
+    }
+    public Photo getPhoto(Long idPhoto, Long idTournoi){
+        Photo photo = photoRepository.findById(idPhoto).get();
+        if(photo.getTournoi().getId()==idTournoi){
+            return photo;
+        }
+        else {
+            throw new RuntimeException("Photo introuvable");
+        }
+    }
+    public void removePhoto(Long idPhoto, Long id){
+        if(!photoRepository.existsById(idPhoto)){
+            throw new RuntimeException("Photo introuvable");
+        }
+        else if(!repository.existsById(id)){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(photoRepository.findById(idPhoto).get().getTournoi().getId()!=id){
+            throw new RuntimeException("La photo ne correspond pas au tournoi");
+        }
+        else{
+            photoRepository.deleteById(idPhoto);
+        }
+    }
+    public void addInformation(String info, Tournoi tournoi){
+        if(!repository.existsById(tournoi.getId())){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(info.isEmpty()){
+            throw new RuntimeException("Aucune information à enregistrer");
+        }
+        else {
+            Information information= new Information();
+            information.setInfo(info);
+            information.setTournoi(tournoi);
+            informationRepository.save(information);
+        }
+    }
+    public List<Information> getInfos(Long id){
+        return repository.findById(id).get().getInformations();
+    }
+    public Information getInfo(Long idInfo, Long idTournoi){
+        Information information = informationRepository.findById(idInfo).get();
+        if(information.getTournoi().getId()==idTournoi){
+            return information;
+        }
+        else{
+            throw new RuntimeException("Introuvable");
+        }
+    }
+    public void updateInformation(Long idInfo, Long idTournoi, Information information){
+        if(information.getTournoi().getId()!=idTournoi){
+            throw new RuntimeException("Erreur identifiant de tournoi");
+        }
+        else if(!informationRepository.existsById(idInfo)){
+            throw new RuntimeException("Erreur identifiant information");
+        }
+        else if(information.getInfo().isEmpty()){
+            throw new RuntimeException("Url obligatoire");
+        }
+        else {
+            Information update = informationRepository.findById(idInfo).get();
+            update.setInfo(information.getInfo());
+            informationRepository.save(update);
+        }
+    }
+    public void removeInformation(Long idInfo, Long id){
+        if(!informationRepository.existsById(idInfo)){
+            throw new RuntimeException("Info introuvable");
+        }
+        else if(!repository.existsById(id)){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(informationRepository.findById(idInfo).get().getTournoi().getId()!=id){
+            throw new RuntimeException("L'info ne correspond pas au tournoi");
+        }
+        else{
+            informationRepository.deleteById(idInfo);
+        }
+    }
     public List<Equipe> getEquipes(Long id){
         return repository.findById(id).get().getEquipes();
     }
@@ -141,8 +259,18 @@ public class TournoiService {
     }
 
     public List<Tableau> getTableauxByRang(Long id, Long rang){
-        
-        return repository.getTableauxByRang(id,rang);
+        List<Tableau> tableaux = new ArrayList<>();
+        for(Tableau tableau :repository.findById(id).get().getTableaux()){
+            if(tableau.getRang()==rang){
+                tableaux.add(tableau);
+            }
+        };
+        if(tableaux.isEmpty()){
+            throw new RuntimeException("Aucun tableau de rang "+rang);
+        }
+        else{
+            return tableaux;
+        }
     }
 
     /**
@@ -561,4 +689,31 @@ public class TournoiService {
             }
         }
     }
+    /*private void refreshTournois(){
+        for(Tournoi update:repository.findAll()){
+            try {
+                if(LocalDate.now().isEqual(update.getDateFinInscription())){
+                    createGroupes(update.getId());
+                }
+                if(LocalDate.now().isEqual(update.getDateFinPoule())){
+                    createTableaux(update.getId());
+                }
+            }
+            catch (RuntimeException e){
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+    private synchronized void periodicRefresh(){
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                refreshTournois();
+            }
+        }, 0, 5000);
+    }
+
+     */
 }
