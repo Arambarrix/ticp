@@ -14,21 +14,21 @@
 <template>
     <div class="my-8">
         <p class="my-5 text-dark-brown text-lg md:text-2xl text-center font-bold">Finale</p>
-        <MatchListTableVue class="w-full" :data="matchList"/>
+        <MatchListTableVue class="w-full" :data="matchList" type="tableau"/>
     </div>
 
     <div class="my-8">
         <p class="my-5 text-dark-brown text-lg md:text-2xl text-center font-bold">Demi Finale</p>
-        <MatchListTableVue class="w-full" :data="matchList"/>
+        <MatchListTableVue class="w-full" :data="matchList" type="tableau"/>
     </div>
 
     <div class="my-8">
         <p class="my-5 text-dark-brown text-lg md:text-2xl text-center font-bold">Quart de Finale</p>
-        <MatchListTableVue class="w-full" :data="matchList"/>
+        <MatchListTableVue class="w-full" :data="matchList" type="tableau"/>
     </div>
 
     <div class="my-8">
         <p class="my-5 text-dark-brown text-lg md:text-2xl text-center font-bold">Huitième de Finale</p>
-        <MatchListTableVue class="w-full" :data="matchList"/>
+        <MatchListTableVue class="w-full" :data="matchList" type="tableau"/>
     </div>
 </template>

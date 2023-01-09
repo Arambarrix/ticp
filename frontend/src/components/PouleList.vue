@@ -37,7 +37,7 @@
         <div class="my-8" v-for="poule in props.poules">
             <p class="my-5 text-dark-brown text-lg md:text-2xl text-center font-bold">{{ poule.info.nom }}</p>
             <div class="flex flex-col md:flex-row justify-between">
-                <MatchListTableVue class="w-full md:w-1/2" :data="poule.info.listMatchs"/>
+                <MatchListTableVue class="w-full md:w-1/2" :data="poule.info.listMatchs" type="poule"/>
                 <TeamListTableVue class="w-full md:w-1/2" :classements="poule.classements"/>
             </div>
         </div>
