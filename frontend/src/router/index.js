@@ -10,16 +10,16 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/historique',
+      path: '/historique/:year',
       name: 'historique',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/HistoriqueView.vue')
+      component: () => import('../views/GalerieView.vue')
     },
 
     {
-      path: '/galerie',
+      path: '/galerie/:year',
       name: 'galerie',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
@@ -72,14 +72,7 @@ const router = createRouter({
       component: () => import('../views/TableauView.vue')
       },
 
-      {
-          path: '/admin/tableaux/:year',
-          name: 'tableaux_admin',
-          // route level code-splitting
-          // this generates a separate chunk (About.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () => import('../views/admin/TableauView.vue')
-      },
+  
       
     {
       path: '/equipes',
@@ -91,21 +84,31 @@ const router = createRouter({
     },
 
     {
-        path: '/admin/equipe/:year',
-        name: 'equipe_admin',
-        // route level code-splitting
-        // this generates a separate chunk (About.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('../views/admin/EquipeView.vue')
-      },
-
-    {
       path: '/inscrire_equipe',
       name: 'inscrire_equipe',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CreateTeamView.vue')
+      },
+
+
+      {
+        path: '/admin/tableaux/:year',
+        name: 'tableaux_admin',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('../views/admin/TableauView.vue')
+    },
+
+    {
+        path: '/admin/equipe/:year',
+        name: 'equipe_admin',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('../views/admin/EquipeView.vue')
       },
 
     {
@@ -120,7 +123,7 @@ const router = createRouter({
 
       {
           path: '/admin/information_utile',
-          name: 'historique',
+          name: 'admin_historique',
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.

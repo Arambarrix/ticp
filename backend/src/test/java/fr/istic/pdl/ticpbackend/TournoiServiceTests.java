@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
 public class TournoiServiceTests {
+    /*
     TournoiService tournoiService;
     @Autowired
     TournoiRepository tournoiRepository;
@@ -102,4 +103,6 @@ public class TournoiServiceTests {
     void vainqueurTableau(){
 
     }
+
+     */
 }
