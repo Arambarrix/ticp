@@ -45,6 +45,8 @@ public class MatchTableauController {
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }
+
+         */
     }
 
     @DeleteMapping("/{id}")
