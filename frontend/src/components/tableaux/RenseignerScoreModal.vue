@@ -5,17 +5,18 @@ import { Tableaux } from "@/stores/user/tableau"
 
 
 const pouleStore = Poules();
-const tableauxStore = Poules();
+const tableauStore = Tableaux();
 
 const show = ref(false);
-const props = defineProps({match:Object, type:String});
+const props = defineProps({match:Object, type:String, rang:String});
 const id = props.match.id;
 const score_equipe_1 = ref(props.match.score1);
 const score_equipe_2 = ref(props.match.score2);
 
 const errors = computed(() => { 
-  return pouleStore.errors; 
-  }) 
+  return props.type == "poule" ? pouleStore.errors:tableauStore.errors; 
+ }) 
+
 
 
 
@@ -27,29 +28,46 @@ function validateFields() {
 
 
 async function store() {
-    pouleStore.errors =""
+  if(props.type == "poule"){
+      pouleStore.errors =""
+      if(validateFields() === false){
 
-    if(validateFields() === false){
-      pouleStore.errors = "Tous les champs sont requis !";
-    }
-    
-    else{
-      if(props.type == "poule"){
+        pouleStore.errors = "Tous les champs sont requis !";
+      }
+
+      else{
           await pouleStore.renseigner_score(id, {
           "scoreA":score_equipe_1.value,
           "scoreB":score_equipe_2.value,
           "id":id
         })
       }
-      else{
 
-      }
-      
       if(errors == ""){
           toggleModal();
       }
-        
-    }
+  }
+  else{
+    tableauStore.errors =""
+      if(validateFields() === false){
+
+        tableauStore.errors = "Tous les champs sont requis !";
+      }
+
+      else{
+        await tableauStore.renseigner_score(id, {
+            "scoreA":score_equipe_1.value,
+            "scoreB":score_equipe_2.value,
+            "id":id
+          },
+          parseInt(props.rang)
+        )
+      }
+
+      if(errors == ""){
+          toggleModal();
+      }
+  }
     
 }
 

@@ -25,7 +25,10 @@ import { Tableaux } from '../stores/user/tableau';
   var can_edit = true;
 
   var tableau_colors=["#FBBF24", "#9CA3AF", "#cd7f32"]
-  var tableaux = [{"nom":"Or", "rang":1}, {"nom":"argent", "rang":2}, {"nom":"Bronze", "rang":3}, {"nom":"Autre", "rang":4}]
+  var trio = [{"nom":"Or", "rang":1}, {"nom":"argent", "rang":2}, {"nom":"Bronze", "rang":3}, {"nom":"Autre", "rang":4}]
+
+  tableaustore.getAll()
+  const tableaux = computed(()=>tableaustore.getTableaux)
 
     const tournoi_tableaux_length = computed(()=>tournoiStore.getTableauxLength);
     const tournoi_equipes_length = computed(()=>tournoiStore.getEquipesLength);
@@ -40,7 +43,7 @@ import { Tableaux } from '../stores/user/tableau';
     })
 
   function previous(){
-    if(rang.value != 1){
+    if(rang.value != 0){
       router.push({
                   name: 'tableaux',
                   params: { rang: parseInt(rang.value)-1 }
@@ -49,7 +52,7 @@ import { Tableaux } from '../stores/user/tableau';
   }
 
   function next(){
-    if(rang.value != tableaux.length){
+    if(rang.value != tableaux.value.length-1){
       router.push({
                   name: 'tableaux',
                   params: { rang: parseInt(rang.value)+1 }
@@ -59,9 +62,9 @@ import { Tableaux } from '../stores/user/tableau';
   
 
   var cssVars = computed(() => {
-    if (rang.value <= 3){
+    if (rang.value < 3){
       return {
-        '--bg-color': tableau_colors[parseInt(rang.value)-1],
+        '--bg-color': tableau_colors[parseInt(rang.value)],
       }
     }
     else{
@@ -94,13 +97,18 @@ import { Tableaux } from '../stores/user/tableau';
 
       <div class="tableauColor flex flex-row justify-center space-x-10 text-white items-center font-bold py-2  rounded-lg mb-12" :style="cssVars">
         <i class="fa-regular fa-angle-left cursor-pointer"  @click="previous()"></i>
-        <span class="text-lg sm:text-xl md:text-3xl">Tableau <span class="capitalize">{{tableaux[rang-1].nom}}</span></span>
+        <span class="text-lg sm:text-xl md:text-3xl">Tableau 
+            <span v-if="rang < 3" class="capitalize">{{trio[rang].nom}}</span>
+
+            <span  v-else class="capitalize">{{tableaux[rang].rang + 1 }}</span>
+
+       </span>
         <i class="fa-regular fa-angle-right cursor-pointer" @click="next()"></i>
 
       </div>
 
 
-      <TableauListVue  :tours="tableau.tours" :can_edit="can_edit"/>
+      <TableauListVue  :tours="tableau.tours" :rang="rang" :can_edit="can_edit"/>
     </div>
   </main>
   

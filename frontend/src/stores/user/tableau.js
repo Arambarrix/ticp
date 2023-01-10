@@ -16,13 +16,13 @@ export const Tableaux = defineStore("tableaux", {
   },
   actions: {
     
-    async getAll(rang, year=new Date().getFullYear()){
+    async getAll(year=new Date().getFullYear()){
       const constants = Constants();
       await axios.get(constants.APIURI + "tournoi/"+year+"/tableaux")
                  .then((data) => {
                     if(data.data.code ==200){
                       this.tableaux =  data.data.data
-
+                      console.log(this.tableaux)
                     }
                     else{
                       this.errors =  data.data.errors
@@ -35,13 +35,13 @@ export const Tableaux = defineStore("tableaux", {
                 });
     },
 
-    async getTab(year, rang){
+    async getTab(rang, year=new Date().getFullYear()){
       const constants = Constants();
-      await axios.get(/*constants.APIURI + "tournoi/"+year+"/tableaux/"+rang*/ "http://localhost:8081/api/v1/tableaux/114/matchs_tableaux_tour")
+      await axios.get(constants.APIURI + "tournoi/"+year+"/tableaux/"+rang)
                  .then((data) => {
                     if(data.data.code ==200){
                       this.tableau =  data.data.data
-
+                      console.log(this.tableau)
                     }
                     else{
                       this.errors =  data.data.errors
@@ -54,20 +54,21 @@ export const Tableaux = defineStore("tableaux", {
                 });
     },
 
-    async renseigner_score(id_match, data){
+    async renseigner_score(id_match, data, rang){
       const constants = Constants();
-      let result = await axios.put(constants.APIURI + "match_poules/"+id_match,
+      let result = await axios.put(constants.APIURI + "match_tableaux/"+id_match,
         data
       );
+      console.log(rang)
       if(result.data.code ==200){
-        this.getAllByYear(constants.year)
+        this.getTab(rang)
       }
       else{
         this.errors =  result.data.errors
       }
     },
    
-
+    //admin
     async launch_creation(data){
       const constants = Constants();
       let result = await axios.put(constants.APIURI + "create-groupes/");
