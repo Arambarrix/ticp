@@ -31,8 +31,7 @@
         {
             id: 1,
             url:
-
-            'https://cdn.pixabay.com/photo/2021/11/11/13/08/leopard-6786267__340.jpg',
+            'https://cdn.pixabay.com/photo/2019/07/21/22/32/bule-4353765_960_720.jpg',
         },
         {
             id: 2,
@@ -89,7 +88,6 @@
             url:
                 'https://img.freepik.com/photos-gratuite/amis-ages-jouant-petanque_23-2149443921.jpg?w=740&t=st=1673362835~exp=1673363435~hmac=0dd3037cf2e6d1a81d7a250e147b0bfaf8bcdec0d170c1980a6555f7da970310',
         }
-     
     ]
 
 </script>
