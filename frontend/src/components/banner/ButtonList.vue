@@ -6,6 +6,7 @@
     const classes = reactive({ actif_class:"text-white bg-[#3A1900] rounded-full",  other_class:"text-black bg-white rounded-full"})
 
     if(!props.is_fully_rounded){
+        
         classes.actif_class="text-white bg-[#3A1900] rounded-xl"
         classes.other_class="text-black bg-white rounded-xl"
     }
