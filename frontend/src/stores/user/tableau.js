@@ -5,22 +5,22 @@ import router from "@/router"
 
 export const Tableaux = defineStore("tableaux", {
   state: () => ({
-    poules:[],
-    poule: {},
+    tableaux:[],
+    tableau: {},
     errors:"",
     success:[]
   }),
   getters: {
-    getPoules: (state) => state.poules,
+    getTableaux: (state) => state.tableaux,
   },
   actions: {
     
-    async getAllByYear(year){
+    async getAll(year, rang){
       const constants = Constants();
-      await axios.get(constants.APIURI + "tournoi/"+year+"/poules")
+      await axios.get(constants.APIURI + "tournoi/"+year+"/tableaux/"+rang)
                  .then((data) => {
                     if(data.data.code ==200){
-                      this.poules =  data.data.data
+                      this.tableaux =  data.data.data
 
                     }
                     else{

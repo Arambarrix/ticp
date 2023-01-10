@@ -2,7 +2,6 @@ package fr.istic.pdl.ticpbackend.service;
 
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.repository.*;
-import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 
 import org.json.simple.JSONObject;
@@ -385,8 +384,6 @@ public class TournoiService {
                             Equipe equipe = allTeams.get(new Random().nextInt(allTeams.size()));
                             listHashMap.get(groupe).add(equipe);
                             allTeams.remove(equipe);
-                        }else{
-                            throw new RuntimeException("Plus d'équipes disponible");
                         }
                     }
                     pouleRepository.save(groupe);
