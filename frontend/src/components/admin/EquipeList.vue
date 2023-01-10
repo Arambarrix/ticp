@@ -44,7 +44,7 @@
                                 </td>
                                 <td class="w-1/5 px-6 py-3  text-sm text-center font-medium text-gray-900">{{match.matchgagne}}</td>
 
-                                <td class="w-1/6 text-sm text-white font-light px-6 py-3 text-center">
+                                <td class="w-1/5 text-sm text-white font-light px-6 py-3 text-center">
                                     <div class="text-center p-1 bg-blue-900">
                                         <i class="fa-thin fa-pen text-white cursor-pointer font-bold" @click="toggleModal" title="modifier"></i><span class="text-white font-bold">  modifier</span>
                                     </div>
