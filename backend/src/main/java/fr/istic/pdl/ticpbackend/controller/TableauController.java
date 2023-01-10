@@ -73,8 +73,5 @@ public class TableauController {
             return Constants.error(e, 404);
         }
     }
-    @GetMapping("/{id}/matchs_tableaux_tour")
-    private ResponseEntity<Object> getMatchsTableauByTour(@PathVariable("id") int id){
-        return new ResponseEntity<>(tableauService.getMatchsByTour(tableauService.getTableau((long)id)),OK);
-    }
+
 }

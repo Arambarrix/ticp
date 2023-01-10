@@ -199,30 +199,5 @@ public class TableauService {
     public List<Tableau> getTableaux() {
         return repository.findAll();
     }
-    public TableauDto getMatchsByTour(Tableau tableau){
-        List<MatchTableau> matchsTableau = tableau.getListMatchs();//Tous les matchs d'un tableau
-        List<TourDto> tours = new ArrayList<>();//
-        List<Integer> rounds = new ArrayList<>();//Tous les rounds d'un tableau
-        for(MatchTableau matchTableau:matchsTableau){
-            rounds.add(matchTableau.getTour());
-        }
-        System.out.println(rounds);
-        for(int i=0;i< rounds.size();i++){
-            while(Collections.frequency(rounds,i)>1){
-                rounds.remove(i);
-            }
-        }
-        for(Integer integer : rounds){
-            List<MatchTableau> matchsByTour = new ArrayList<>();
-            for (MatchTableau matchTableau:matchsTableau){
-                if(matchTableau.getTour()==integer){
-                    matchsByTour.add(matchTableau);
-                }
-            }
-            tours.add(new TourDto("Tour " + integer, integer, matchsByTour));
-
-        }
-        return new TableauDto(Math.toIntExact(tableau.getId()),tableau.getRang(),tours);
-    }
 }
 
