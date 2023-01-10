@@ -61,17 +61,28 @@ Il est requis d'installer:
 
 
 ### Installation
-Rien pour le moment
+Consultez le fichier [INSTALL.md](https://gitlab.istic.univ-rennes1.fr/wtraloutoure/ticp-backend/-/blob/main/INSTALL.md)
 
 ### Démarrage
 
 Une fois tous les prérequis respectés, pour lancer le projet
 ```bash
 cd  frontend
+npm install
 npm run dev
 ```
 Dans une autre console lancer l'application spring boot au niveau du backend
 
+### Principes de fonctionnement
+
+- La première action à effectuer est de se connecter en tant que Admin
+- Créer un Tournoi (avec les dates de chaque phase)
+- Ensuite les utilisateurs pourront inscrire leur équipes
+- Une fois la date de fin inscription arrivée, l'insciption des équipes n'est plus possible
+- L'admin doit se connecter et générer les Poules (cela se fait automatiquement grâce à un bouton)
+- Une fois les Poules générées, rien ne peut être modifié sauf les scores
+- Lorsque la phase de poule est terminée, l'administrateur doit se connecter et générer les Tableaux (cela se fait aussi automatiquement)
+- A partir de là, les matchs des poules ne sont plus modifiables ni par l'utilisateur, ni par l'administrateur
 
 ## Versions
 Notre projet sera réalisé en deux versions:
