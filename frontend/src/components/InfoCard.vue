@@ -1,7 +1,7 @@
 <script setup>
     import { computed } from 'vue'
 
-    const props = defineProps({'image':String , 'number':String , 'text':String, 'color':String});
+    const props = defineProps({'image':String , 'number':Number , 'text':String, 'color':String});
 
     var cssVars = computed(() => {
         return {

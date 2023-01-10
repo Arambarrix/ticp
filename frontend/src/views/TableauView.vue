@@ -17,7 +17,6 @@
   var tableaux = [{"nom":"Or", "rang":1}, {"nom":"argent", "rang":2}, {"nom":"Bronze", "rang":3}, {"nom":"Autre", "rang":4}]
   var infoCardDatas={
         "equipe":{'image':'user.png', 'number':"89", 'text':"Equipes Inscrites", 'color':"#1B2A5A"},
-        "match":{'image':'flag.png', 'number':"15", 'text':"Matchs Joués", 'color':"#3A0000"},
         "poule":{'image':'group.png', 'number':"12", 'text':"Poules Générées", 'color':"#195937"},
         "tableau":{'image':'network.png', 'number':"3", 'text':"Tableaux crées", 'color':"#00253A"}
   }
@@ -65,9 +64,8 @@
     <BannerVue :actif="actif"/>
     <div class="py-10 ">
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-16">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-16 justify-items-stretch mb-16">
           <InfoCardVue v-bind="infoCardDatas.equipe"/>
-          <InfoCardVue v-bind="infoCardDatas.match"/>
           <InfoCardVue v-bind="infoCardDatas.poule"/>
           <InfoCardVue v-bind="infoCardDatas.tableau"/>
       </div>

@@ -1,44 +1,56 @@
 <script setup>
 import { ref, defineProps, computed } from "vue";
-//import { useUserStore } from "@/stores/users"
+import { Poules } from "@/stores/user/poule"
+import { Tableaux } from "@/stores/user/tableau"
 
 
-//const user = useUserStore();
+const pouleStore = Poules();
+const tableauxStore = Poules();
+
 const show = ref(false);
-const props = defineProps({match:Object});
+const props = defineProps({match:Object, type:String});
 const id = props.match.id;
 const score_equipe_1 = ref(props.match.score1);
 const score_equipe_2 = ref(props.match.score2);
-const errors = ref("")
+
+const errors = computed(() => { 
+  return pouleStore.errors; 
+  }) 
+
+
 
 function validateFields() {
-  if(!score_equipe_1.value || !score_equipe_2.value){
+  if(score_equipe_1.value  == null || score_equipe_2.value == null){
     return false;
   }
 }
 
 
 async function store() {
-    errors.value=""
+    pouleStore.errors =""
+
     if(validateFields() === false){
-        errors.value = "Tous les champs sont requis !";
+      pouleStore.errors = "Tous les champs sont requis !";
     }
-    /*
+    
     else{
-        if(validateOld()){
-            await user.update(id, {
-            "score_equipe_1":score_equipe_1.value,
-            "score_equipe_2":score_equipe_2.value,
-            })
-        if(errors === ""){
-            toggleModal();
-        }
-        }
-        else{
-            errors = "Only people from old 13 to 35 are allowed !"
-        }
+      if(props.type == "poule"){
+          await pouleStore.renseigner_score(id, {
+          "scoreA":score_equipe_1.value,
+          "scoreB":score_equipe_2.value,
+          "id":id
+        })
+      }
+      else{
+
+      }
+      
+      if(errors == ""){
+          toggleModal();
+      }
+        
     }
-    */
+    
 }
 
 function toggleModal() {

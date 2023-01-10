@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.service;
 
+import fr.istic.pdl.ticpbackend.dto.EquipeDto;
 import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.MatchPoule;
 import fr.istic.pdl.ticpbackend.model.Poule;
@@ -115,14 +116,14 @@ public class PouleService {
 
     }
 
-    public Map<Equipe,Map<Integer,Integer>> getClassement(Long id){
+    public List<EquipeDto> getClassement(Long id){
         if(!repository.existsById(id)){
             throw new RuntimeException("Poule inexistante");
         }
         else{
             List<MatchPoule> matchPoules = repository.findMatchsPoulesByPoule(id);
             List<Equipe> equipes = repository.findAllTeamsByPouleQuery(id);
-            Map<Equipe,Map<Integer,Integer>> classement = new HashMap<>();//classement final
+            List<EquipeDto> classement = new ArrayList<>();//classement final
             Map<Equipe,List<MatchPoule>> victoiresEquipes = new HashMap<>();//Map entre les équipes et leurs victoires en matchs de poule
             Map<Equipe,Integer> pointsEquipes = new HashMap<>(); //Map entre les équipes et leur nombre de points respectifs
             for(Equipe equipe:equipes){
@@ -161,9 +162,11 @@ public class PouleService {
                 return value;
             });
             for(int i=0;i<equipes.size();i++){
-                Map<Integer,Integer> resultat = new HashMap<>();
-                resultat.put(victoiresEquipes.get(equipes.get(i)).size(),pointsEquipes.get(equipes.get(i)));
-                classement.put(equipes.get(i),resultat);
+                Equipe equipe = equipes.get(i);
+                int rang = i+1;
+                int points = pointsEquipes.get(equipe);
+                int victoires = victoiresEquipes.get(equipe).size();
+                classement.add(new EquipeDto(equipe,rang,points,victoires));
                 //System.out.println((i+1)+"-"+equipes.get(i).getId()+"-"+victoiresEquipes.get(equipes.get(i)).size()+"-"+pointsEquipes.get(equipes.get(i)));
 
             }
