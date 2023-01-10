@@ -15,7 +15,7 @@
         return route.params.rang
     })
 
-    tournoiStore.getActualTournoiInfo()
+    tournoiStore.getTournoiInfo()
     var actif = "Poules";
 
     var infoCardDatas = {
