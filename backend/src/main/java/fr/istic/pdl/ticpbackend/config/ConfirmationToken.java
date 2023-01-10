@@ -1,5 +1,6 @@
 package fr.istic.pdl.ticpbackend.config;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import fr.istic.pdl.ticpbackend.model.Admin;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class ConfirmationToken {
     private LocalDateTime connexion;
     @ManyToOne
     @JoinColumn(name = "admin_id")
+    @JsonBackReference
     private Admin admin;
 
     public ConfirmationToken(String token, LocalDateTime creation, LocalDateTime expiration, Admin admin) {
