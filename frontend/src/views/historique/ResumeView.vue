@@ -21,7 +21,8 @@
   } )
 
   tournoiStore.getTournoiInfo(year.value)
-  
+  tournoiStore.getVainqueursByYear(year.value)
+
   const tournoi_tableaux_length = computed(()=>tournoiStore.getTableauxLength);
   const tournoi_equipes_length = computed(()=>tournoiStore.getEquipesLength);
   const tournoi_poules_length = computed(()=>tournoiStore.getPoulesLength);
@@ -36,9 +37,7 @@
 
   console.log(infoCardDatas.value)
 
-
-  teamStore.getAllByYear(new Date().getFullYear())
-  const teams = computed(()=>teamStore.getTeams );
+  const vainqueurs = computed(()=>tournoiStore.getVainqueurs );
 
 </script>
 <template>
@@ -54,8 +53,8 @@
     
     <div>
       <p class="font-bold text-clear-brown text-center text-md md:text-xl">Vainqueurs</p>
-      <TeamListVue :teams="teams" show_header="false"/>
-
+      <TeamListVue  v-if="vainqueurs.length" :teams="vainqueurs" show_header="false" />
+      <p v-else class="text-center my-5 text-red-500"> Pas de vainqueurs pour le moment</p>
     </div>
 
   </div>  
