@@ -28,7 +28,7 @@ const router = createRouter({
     },
 
     {
-      path: '/admin',
+      path: '/admin/:year',
       name: 'admin',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
@@ -90,7 +90,7 @@ const router = createRouter({
         // this generates a separate chunk (About.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('../views/admin/EquipeView.vue')
-      },
+    },
 
     {
       path: '/inscrire_equipe',
@@ -99,7 +99,7 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CreateTeamView.vue')
-      },
+    },
 
 
       {
@@ -132,7 +132,7 @@ const router = createRouter({
 
       {
           path: '/admin/information_utile',
-          name: 'admin_historique',
+          name: 'admin_information_utile',
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
@@ -140,7 +140,7 @@ const router = createRouter({
       },
 
       {
-          path: '/admin/photo',
+          path: '/admin/photo/:year',
           name: 'photo_admin',
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
