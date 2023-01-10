@@ -6,9 +6,7 @@ import fr.istic.pdl.ticpbackend.repository.*;
 import fr.istic.pdl.ticpbackend.service.AdminService;
 import fr.istic.pdl.ticpbackend.service.ConfirmationTokenService;
 import fr.istic.pdl.ticpbackend.service.TournoiService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AdminServiceTests {
     AdminService adminService;
     ConfirmationTokenService confirmationTokenService;
@@ -27,40 +26,43 @@ public class AdminServiceTests {
     AdminRepository adminRepository;
     @Autowired
     ConfirmationTokenRepository confirmationTokenRepository;
-    Admin admin;
+
     @BeforeEach
     void setUp(){
         confirmationTokenService = new ConfirmationTokenService(confirmationTokenRepository);
         adminService = new AdminService(adminRepository,new BCryptPasswordEncoder(),confirmationTokenService);
-        admin = new Admin();
-        admin.setUsername("arambarrix");
-        admin.setPassword("chelingo");
     }
 
     @Test
+    @Order(1)
     void register(){
+        if(!adminRepository.findAll().isEmpty()){
+            adminRepository.deleteAll();
+        }
+        Admin admin = new Admin();
+        admin.setUsername("arambarrix");
+        admin.setPassword("chelingo");
         adminService.signUpUser(admin);
         assertFalse(adminRepository.findAll().isEmpty());
     }
     @Test
+    @Order(2)
     void findAdmin(){
-        adminService.signUpUser(admin);
-        assertNotNull(adminRepository.findByUsername(admin.getUsername()));
+        assertNotNull(adminRepository.findByUsername("arambarrix"));
     }
     @Test
+    @Order(3)
     void seConnecterByRegister(){
-        adminService.signUpUser(admin);
-        assertTrue(adminRepository.findByUsername(admin.getUsername()).isLogged());
+        assertTrue(adminRepository.findByUsername("arambarrix").isLogged());
     }
     @Test
+    @Order(4)
     void deConnecter(){
-        adminService.signUpUser(admin);
+        Admin admin = new Admin();
+        admin.setUsername("arambarrix");
         adminService.seDeconnecter(admin);
         assertFalse(adminRepository.findByUsername(admin.getUsername()).isLogged());
         //assertDoesNotThrow(()->adminService.seDeconnecter(admin));
-
-
-
     }
 
 }
