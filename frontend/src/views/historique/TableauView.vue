@@ -1,18 +1,26 @@
 <script setup>
-  import BannerVue from '../components/banner/Banner.vue';
-  import TableauListVue from '../components/TableauList.vue';
-  import InfoCardVue from '../components/InfoCard.vue';
-  import { useRoute,useRouter, RouterLink } from "vue-router";
-  import { ref, computed} from 'vue'
+  import BannerVue from "../../components/historique/banner.vue";
+  import TableauListVue from "../../components/TableauList.vue";
   import { Tournois } from "@/stores/user/tournoi"
+  import { Teams } from "@/stores/user/team"
+  import { useRoute,useRouter } from "vue-router";
+  import { ref, computed} from 'vue'
 
+  const tournoiStore = Tournois();
+  const teamStore = Teams();
   const route = useRoute();
   const router = useRouter()
-  const tournoiStore = Tournois();
+
+  const actif = "Tableaux";
+  const show_poules_menu =true;
+  const can_edit = false;
+
+  const year = computed(()=>{
+    return route.params.year
+  } )
+  
   tournoiStore.getTournoiInfo()
 
-  var actif = "Tableaux";
-  var can_edit = true;
 
   var tableau_colors=["#FBBF24", "#9CA3AF", "#cd7f32"]
   var tableaux = [{"nom":"Or", "rang":1}, {"nom":"argent", "rang":2}, {"nom":"Bronze", "rang":3}, {"nom":"Autre", "rang":4}]
@@ -25,8 +33,8 @@
   function previous(){
     if(rang.value != 1){
       router.push({
-                  name: 'tableaux',
-                  params: { rang: parseInt(rang.value)-1 }
+                  name: 'historique_tableaux',
+                  params: { year: year.value, rang: parseInt(rang.value)-1 }
               })
     } 
   }
@@ -34,8 +42,8 @@
   function next(){
     if(rang.value != tableaux.length){
       router.push({
-                  name: 'tableaux',
-                  params: { rang: parseInt(rang.value)+1 }
+                  name: 'historique_tableaux',
+                  params: {year: year.value,  rang: parseInt(rang.value)+1 }
               })
     } 
   }
@@ -65,18 +73,14 @@
       color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
     return color;
   }
+
+
 </script>
-
 <template>
-  <main>
-    <BannerVue :actif="actif"/>
-    <div class="py-10 ">
+  <div class="flex flex-col space-y-10">
+    <BannerVue :year="year" base_link="/historiques/" :actif="actif" :show_poules_menu="show_poules_menu"/>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-16 justify-items-stretch mb-16">
-          <InfoCardVue v-bind="infoCardDatas.equipe"/>
-          <InfoCardVue v-bind="infoCardDatas.poule"/>
-          <InfoCardVue v-bind="infoCardDatas.tableau"/>
-      </div>
+    <div class="py-10 ">
 
       <div class="tableauColor flex flex-row justify-center space-x-10 text-white items-center font-bold py-2  rounded-lg mb-12" :style="cssVars">
         <i class="fa-regular fa-angle-left cursor-pointer"  @click="previous()"></i>
@@ -85,11 +89,11 @@
 
       </div>
 
-
       <TableauListVue  :can_edit="can_edit"/>
     </div>
-  </main>
-  
+    
+
+  </div>  
 </template>
 
 <style scoped>

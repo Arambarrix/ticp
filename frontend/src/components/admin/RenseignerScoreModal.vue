@@ -1,56 +1,44 @@
 <script setup>
 import { ref, defineProps, computed } from "vue";
-import { Poules } from "@/stores/user/poule"
-import { Tableaux } from "@/stores/user/tableau"
+//import { useUserStore } from "@/stores/users"
 
 
-const pouleStore = Poules();
-const tableauxStore = Poules();
-
+//const user = useUserStore();
 const show = ref(false);
-const props = defineProps({match:Object, type:String});
+const props = defineProps({match:Object});
 const id = props.match.id;
 const score_equipe_1 = ref(props.match.score1);
 const score_equipe_2 = ref(props.match.score2);
-
-const errors = computed(() => { 
-  return pouleStore.errors; 
-  }) 
-
-
+const errors = ref("")
 
 function validateFields() {
-  if(score_equipe_1.value  == null || score_equipe_2.value == null){
+  if(!score_equipe_1.value || !score_equipe_2.value){
     return false;
   }
 }
 
 
 async function store() {
-    pouleStore.errors =""
-
+    errors.value=""
     if(validateFields() === false){
-      pouleStore.errors = "Tous les champs sont requis !";
+        errors.value = "Tous les champs sont requis !";
     }
-    
+    /*
     else{
-      if(props.type == "poule"){
-          await pouleStore.renseigner_score(id, {
-          "scoreA":score_equipe_1.value,
-          "scoreB":score_equipe_2.value,
-          "id":id
-        })
-      }
-      else{
-
-      }
-      
-      if(errors == ""){
-          toggleModal();
-      }
-        
+        if(validateOld()){
+            await user.update(id, {
+            "score_equipe_1":score_equipe_1.value,
+            "score_equipe_2":score_equipe_2.value,
+            })
+        if(errors === ""){
+            toggleModal();
+        }
+        }
+        else{
+            errors = "Only people from old 13 to 35 are allowed !"
+        }
     }
-    
+    */
 }
 
 function toggleModal() {
@@ -64,7 +52,7 @@ function toggleModal() {
 
 <template>
 
-    <i class="fa-thin fa-pen text-dark-brown cursor-pointer font-bold" @click="toggleModal" title="Renseigner Score"></i>
+    <i class="fa-thin fa-pen text-dark-brown cursor-pointer font-bold" @click="toggleModal" title="modifier"></i><span class="text-black font-bold">  modifier</span>
 
   <div
     v-if="show"
