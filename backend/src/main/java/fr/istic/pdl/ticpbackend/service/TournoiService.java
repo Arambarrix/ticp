@@ -277,12 +277,9 @@ public class TournoiService {
                 vainqueurs.add(val.getValue().getEquipeB());
             }
         }
-        if(vainqueurs.isEmpty()){
-            throw new RuntimeException("Aucune équipe vainqueur pour l'instant");
-        }
-        else{
-            return vainqueurs;
-        }
+ 
+        return vainqueurs;
+        
     }
     public List<Poule> getPoules(Long id){
         
