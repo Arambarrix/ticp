@@ -2,6 +2,7 @@ package fr.istic.pdl.ticpbackend;
 
 import fr.istic.pdl.ticpbackend.model.Tournoi;
 import fr.istic.pdl.ticpbackend.repository.*;
+import fr.istic.pdl.ticpbackend.service.PouleService;
 import fr.istic.pdl.ticpbackend.service.TournoiService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
 public class TournoiServiceTests {
-    /*
+
     TournoiService tournoiService;
     @Autowired
     TournoiRepository tournoiRepository;
@@ -38,12 +39,13 @@ public class TournoiServiceTests {
     EquipeRepository equipeRepository;
     @Autowired
     JoueurRepository joueurRepository;
+    PouleService pouleService;
     @BeforeEach
     void setUp() throws Exception {
-        tournoiService=new TournoiService(tournoiRepository,pouleRepository,tableauRepository,matchPouleRepository,matchTableauRepository,informationRepository,photoRepository);
+        pouleService=new PouleService(pouleRepository);
+        tournoiService=new TournoiService(tournoiRepository,pouleRepository,tableauRepository,matchPouleRepository,matchTableauRepository,informationRepository,photoRepository,pouleService);
         tournoi = new Tournoi();
         tournoi.setNom("ticp");
-
     }
 
     @Test
@@ -108,5 +110,5 @@ public class TournoiServiceTests {
 
     }
 
-     */
+
 }

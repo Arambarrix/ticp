@@ -17,4 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestPropertySource(locations = "classpath:test.properties")
 
 public class TableauServiceTests {
+    @Test
+    void updateTableau(){
+
+    }
 }

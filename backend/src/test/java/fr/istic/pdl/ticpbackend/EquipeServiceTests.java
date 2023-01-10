@@ -17,12 +17,42 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
 public class EquipeServiceTests {
+    @Autowired
     EquipeService equipeService;
     @Autowired
     EquipeRepository equipeRepository;
+    @Autowired
+    JoueurRepository joueurRepository;
+    @Autowired
+    MatchPouleRepository matchPouleRepository;
+    @Autowired
+    MatchTableauRepository matchTableauRepository;
+    @Autowired
+    TournoiRepository tournoiRepository;
+    @Autowired
+    PouleRepository pouleRepository;
+    @Autowired
+    TableauRepository tableauRepository;
+
+    @BeforeEach
+    void setUp(){
+        equipeService=new EquipeService(equipeRepository,joueurRepository,matchPouleRepository,matchTableauRepository,tournoiRepository,pouleRepository,tableauRepository);
+    }
+    @Test
+    void createEquipe(){
+
+    }
+    @Test
+    void updateEquipe(){
+
+    }
+    @Test
+    void deleteEquipe(){
+
+    }
 
     @Test
-    void setUp(){
+    void cannotCreateEquipe(){
 
     }
 }

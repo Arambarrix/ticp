@@ -171,13 +171,18 @@ public class TournoiService {
     public List<Photo> getPhotos(Long id){
         return repository.findById(id).get().getPhotos();
     }
-    public Photo getPhoto(Long idPhoto, Long idTournoi){
-        Photo photo = photoRepository.findById(idPhoto).get();
-        if(photo.getTournoi().getId()==idTournoi){
-            return photo;
+    public Photo getPhoto(Long idTournoi, Long idPhoto){
+        if(!photoRepository.existsById(idPhoto)){
+            throw new RuntimeException("Photo introuvable");
+        }
+        else if(!repository.existsById(idTournoi)){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(photoRepository.findById(idPhoto).get().getTournoi()!=repository.findById(idTournoi).get()){
+            throw new RuntimeException("Tournoi incompatible avec la photo recherchée");
         }
         else {
-            throw new RuntimeException("Photo introuvable");
+            return photoRepository.findById(idPhoto).get();
         }
     }
     public void removePhoto(Long idPhoto, Long id){
@@ -212,12 +217,17 @@ public class TournoiService {
         return repository.findById(id).get().getInformations();
     }
     public Information getInfo(Long idInfo, Long idTournoi){
-        Information information = informationRepository.findById(idInfo).get();
-        if(information.getTournoi().getId()==idTournoi){
-            return information;
+        if(!informationRepository.existsById(idInfo)){
+            throw new RuntimeException("Info introuvable");
         }
-        else{
-            throw new RuntimeException("Introuvable");
+        else if(!repository.existsById(idTournoi)){
+            throw new RuntimeException("Tournoi introuvable");
+        }
+        else if(informationRepository.findById(idInfo).get().getTournoi()!=repository.findById(idTournoi).get()){
+            throw new RuntimeException("Tournoi incompatible avec l'info recherchée");
+        }
+        else {
+            return informationRepository.findById(idInfo).get();
         }
     }
     public void updateInformation(Long idInfo, Long idTournoi, Information information){
