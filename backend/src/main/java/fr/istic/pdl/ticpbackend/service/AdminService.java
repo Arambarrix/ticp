@@ -4,8 +4,6 @@ import fr.istic.pdl.ticpbackend.config.AdminDetails;
 import fr.istic.pdl.ticpbackend.config.ConfirmationToken;
 import fr.istic.pdl.ticpbackend.model.Admin;
 import fr.istic.pdl.ticpbackend.repository.AdminRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
