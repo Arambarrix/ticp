@@ -17,4 +17,20 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestPropertySource(locations = "classpath:test.properties")
 
 public class JoueurServiceTests {
+    @Test
+    void createJoueur(){
+
+    }
+    @Test
+    void updateJoueur(){
+
+    }
+    @Test
+    void deleteJoueur(){
+
+    }
+    @Test
+    void cannotAddJoueurToEquipe(){
+
+    }
 }

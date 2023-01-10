@@ -143,7 +143,7 @@ public class TournoiController {
     @GetMapping("/{id}/photos/{idphoto}")
     private ResponseEntity<Object> getPhoto(@PathVariable("id")int id, @PathVariable("idphoto")int idPhoto){
         try {
-            return Constants.success(tournoiService.getPhoto((long)idPhoto,(long)id),200);
+            return Constants.success(tournoiService.getPhoto((long)id,(long)idPhoto),200);
 
         } catch (RuntimeException e) {
             return Constants.error(e,403);

@@ -17,4 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestPropertySource(locations = "classpath:test.properties")
 
 public class PouleServiceTests {
+    @Test
+    void isFull(){
+
+    }
+    @Test
+    void updatePoule(){
+
+    }
 }
