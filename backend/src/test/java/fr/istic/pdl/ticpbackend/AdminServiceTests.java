@@ -57,7 +57,7 @@ public class AdminServiceTests {
     }
     @Test
     @Order(4)
-    void deConnecter(){
+    void seDeconnecter(){
         Admin admin = new Admin();
         admin.setUsername("arambarrix");
         adminService.seDeconnecter(admin);
