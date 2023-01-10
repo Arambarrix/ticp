@@ -4,18 +4,27 @@
     import SearchBar from '../../components/admin/SearchBar.vue';
     import BoutonGenerate from '../../components/admin/ButtonGenerate.vue';
     import MatchListTableVue from '../../components/admin/MatchList.vue';
+    import BannerVue from "../../components/admin/banner.vue";
+    import { Tournois } from "@/stores/user/tournoi"
     import { useRoute, useRouter, RouterLink } from "vue-router";
     import { ref, computed } from 'vue'
+import { Tableaux } from '../../stores/user/tableau';
+    const tournoiStore = Tournois();
+    const tableauStore= Tableaux();
+
     const route = useRoute();
     const router = useRouter()
     const year = computed(() => {
         return route.params.rang
     })
 
+    tournoiStore.getTournoiInfo()
+    var actif = "Tableaux";
+
     var infoCardDatas = {
         "joeur": { 'image': 'group.png', 'number': "289", 'text': "Nombre de joeurs", 'color': "#1B2A5A" },
         "equipe": { 'image': 'user.png', 'number': "55", 'text': "Equipes Inscrites", 'color': "#3A0000" },
-        "match": { 'image': 'flag.png', 'number': "1452", 'text': "Matchs Terminés", 'color': "#195937" }
+        "match": { 'image': 'flag.png', 'number': "1452", 'text': "Matchs Terminï¿½s", 'color': "#195937" }
     };
 
     var banner_data = computed(() => {
@@ -47,13 +56,31 @@
         { "id": 5, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat e dz dqq dq", "gagnant": "Tatat", "score1": 45, "score2": 20 },
     ]
 
+    const success = computed(() => { 
+        return tableauStore.success; 
+    })
+
+    const errors = computed(() => { 
+        return tableauStore.errors; 
+    })
+
+    function generateTableau(){
+        console.log("chhcg")
+        tableauStore.success=""
+        tableauStore.launch_creation();
+        
+    }
+
 </script>
 
 <template>
     <main>
 
         <div class="py-10 ">
-
+            <div class="gap-y-32">
+                <BannerVue :year="year" base_link="/admin/tableaux/" :actif="actif" />
+                <p></p>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-16">
                 <InfoCardVue v-bind="infoCardDatas.joeur" />
                 <InfoCardVue v-bind="infoCardDatas.equipe" />
@@ -69,7 +96,7 @@
                 <p class="my-5 text-dark-brown text-xl md:text-2xl font-bold">Tableaux</p>
                 <div class="justify-between grid grid-cols-3 grid-flow-col gap-4">
 
-                    <BoutonGenerate v-bind="poule_button" class="text-white bg-green-700 rounded-full" />
+                    <BoutonGenerate v-bind="poule_button" class="text-white bg-green-700 rounded-full" @click="generateTableau()"/>
                     <div></div>
                     <SearchBar class="col-span-1 col-end" />
 

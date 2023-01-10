@@ -8,7 +8,7 @@ export const Poules = defineStore("poules", {
     poules:[],
     poule: {},
     errors:"",
-    success:[]
+    success:""
   }),
   getters: {
     getPoules: (state) => state.poules,
@@ -48,27 +48,17 @@ export const Poules = defineStore("poules", {
     },
    
 
-    async launch_creation(data){
+    async launch_creation(year=new Date().getFullYear()){
       const constants = Constants();
-      let result = await axios.put(constants.APIURI + "create-groupes/");
+      let result = await axios.put(constants.APIURI + "tournoi/"+year+"/create-groupes/");
       if(result.data.code ==200){
-        var team =  result.data.data
-        data.membres.forEach(nom => {
-          axios.post(constants.APIURI + "joueurs/", 
-              {
-                "nom":nom,
-                "equipe":{
-                    "id":team.id
-                }
-              }
-          );
-          
-        });
-        router.push("/equipes");
-        //this.getAllByYear(constants.year)
+        this.success="Poule créée"
+        alert(this.success)
+
       }
       else{
         this.errors =  result.data.errors
+        alert(this.errors)
       }
                
     },

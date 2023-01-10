@@ -347,7 +347,7 @@ public class TournoiService {
                 rounds.remove(i);
             }
         }
-        for(int i=0; i<rounds.size();i++){
+        for(int i=0;i<rounds.size();i++){
             List<MatchTableau> matchsByTour = new ArrayList<>();
             for (MatchTableau matchTableau:matchsTableau){
                 if(matchTableau.getTour()==i){

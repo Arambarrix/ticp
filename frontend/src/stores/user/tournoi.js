@@ -18,6 +18,7 @@ export const Tournois = defineStore("tournois", {
   getters: {
     getCurrentTournoi: (state) => state.current_tournoi,
     getTournois: (state) => state.tournois,
+    getVainqueurs: (state) => state.vainqueurs,
     isTournoiLaunched: (state) => state.is_tournoi_launched,
     isRegistrationEnded: (state) => state.is_registration_ended,
     getTableauxLength: (state) => state.tableaux_length,
@@ -65,12 +66,10 @@ export const Tournois = defineStore("tournois", {
                   });
     },
 
-    async getVainqueurs(){
+    async getVainqueursByYear(year=new Date().getFullYear()){
 
       const constants = Constants();
-      console.log("dd")
-
-      await axios.get(constants.APIURI + "tournoi/")
+      await axios.get(constants.APIURI + "tournoi/"+year+"/vainqueurs")
                 .then((data) => {
                     if(data.data.code ==200){
                       this.vainqueurs =  data.data.data
@@ -80,7 +79,6 @@ export const Tournois = defineStore("tournois", {
                       this.errors =  data.data.errors
                       this.vainqueurs =  []
                     }
-                    console.log(data.data)
                 })
                 .catch(function (error) {
                   console.log(error);

@@ -54,7 +54,7 @@ const router = createRouter({
     },
 
     {
-      path: '/admin',
+      path: '/admin/:year',
       name: 'admin',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
@@ -80,22 +80,14 @@ const router = createRouter({
       component: () => import('../views/PouleView.vue')
       },
 
-      {
-          path: '/admin/poules/:year',
-          name: 'admin_poule',
-          // route level code-splitting
-          // this generates a separate chunk (About.[hash].js) for this route
-          // which is lazy-loaded when the route is visited.
-          component: () => import('../views/admin/PouleView.vue')
-      },
 
     {
       path: '/tableaux/:rang',
-      name: 'tableaux',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/TableauView.vue')
+        name: 'tableaux',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('../views/TableauView.vue'),
       },
 
   
@@ -110,55 +102,27 @@ const router = createRouter({
     },
 
     {
-        path: '/admin/equipe/:year',
-        name: 'equipe_admin',
-        // route level code-splitting
-        // this generates a separate chunk (About.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('../views/admin/EquipeView.vue')
-      },
-
-    {
       path: '/inscrire_equipe',
       name: 'inscrire_equipe',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/CreateTeamView.vue')
-      },
-
-
-      {
-        path: '/admin/tableaux/:year',
-        name: 'tableaux_admin',
-        // route level code-splitting
-        // this generates a separate chunk (About.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('../views/admin/TableauView.vue')
     },
 
     {
-        path: '/admin/equipe/:year',
-        name: 'equipe_admin',
-        // route level code-splitting
-        // this generates a separate chunk (About.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import('../views/admin/EquipeView.vue')
-      },
-
-    {
-        path: '/admin/accueil',
+        path: '/admin/accueil/:year',
         name: 'accueil',
         // route level code-splitting
         // this generates a separate chunk (About.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('../views/admin/PouleView.vue')
+        component: () => import('../views/admin/HomeView.vue')
       },
 
 
       {
           path: '/admin/information_utile',
-          name: 'admin_historique',
+          name: 'admin_information_utile',
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
@@ -166,7 +130,7 @@ const router = createRouter({
       },
 
       {
-          path: '/admin/photo',
+          path: '/admin/photo/:year',
           name: 'photo_admin',
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route

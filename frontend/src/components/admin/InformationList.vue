@@ -36,7 +36,7 @@
                                 <td class="w-1/6 px-6 py-3  text-sm text-center font-medium text-gray-900">{{match.id}}</td>
                                 <td class="w-1/6 text-sm text-gray-900  font-light px-6 py-3 overflow-hidden ">
                                     <div class="flex flex-row text-center">
-                                        <span class="text-center text-white rounded-xl bg-green-900 p-1 px-3">{{match.name}}</span>
+                                        <span>{{match.name}}</span>
                                     </div>
                                 </td>
                                 <td class="w-1/6 text-sm text-gray-900 text-center font-light px-6 py-3  overflow-hidden">
@@ -47,12 +47,12 @@
                                 </td>
                                 <td class="w-1/6 text-sm text-white font-light px-6 py-3 text-center">
                                     <div class="text-center p-1 bg-blue-900">
-                                        <i class="fa-thin fa-pen text-white cursor-pointer font-bold" @click="toggleModal" title="modifier"></i><span class="text-white font-bold">  modifier</span>
+                                        <i to="" class="fa-thin fa-pen text-white cursor-pointer font-bold" @click="toggleModal" title="modifier"></i><span class="text-white font-bold">  modifier</span>
                                     </div>
                                 </td>
                                 <td class="w-1/6 text-sm text-white font-light px-6 py-3 text-center">
                                     <div class="text-center p-1 bg-red-900">
-                                        <i class="fa-regular fa-trash text-white cursor-pointer font-bold" @click="toggleModal" title="supprimer"></i><span class="text-white font-bold">  supprimer</span>
+                                        <i to="" class="fa-regular fa-trash text-white cursor-pointer font-bold" @click="toggleModal" title="supprimer"></i><span class="text-white font-bold">  supprimer</span>
                                     </div>
                                 </td>
                             </tr>

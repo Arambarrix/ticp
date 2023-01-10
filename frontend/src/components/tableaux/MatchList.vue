@@ -1,9 +1,8 @@
 <script setup>
     import RenseignerScoreModalVue from './RenseignerScoreModal.vue';
 
-    const props = defineProps({'data':Object, 'type':String, 'can_edit':Boolean});
+    const props = defineProps({'data':Object, 'type':String, 'can_edit':Boolean, 'rang':String});
     
-    var i =0
 </script>
 
 <template>
@@ -30,21 +29,21 @@
                         </thead>
                         <tbody class="flex flex-col space-y-2">
 
-                            <tr v-for="match in data" class="flex flex-row justify-between bg-gray-100  transition duration-300 ease-in-out rounded-md hover:bg-gray-200 whitespace-nowrap  overflow-hidden hover:overflow-visible hover:w-auto hover:whitespace-normal">
+                            <tr v-for="(match,i) in data" class="flex flex-row justify-between bg-gray-100  transition duration-300 ease-in-out rounded-md hover:bg-gray-200 whitespace-nowrap  overflow-hidden hover:overflow-visible hover:w-auto hover:whitespace-normal">
                                 
-                                <td class="w-1/5 px-6 py-3  text-sm text-center font-medium text-gray-900">{{ ++i }}</td>
-                                <td class="w-2/5 text-sm text-gray-900 text-center font-light px-6 py-3 overflow-hidden ">
-                                    <div class="flex flex-row">
+                                <td v-if="match.equipeA && match.equipeB" class="w-1/5 px-6 py-3  text-sm text-center font-medium text-gray-900">{{ i+1 }}</td>
+                                <td v-if="match.equipeA && match.equipeB" class="w-2/5 text-sm text-gray-900 text-center font-light px-6 py-3 overflow-hidden ">
+                                    <div  class="flex flex-row">
                                         <span class="rounded-full px-3 ">{{match.equipeA.nom}}</span>
                                         <span class="rounded-full px-3">{{match.equipeB.nom}}</span>
                                     </div>
                                 </td>
-                                <td class="w-1/5 text-sm text-gray-900 text-center font-light px-6 py-3  overflow-hidden">
+                                <td v-if="match.equipeA && match.equipeB" class="w-1/5 text-sm text-gray-900 text-center font-light px-6 py-3  overflow-hidden">
                                     <span v-if="match.scoreA && match.scoreB">{{match.scoreA > match.scoreB ?  match.equipeA.nom:match.equipeB.nom}}</span>
                                 </td>
-                                <td class="w-1/5 text-sm text-white font-light px-6 py-3 text-center">
+                                <td v-if="match.equipeA && match.equipeB" class="w-1/5 text-sm text-white font-light px-6 py-3 text-center">
                                     <div v-if="(!match.scoreA || !match.scoreB) && can_edit">
-                                        <RenseignerScoreModalVue  :match="match" :type="type"/>
+                                        <RenseignerScoreModalVue  :match="match" :type="type" :rang="rang"/>
                                     </div>
                                     <span v-else class="text-gray-900 px-3">{{match.scoreA + " - " + match.scoreB}}</span>
 
