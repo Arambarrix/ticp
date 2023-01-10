@@ -39,7 +39,8 @@ public class MatchPouleController {
     private ResponseEntity<Object> updateMatchPoule(@PathVariable("id")int id, @RequestBody MatchPoule matchPoule){
         try{
             matchPouleService.updateMatchPoule(matchPoule);
-            return new ResponseEntity<>(matchPoule,HttpStatus.OK);
+            return Constants.success(matchPoule,200);
+
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.json.simple.JSONObject;
 
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class PouleController {
     @GetMapping("/{id}/classement")
     private ResponseEntity<Object> getClassement(@PathVariable("id")int id){
         try{
-            return new ResponseEntity<>(pouleService.getClassement((long)id), HttpStatus.ACCEPTED);
+            return Constants.success(pouleService.getClassement((long)id),200);
+
         }catch (RuntimeException e){
             return Constants.error(e,403);
         }

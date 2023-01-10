@@ -1,7 +1,8 @@
 <script setup>
+    import { computed } from "vue";
 
-const props = defineProps({'data':Object});
-
+    const props = defineProps({'classements':Object});
+  
 </script>
 
 <template>
@@ -23,23 +24,23 @@ const props = defineProps({'data':Object});
                                 </th>
                                 <th scope="col" class="bg-white px-1"></th>
                                 <th scope="col" class="text-sm px-6 py-3 text-center w-1/5">
-                                    Match
+                                    Victoires
                                 </th>
                             </tr>
                         </thead>
                         <tbody class="flex flex-col space-y-2">
 
-                            <tr v-for="equipe in data" class="flex flex-row justify-between bg-gray-100  transition duration-300 ease-in-out rounded-md hover:bg-gray-200 whitespace-nowrap hover:overflow-visible hover:w-auto hover:whitespace-normal">
-                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 w-1/5">{{equipe.rang}}</td>
+                            <tr v-for="classement in classements" class="flex flex-row justify-between bg-gray-100  transition duration-300 ease-in-out rounded-md hover:bg-gray-200 whitespace-nowrap hover:overflow-visible hover:w-auto hover:whitespace-normal">
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 w-1/5">{{classement.rang}}</td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-3 overflow-hidden h w-2/5">
-                                    {{equipe.nom}}
+                                    {{classement.equipe.nom}}
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-3 w-1/5">
-                                    {{equipe.point}}
+                                    {{classement.points}}
                                 </td>
                                 <td class="bg-white px-1"></td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-3 text-center w-1/5">
-                                    {{equipe.matchJoue}} / {{equipe.matchTotal}}
+                                    {{classement.victoires}} 
                                 </td>
                             </tr>
                             
