@@ -1,7 +1,7 @@
 <script setup>
     import RenseignerScoreModalVue from './RenseignerScoreModal.vue';
 
-    const props = defineProps({'data':Object, 'type':String});
+    const props = defineProps({'data':Object, 'type':String, 'can_edit':Boolean});
     
     var i =0
 </script>
@@ -43,10 +43,11 @@
                                     <span v-if="match.scoreA && match.scoreB">{{match.scoreA > match.scoreB ?  match.equipeA.nom:match.equipeB.nom}}</span>
                                 </td>
                                 <td class="w-1/5 text-sm text-white font-light px-6 py-3 text-center">
-                                    <span v-if="match.scoreA && match.scoreB" class="text-gray-900 px-3">{{match.scoreA + " - " + match.scoreB}}</span>
-                                    <div v-else>
+                                    <div v-if="(!match.scoreA || !match.scoreB) && can_edit">
                                         <RenseignerScoreModalVue  :match="match" :type="type"/>
                                     </div>
+                                    <span v-else class="text-gray-900 px-3">{{match.scoreA + " - " + match.scoreB}}</span>
+
 
                                 </td>
                             </tr>

@@ -4,7 +4,7 @@ import AdminHeader from './components/templates/AdminHeader.vue'
 import UserHeader from './components/templates/UserHeader.vue'
 import AdminLeftMenu from './components/templates/AdminLeftMenu.vue'
 
-var is_admin = true;
+    var is_admin = false;
 </script>
 
 <template>

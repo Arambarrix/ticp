@@ -18,7 +18,7 @@ import { RouterLink } from "vue-router";
             <RouterLink to="/" class="hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
             ><i class="fa-light fa-house-blank"></i> Accueil</RouterLink>
 
-            <RouterLink :to="'/historique/'+new Date().getFullYear()" class="hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
+            <RouterLink :to="'/historiques/'+new Date().getFullYear()" class="hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
                 > <i class="fa-light fa-clock-rotate-left"></i> Historique</RouterLink>
 
             <RouterLink :to="'/galerie/'+new Date().getFullYear()" class="hover:border-b-2 text-gray-800 hover:border-gray-800 poppins"
