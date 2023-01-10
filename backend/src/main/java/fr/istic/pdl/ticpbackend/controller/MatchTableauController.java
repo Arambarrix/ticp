@@ -38,12 +38,14 @@ public class MatchTableauController {
 
     @PutMapping("/{id}")
     private ResponseEntity<Object> updateMatchTableau(@PathVariable("id")int id, @RequestBody MatchTableau matchTableau){
-        try {
-            service.updateMatchTableau(matchTableau);
+        //try {
+            service.updateMatchTableau((long)id,matchTableau);
             return new ResponseEntity<>(matchTableau,HttpStatus.OK);
-        }catch (RuntimeException e){
+        /*}catch (RuntimeException e){
             return Constants.error(e,404);
         }
+
+         */
     }
 
     @DeleteMapping("/{id}")
