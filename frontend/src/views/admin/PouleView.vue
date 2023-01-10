@@ -15,13 +15,13 @@
         return route.params.rang
     })
 
-    tournoiStore.getActualTournoiInfo()
+    tournoiStore.getTournoiInfo()
     var actif = "Poules";
 
     var infoCardDatas = {
         "joeur": { 'image': 'group.png', 'number': "289", 'text': "Nombre de joeurs", 'color': "#1B2A5A" },
         "equipe": { 'image': 'user.png', 'number': "55", 'text': "Equipes Inscrites", 'color': "#3A0000" },
-        "match": { 'image': 'flag.png', 'number': "1452", 'text': "Matchs Terminés", 'color': "#195937" }
+        "match": { 'image': 'flag.png', 'number': "1452", 'text': "Matchs Terminï¿½s", 'color': "#195937" }
     };
 
     var banner_data = computed(() => {

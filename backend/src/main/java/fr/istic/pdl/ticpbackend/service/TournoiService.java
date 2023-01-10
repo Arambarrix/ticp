@@ -1,5 +1,7 @@
 package fr.istic.pdl.ticpbackend.service;
 
+import fr.istic.pdl.ticpbackend.dto.TableauDto;
+import fr.istic.pdl.ticpbackend.dto.TourDto;
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.repository.*;
 import lombok.AllArgsConstructor;
@@ -316,6 +318,38 @@ public class TournoiService {
         else{
             return tableaux;
         }
+
+    }
+    public TableauDto getMatchsByTour(Long id, Long rang){
+        Tableau tableau=new Tableau();
+        for (Tableau tableau1:repository.findById(id).get().getTableaux()){
+            if(tableau1.getRang()==rang.intValue()){
+                tableau=tableau1;
+            }
+        }
+        List<MatchTableau> matchsTableau = tableau.getListMatchs();//Tous les matchs d'un tableau
+        List<TourDto> tours = new ArrayList<>();//
+        List<Integer> rounds = new ArrayList<>();//Tous les rounds d'un tableau
+        for(MatchTableau matchTableau:matchsTableau){
+            rounds.add(matchTableau.getTour());
+        }
+        System.out.println(rounds);
+        for(int i=0;i< rounds.size();i++){
+            while(Collections.frequency(rounds,i)>1){
+                rounds.remove(i);
+            }
+        }
+        for(int i=0;i<rounds.size();i++){
+            List<MatchTableau> matchsByTour = new ArrayList<>();
+            for (MatchTableau matchTableau:matchsTableau){
+                if(matchTableau.getTour()==i){
+                    matchsByTour.add(matchTableau);
+                }
+            }
+            tours.add(new TourDto("Tour " + i, i, matchsByTour));
+
+        }
+        return new TableauDto(Math.toIntExact(tableau.getId()),tableau.getRang(),tours);
     }
 
     /**

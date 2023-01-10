@@ -11,7 +11,6 @@
 
   tournoiStore.getTournoiInfo()
 
-
   var actif = "Equipes";
    
   teamStore.getAllByYear(new Date().getFullYear())

@@ -12,20 +12,21 @@ export const Tableaux = defineStore("tableaux", {
   }),
   getters: {
     getTableaux: (state) => state.tableaux,
+    getTableau: (state) => state.tableau
   },
   actions: {
     
-    async getAll(year, rang){
+    async getAll(year=new Date().getFullYear()){
       const constants = Constants();
-      await axios.get(constants.APIURI + "tournoi/"+year+"/tableaux/"+rang)
+      await axios.get(constants.APIURI + "tournoi/"+year+"/tableaux")
                  .then((data) => {
                     if(data.data.code ==200){
                       this.tableaux =  data.data.data
-
+                      console.log(this.tableaux)
                     }
                     else{
                       this.errors =  data.data.errors
-                      this.poules =  []
+                      this.tableaux =  []
 
                     }
                  })
@@ -34,20 +35,40 @@ export const Tableaux = defineStore("tableaux", {
                 });
     },
 
-    async renseigner_score(id_match, data){
+    async getTab(rang, year=new Date().getFullYear()){
       const constants = Constants();
-      let result = await axios.put(constants.APIURI + "match_poules/"+id_match,
+      await axios.get(constants.APIURI + "tournoi/"+year+"/tableaux/"+rang)
+                 .then((data) => {
+                    if(data.data.code ==200){
+                      this.tableau =  data.data.data
+                      console.log(this.tableau)
+                    }
+                    else{
+                      this.errors =  data.data.errors
+                      this.tableau =  {}
+
+                    }
+                 })
+                .catch(function (error) {
+                  console.log(error);
+                });
+    },
+
+    async renseigner_score(id_match, data, rang){
+      const constants = Constants();
+      let result = await axios.put(constants.APIURI + "match_tableaux/"+id_match,
         data
       );
+      console.log(rang)
       if(result.data.code ==200){
-        this.getAllByYear(constants.year)
+        this.getTab(rang)
       }
       else{
         this.errors =  result.data.errors
       }
     },
    
-
+    //admin
     async launch_creation(data){
       const constants = Constants();
       let result = await axios.put(constants.APIURI + "create-groupes/");

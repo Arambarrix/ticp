@@ -4,8 +4,6 @@ import fr.istic.pdl.ticpbackend.config.AdminDetails;
 import fr.istic.pdl.ticpbackend.config.ConfirmationToken;
 import fr.istic.pdl.ticpbackend.model.Admin;
 import fr.istic.pdl.ticpbackend.repository.AdminRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,11 +14,22 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class AdminService implements UserDetailsService {
     private final AdminRepository adminRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+
+    public AdminService(AdminRepository adminRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ConfirmationTokenService confirmationTokenService) {
+        this.adminRepository = adminRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.confirmationTokenService = confirmationTokenService;
+        if(adminRepository.findAll().isEmpty()){
+            Admin admin = new Admin();
+            admin.setUsername("admin");
+            admin.setPassword("admin123");
+            this.signUpUser(admin);
+        }
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

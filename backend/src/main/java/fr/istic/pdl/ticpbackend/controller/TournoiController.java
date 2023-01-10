@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static org.springframework.http.HttpStatus.OK;
+
 
 /**
  * Ce controller permet d'utiliser les services du tournoi
@@ -82,9 +84,10 @@ public class TournoiController {
     }
     @GetMapping("/{idtournoi}/tableaux/{rang}")
     private ResponseEntity<Object>getTableauxByRang(@PathVariable("idtournoi") int id,@PathVariable("rang") int rang){
+        //return new ResponseEntity<>(tournoiService.getMatchsByTour(tableauService.getTableau((long)id)),OK);
         try{
             tournoiService.getTournoi((long)id);
-            return Constants.success(tournoiService.getTableauxByRang((long)id,(long)rang), 200);
+            return Constants.success(tournoiService.getMatchsByTour((long)id,(long)rang), 200);
         }catch (RuntimeException e){
             return Constants.error(e,403);
         }
