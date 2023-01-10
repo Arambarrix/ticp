@@ -10,12 +10,38 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/historique/:year',
+      path: '/historiques/:year',
       name: 'historique',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/GalerieView.vue')
+      component: () => import('../views/historique/ResumeView.vue')
+    },
+    {
+      path: '/historiques/:year/poules',
+      name: 'historique_poules',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/historique/PouleView.vue')
+    },
+
+    {
+      path: '/historiques/:year/tableaux/:rang',
+      name: 'historique_tableaux',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/historique/TableauView.vue')
+    },
+
+    {
+      path: '/historiques/:year/equipes',
+      name: 'historique_equipes',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/historique/TeamView.vue')
     },
 
     {
