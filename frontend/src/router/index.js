@@ -84,6 +84,15 @@ const router = createRouter({
     },
 
     {
+        path: '/admin/equipe/:year',
+        name: 'equipe_admin',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('../views/admin/EquipeView.vue')
+      },
+
+    {
       path: '/inscrire_equipe',
       name: 'inscrire_equipe',
       // route level code-splitting
