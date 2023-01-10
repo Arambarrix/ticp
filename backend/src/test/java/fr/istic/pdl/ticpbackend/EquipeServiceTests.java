@@ -20,6 +20,7 @@ public class EquipeServiceTests {
     EquipeService equipeService;
     @Autowired
     EquipeRepository equipeRepository;
+
     @Test
     void setUp(){
 

@@ -63,9 +63,6 @@ public class AdminServiceTests {
         adminService.seDeconnecter(admin);
         assertFalse(adminRepository.findByUsername(admin.getUsername()).isLogged());
         //assertDoesNotThrow(()->adminService.seDeconnecter(admin));
-
-
-
     }
 
 }
