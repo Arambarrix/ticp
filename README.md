@@ -94,20 +94,20 @@ Notre projet sera réalisé en deux versions:
 Il s'agit de la 1ère version de l'application. Elle peut comporter des bugs et un frontend peu ergonomique. Il se peut aussi que certaines fonctionnalités moins importantes ne soient pas encore testables.
 Les fonctionnalités attendus sont :
 
-  - Créer une équipe
-  - Gestion du tournoi
-  - Lancer les créations de Match
-  - Modifier une équipe
-  - Renseigner un score
+  - Créer une équipe (terminé)
+  - Gestion du tournoi (terminé)
+  - Lancer les créations de Match (terminé)
+  - Modifier une équipe (à verifier)
+  - Renseigner un score (terminé)
 
 ### Version 2.0
 Il s'agit de la version finale du logiciel. Elle être stable, facile à utiliser et avec une ergonomie acceptable. Elle comporter des bugs mineurs. Les fonctionnalités attendus sont :
 
-  - Consulter l'historique des tournois   (par l'utilisateur)
-  - Consulter les photos                  (par l'utilisateur)
-  - Uploader les photos                   (par l'administrateur)
-  - Renseigner les informations utiles    (par l'administrateur)
-  - Un system d'alerte par mail           (automatique)
+  - Consulter l'historique des tournois   (par l'utilisateur)      (terminé)
+  - Consulter les photos                  (par l'utilisateur)      (en cours)
+  - Uploader les photos                   (par l'administrateur)   (en cours)
+  - Renseigner les informations utiles    (par l'administrateur)   (terminé)
+  - Un system d'alerte par mail           (automatique)           (à vérifier))
 
 ## Auteurs
 * **Brou Assamela** _alias_ [@abrou](https://gitlab.istic.univ-rennes1.fr/abrou)
