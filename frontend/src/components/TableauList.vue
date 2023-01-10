@@ -1,15 +1,28 @@
 <script setup>
     import MatchListTableVue from './tableaux/MatchList.vue';
 
-    const props = defineProps({can_edit:Boolean});
+    import { computed } from "vue";
+    import { Tournois } from "@/stores/user/tournoi";
 
-    var matchList =[
-        {"id":1,"numero":"A1", "equipeA":{"nom":"dzsfessdezf"}, "equipeB":{"nom":"Tatat"}, "scoreA":2, "scoreB":1},
-        {"id":2,"numero":"A1", "equipeA":{"nom":"dzsfessdezf"}, "equipeB":{"nom":"Tatat"}},
-        {"id":3,"numero":"A1", "equipeA":{"nom":"dzsfessdezf"}, "equipeB":{"nom":"Tatat"}, "scoreA":2, "scoreB":1},
-        {"id":4,"numero":"A1", "equipeA":{"nom":"dzsfessdezf"}, "equipeB":{"nom":"Tatat"}},
-        {"id":5,"numero":"A1", "equipeA":{"nom":"dzsfessdezf"}, "equipeB":{"nom":"Tatat"}, "scoreA":2, "scoreB":1},
-    ]
+    const props = defineProps({'tableaux':Array, can_edit:Boolean, show_cards:Boolean});
+
+    const tournoiStore = Tournois();
+
+    tournoiStore.getTournoiInfo()
+
+    const tournoi_tableaux_length = computed(()=>tournoiStore.getTableauxLength);
+    const tournoi_equipes_length = computed(()=>tournoiStore.getEquipesLength);
+    const tournoi_poules_length = computed(()=>tournoiStore.getPoulesLength);
+
+    var infoCardDatas= computed(()=>{
+        return {
+            "equipe":{'image':'user.png', 'number': tournoi_equipes_length.value, 'text':"Equipes Inscrites", 'color':"#1B2A5A"},
+            "poule":{'image':'group.png', 'number':tournoi_poules_length.value, 'text':"Poules Générées", 'color':"#195937"},
+            "tableau":{'image':'network.png', 'number':tournoi_tableaux_length.value, 'text':"Tableaux crées", 'color':"#00253A"}
+        } 
+    })
+
+    
 </script>
 <template>
     <div class="my-8">
