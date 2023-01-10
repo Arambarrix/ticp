@@ -23,30 +23,32 @@ public class Tournoi implements Serializable {
     @OneToMany(fetch = FetchType.LAZY,mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonManagedReference
-    private List<Equipe> equipes;
+    private List<Equipe> equipes ;
 
-    @OneToMany(mappedBy="tournoi")
+    @OneToMany(mappedBy="tournoi", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @LazyCollection(LazyCollectionOption.TRUE)
     @JsonManagedReference
     private List<Poule> poules;
 
-    @OneToMany(mappedBy="tournoi")
+    @OneToMany(mappedBy="tournoi", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @LazyCollection(LazyCollectionOption.TRUE)
     @JsonManagedReference
     private List<Tableau> tableaux;
 
-    @OneToMany(mappedBy="tournoi")
+    @OneToMany(mappedBy="tournoi", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @LazyCollection(LazyCollectionOption.TRUE)
     @JsonManagedReference
     private List<Photo> photos;
-    @OneToMany(mappedBy="tournoi")
+
+    @OneToMany(mappedBy="tournoi",fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @LazyCollection(LazyCollectionOption.TRUE)
     @JsonManagedReference
     private List<Information> informations;
+
     private LocalDate dateDebutTournoi;
     private LocalDate dateFinInscription;
     private LocalDate dateDebutPoule;

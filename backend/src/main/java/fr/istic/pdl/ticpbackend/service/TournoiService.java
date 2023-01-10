@@ -5,7 +5,10 @@ import fr.istic.pdl.ticpbackend.dto.TourDto;
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.repository.*;
 import lombok.AllArgsConstructor;
+
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
+import fr.istic.pdl.ticpbackend.dto.EquipeDto;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -23,6 +26,7 @@ public class TournoiService {
     MatchTableauRepository matchTableauRepository;
     InformationRepository informationRepository;
     PhotoRepository photoRepository;
+    PouleService pouleService;
 
 
     /**
@@ -278,20 +282,25 @@ public class TournoiService {
                 vainqueurs.add(val.getValue().getEquipeB());
             }
         }
-        if(vainqueurs.isEmpty()){
-            throw new RuntimeException("Aucune équipe vainqueur pour l'instant");
-        }
-        else{
-            return vainqueurs;
-        }
-    }
-    public List<Poule> getPoules(Long id){
+ 
+        return vainqueurs;
         
-        return repository.findById(id).get().getPoules();
+    }
+    public List<Object> getPoules(Long id){
+
+        List<Poule> poules = repository.findById(id).get().getPoules();
+        List<Object> data = new ArrayList<>();
+        for (Poule poule : poules) {
+            JSONObject obj = new JSONObject();
+            List<EquipeDto> classements =pouleService.getClassement((long) poule.getId());
+            obj.put("info", poule);
+            obj.put("classements", classements);
+            data.add(obj);
+        }
+        return data;
     }
 
-    public List<Tableau> getTableaux(Long id){
-        
+    public List<Tableau> getTableaux(Long id){        
         return repository.findById(id).get().getTableaux();
     }
 

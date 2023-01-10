@@ -1,7 +1,7 @@
 <script setup>
   import BannerVue from '../components/banner/Banner.vue';
   import TeamListVue from '../components/TeamList.vue';
-  import { computed, onMounted } from "vue";
+  import { computed } from "vue";
 
   import { Tournois } from "@/stores/user/tournoi"
   import { Teams } from "@/stores/user/team"
@@ -9,7 +9,7 @@
   const teamStore = Teams();
   const tournoiStore = Tournois();
 
-  tournoiStore.getActualTournoiInfo()
+  tournoiStore.getTournoiInfo()
 
 
   var actif = "Equipes";
@@ -22,7 +22,7 @@
 <template>
   <main>
     <BannerVue :actif="actif"/>
-    <TeamListVue :teams="teams" :total="teams.length"/>
+    <TeamListVue :teams="teams" show_header="true"/>
   </main>
   
 </template>

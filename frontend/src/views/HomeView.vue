@@ -6,7 +6,7 @@
   const router = useRouter()
 
   const tournoiStore = Tournois();
-  tournoiStore.getActualTournoiInfo()
+  tournoiStore.getTournoiInfo()
 
 
   const is_tournoi_launched = computed(()=>tournoiStore.isTournoiLaunched );

@@ -10,7 +10,9 @@ const membre2 = ref("");
 const membre3 = ref("");
 const membre4 = ref("");
 
-var errors = ref("")
+const errors = computed(() => { 
+  return teamStore.errors; 
+})
 
 function validateFields() {
   if(nom.value === "" || membre1.value === "" || membre2.value === ""){
@@ -20,9 +22,9 @@ function validateFields() {
 
 
 async function store() {
-    errors.value=""
+    teamStore.errors=""
     if(validateFields() === false){
-        errors.value = "Les champs nom, membre 1 et membre2 sont requis";
+        teamStore.errors = "Les champs nom, membre 1 et membre2 sont requis";
     }    
     else{
         var membres =[membre1.value, membre2.value]
@@ -32,7 +34,8 @@ async function store() {
         await teamStore.store({
         "nom":nom.value,
         "membres":membres,
-        })       
+        })  
+        teamStore.errors=""     
     }
     
 }
