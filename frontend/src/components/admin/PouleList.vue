@@ -1,7 +1,5 @@
 <script setup>
     import { ref } from 'vue'
-    import RenseignerScoreModalVue from './RenseignerScoreModal.vue';
-
     const props = defineProps({'data':Object});
    
 
@@ -51,11 +49,8 @@
                                     </div>
                                 </td>
 
-                                <td class="w-1/6 px-6 py-3">
-                                    <span v-if="match.score1 && match.score2" class="text-gray-900 px-3">{{match.score1 + " - " + match.score2}}</span>
-                                    <div v-else>
-                                        <RenseignerScoreModalVue :match="match" />
-                                    </div>
+                                <td class="w-1/6 px-6 py-3 text-center">
+                                    <span class="text-gray-900 px-3">{{match.score1 + " - " + match.score2}}</span>
                                 </td>
 
                                 <td class="w-1/6 text-sm text-white font-light px-6 py-3 text-center">
