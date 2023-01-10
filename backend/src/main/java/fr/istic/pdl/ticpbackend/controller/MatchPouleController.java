@@ -38,7 +38,7 @@ public class MatchPouleController {
     @PutMapping("/{id}")
     private ResponseEntity<Object> updateMatchPoule(@PathVariable("id")int id, @RequestBody MatchPoule matchPoule){
         try{
-            matchPouleService.updateMatchPoule(matchPoule);
+            matchPouleService.updateMatchPoule((long)id,matchPoule);
             return Constants.success(matchPoule,200);
 
         }catch (RuntimeException e){
