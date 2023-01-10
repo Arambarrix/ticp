@@ -332,20 +332,19 @@ public class TournoiService {
         for(MatchTableau matchTableau:matchsTableau){
             rounds.add(matchTableau.getTour());
         }
-        System.out.println(rounds);
         for(int i=0;i< rounds.size();i++){
             while(Collections.frequency(rounds,i)>1){
                 rounds.remove(i);
             }
         }
-        for(Integer integer : rounds){
+        for(int i=0; i<rounds.size();i++){
             List<MatchTableau> matchsByTour = new ArrayList<>();
             for (MatchTableau matchTableau:matchsTableau){
-                if(matchTableau.getTour()==integer){
+                if(matchTableau.getTour()==i){
                     matchsByTour.add(matchTableau);
                 }
             }
-            tours.add(new TourDto("Tour " + integer, integer, matchsByTour));
+            tours.add(new TourDto("Tour " + i, i, matchsByTour));
 
         }
         return new TableauDto(Math.toIntExact(tableau.getId()),tableau.getRang(),tours);
