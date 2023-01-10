@@ -14,7 +14,7 @@ import { RouterLink } from "vue-router";
                 <p class="mt-2 text-xs md:text-sm ">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
-                <RouterLink to="/infos-utiles" class="text-xs md:text-sm text-[#5A240C] underline"> Informations Utiles</RouterLink>
+                <RouterLink to="#" class="text-xs md:text-sm text-[#5A240C] underline"> Informations Utiles</RouterLink>
             </div>
             <slot name="buttons">
             </slot>

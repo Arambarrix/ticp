@@ -22,7 +22,6 @@ export const Tableaux = defineStore("tableaux", {
                  .then((data) => {
                     if(data.data.code ==200){
                       this.tableaux =  data.data.data
-                      console.log(this.tableaux)
                     }
                     else{
                       this.errors =  data.data.errors
@@ -41,7 +40,6 @@ export const Tableaux = defineStore("tableaux", {
                  .then((data) => {
                     if(data.data.code ==200){
                       this.tableau =  data.data.data
-                      console.log(this.tableau)
                     }
                     else{
                       this.errors =  data.data.errors

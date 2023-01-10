@@ -69,8 +69,6 @@ export const Tournois = defineStore("tournois", {
     async getVainqueursByYear(year=new Date().getFullYear()){
 
       const constants = Constants();
-      console.log("dd")
-
       await axios.get(constants.APIURI + "tournoi/"+year+"/vainqueurs")
                 .then((data) => {
                     if(data.data.code ==200){
@@ -81,7 +79,6 @@ export const Tournois = defineStore("tournois", {
                       this.errors =  data.data.errors
                       this.vainqueurs =  []
                     }
-                    console.log(data.data)
                 })
                 .catch(function (error) {
                   console.log(error);

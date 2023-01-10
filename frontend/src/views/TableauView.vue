@@ -2,10 +2,10 @@
   import BannerVue from '../components/banner/Banner.vue';
   import TableauListVue from '../components/TableauList.vue';
   import InfoCardVue from '../components/InfoCard.vue';
-  import { useRoute,useRouter, RouterLink } from "vue-router";
-  import { ref, computed} from 'vue'
+  import { useRoute,useRouter } from "vue-router";
+  import { watch, computed} from 'vue'
   import { Tournois } from "@/stores/user/tournoi"
-import { Tableaux } from '../stores/user/tableau';
+  import { Tableaux } from '../stores/user/tableau';
 
   const route = useRoute();
   const router = useRouter()
@@ -17,9 +17,12 @@ import { Tableaux } from '../stores/user/tableau';
   const rang = computed(()=>{
     return route.params.rang
   } )
+
+
   tableaustore.getTab(parseInt(rang.value))
   
   const tableau = computed(()=>tableaustore.getTableau)
+  watch(rang, rangChanged)
 
   var actif = "Tableaux";
   var can_edit = true;
@@ -52,7 +55,7 @@ import { Tableaux } from '../stores/user/tableau';
   }
 
   function next(){
-    if(rang.value != tableaux.value.length-1){
+    if(rang.value != tableaux.value.length-1 && tableaux.value.length){
       router.push({
                   name: 'tableaux',
                   params: { rang: parseInt(rang.value)+1 }
@@ -81,6 +84,10 @@ import { Tableaux } from '../stores/user/tableau';
     for (let i = 0; i < 3; i++)
       color += ("0" + Math.floor(Math.random() * Math.pow(16, 2) / 2).toString(16)).slice(-2);
     return color;
+  }
+
+  function rangChanged(rang){
+    tableaustore.getTab(rang)
   }
 </script>
 

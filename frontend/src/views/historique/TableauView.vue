@@ -2,12 +2,12 @@
   import BannerVue from "../../components/historique/banner.vue";
   import TableauListVue from "../../components/TableauList.vue";
   import { Tournois } from "@/stores/user/tournoi"
-  import { Teams } from "@/stores/user/team"
+  import { Tableaux } from "@/stores/user/tableau"
   import { useRoute,useRouter } from "vue-router";
-  import { ref, computed} from 'vue'
+  import { watch, computed} from 'vue'
 
   const tournoiStore = Tournois();
-  const teamStore = Teams();
+  const tableaustore= Tableaux();
   const route = useRoute();
   const router = useRouter()
 
@@ -15,47 +15,50 @@
   const show_poules_menu =true;
   const can_edit = false;
 
+  const rang = computed(()=>{
+    return route.params.rang
+  } )
+
   const year = computed(()=>{
     return route.params.year
   } )
-  
+
   tournoiStore.getTournoiInfo()
+  tableaustore.getTab(parseInt(rang.value), year.value)
+  tableaustore.getAll(year.value)
+  const tableaux = computed(()=>tableaustore.getTableaux)
+  const tableau = computed(()=>tableaustore.getTableau)
+  watch(rang, rangChanged)
+  watch(year, yearChanged)
 
 
   var tableau_colors=["#FBBF24", "#9CA3AF", "#cd7f32"]
-  var tableaux = [{"nom":"Or", "rang":1}, {"nom":"argent", "rang":2}, {"nom":"Bronze", "rang":3}, {"nom":"Autre", "rang":4}]
-  var infoCardDatas={
-        "equipe":{'image':'user.png', 'number':"89", 'text':"Equipes Inscrites", 'color':"#1B2A5A"},
-        "poule":{'image':'group.png', 'number':"12", 'text':"Poules Générées", 'color':"#195937"},
-        "tableau":{'image':'network.png', 'number':"3", 'text':"Tableaux crées", 'color':"#00253A"}
-  }
+  var trio = [{"nom":"Or", "rang":1}, {"nom":"argent", "rang":2}, {"nom":"Bronze", "rang":3}, {"nom":"Autre", "rang":4}]
+  
 
   function previous(){
-    if(rang.value != 1){
+    if(rang.value != 0){
       router.push({
                   name: 'historique_tableaux',
-                  params: { year: year.value, rang: parseInt(rang.value)-1 }
+                  params: {year:year.value, rang: parseInt(rang.value)-1 }
               })
     } 
   }
 
   function next(){
-    if(rang.value != tableaux.length){
+    if(rang.value != tableaux.value.length-1 && tableaux.value.length){
       router.push({
                   name: 'historique_tableaux',
-                  params: {year: year.value,  rang: parseInt(rang.value)+1 }
+                  params: { year:year.value, rang: parseInt(rang.value)+1 }
               })
     } 
   }
   
-  const rang = computed(()=>{
-    return route.params.rang
-  } )
 
   var cssVars = computed(() => {
-    if (rang.value <= 3){
+    if (rang.value < 3){
       return {
-        '--bg-color': tableau_colors[parseInt(rang.value)-1],
+        '--bg-color': tableau_colors[parseInt(rang.value)],
       }
     }
     else{
@@ -74,6 +77,13 @@
     return color;
   }
 
+  function rangChanged(rang){
+    tableaustore.getTab(rang, year.value)
+  }
+
+  function yearChanged(year){
+    tableaustore.getTab(rang.value, year)
+  }
 
 </script>
 <template>
@@ -84,12 +94,17 @@
 
       <div class="tableauColor flex flex-row justify-center space-x-10 text-white items-center font-bold py-2  rounded-lg mb-12" :style="cssVars">
         <i class="fa-regular fa-angle-left cursor-pointer"  @click="previous()"></i>
-        <span class="text-lg sm:text-xl md:text-3xl">Tableau <span class="capitalize">{{tableaux[rang-1].nom}}</span></span>
+        <span class="text-lg sm:text-xl md:text-3xl">Tableau 
+            <span v-if="rang < 3" class="capitalize">{{trio[rang].nom}}</span>
+
+            <span  v-else class="capitalize">{{tableaux[rang].rang + 1 }}</span>
+
+       </span>
         <i class="fa-regular fa-angle-right cursor-pointer" @click="next()"></i>
 
       </div>
 
-      <TableauListVue  :can_edit="can_edit"/>
+      <TableauListVue  :tours="tableau.tours" :rang="rang" :can_edit="can_edit"/>
     </div>
     
 

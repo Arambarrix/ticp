@@ -7,7 +7,7 @@
   import InfoCardVue from "../../components/InfoCard.vue";
 
   import { useRoute } from "vue-router";
-  import { onMounted, computed} from 'vue'
+  import { watch, computed} from 'vue'
 
   const tournoiStore = Tournois();
   const teamStore = Teams();
@@ -19,6 +19,9 @@
   const year = computed(()=>{
     return route.params.year
   } )
+
+  watch(year, yearChanged)
+
 
   tournoiStore.getTournoiInfo(year.value)
   tournoiStore.getVainqueursByYear(year.value)
@@ -35,10 +38,12 @@
     } 
   })  
 
-  console.log(infoCardDatas.value)
-
   const vainqueurs = computed(()=>tournoiStore.getVainqueurs );
 
+  function yearChanged(year){
+    tournoiStore.getTournoiInfo(year)
+    tournoiStore.getVainqueursByYear(year)
+  }
 </script>
 <template>
   <div class="flex flex-col space-y-10">

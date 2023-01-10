@@ -26,7 +26,7 @@
 
     var banner_data= computed(() => {
         return {
-            'list_text_links':[{'text':'Résumé','link':"/historiques/"+props.year }, {'text':'Poules','link':"/historiques/"+props.year+"/poules" },{'text':'Tableaux','link':"/historiques/"+props.year+"/tableaux/1" } ,{'text':'Equipes','link':"/historiques/"+props.year+"/equipes" } ], 
+            'list_text_links':[{'text':'Résumé','link':"/historiques/"+props.year }, {'text':'Poules','link':"/historiques/"+props.year+"/poules" },{'text':'Tableaux','link':"/historiques/"+props.year+"/tableaux/0" } ,{'text':'Equipes','link':"/historiques/"+props.year+"/equipes" } ], 
             'actif':actif.value, 
             'is_fully_rounded':true
         };
