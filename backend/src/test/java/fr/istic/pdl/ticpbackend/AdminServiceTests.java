@@ -6,10 +6,7 @@ import fr.istic.pdl.ticpbackend.repository.*;
 import fr.istic.pdl.ticpbackend.service.AdminService;
 import fr.istic.pdl.ticpbackend.service.ConfirmationTokenService;
 import fr.istic.pdl.ticpbackend.service.TournoiService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:test.properties")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AdminServiceTests {
     AdminService adminService;
     ConfirmationTokenService confirmationTokenService;
