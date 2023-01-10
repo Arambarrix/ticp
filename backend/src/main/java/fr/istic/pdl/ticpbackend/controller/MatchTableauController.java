@@ -21,7 +21,8 @@ public class MatchTableauController {
     @GetMapping("/")
     private ResponseEntity<Object> getMatchTableaux(){
         try{
-            return new ResponseEntity<>(service.getMatchsTableaux(), HttpStatus.OK);
+            return Constants.success(service.getMatchsTableaux(),200);
+
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }
@@ -30,7 +31,8 @@ public class MatchTableauController {
     @GetMapping("/{id}")
     private ResponseEntity<Object> getMatchTableau(@PathVariable("id") int id){
         try{
-            return new ResponseEntity<>(service.getMatchTableau((long)id),HttpStatus.OK);
+            return Constants.success(service.getMatchTableau((long)id),200);
+
         }catch (RuntimeException e){
             return Constants.error(e,404);
         }

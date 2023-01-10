@@ -93,12 +93,6 @@ public class PouleService {
                 pointsEquipes.put(equipe,points.stream().mapToInt(Integer::valueOf).sum());
                 victoiresEquipes.put(equipe,victoires);
             }
-            for (Map.Entry<Equipe,List<MatchPoule>>val:victoiresEquipes.entrySet()){
-                System.out.println(val.getKey().getId()+" a remporté "+val.getValue().size());
-            }
-            for (Map.Entry<Equipe,Integer>val:pointsEquipes.entrySet()){
-                System.out.println(val.getKey().getId()+" a une différence de "+val.getValue());
-            }
             equipes.sort((o1, o2) -> {
                 int value = victoiresEquipes.get(o2).size() - victoiresEquipes.get(o1).size();
                 if (value == 0) {
@@ -106,11 +100,6 @@ public class PouleService {
                 }
                 return value;
             });
-            for(int i=0;i<equipes.size();i++){
-                System.out.println((i+1)+"-"+equipes.get(i).getId()+"-"+victoiresEquipes.get(equipes.get(i)).size()+"-"+pointsEquipes.get(equipes.get(i)));
-
-            }
-
         }
         return equipes;
 
@@ -148,12 +137,7 @@ public class PouleService {
                 pointsEquipes.put(equipe,points.stream().mapToInt(Integer::valueOf).sum());
                 victoiresEquipes.put(equipe,victoires);
             }
-            for (Map.Entry<Equipe,List<MatchPoule>>val:victoiresEquipes.entrySet()){
-                System.out.println(val.getKey().getId()+" a remporté "+val.getValue().size());
-            }
-            for (Map.Entry<Equipe,Integer>val:pointsEquipes.entrySet()){
-                System.out.println(val.getKey().getId()+" a une différence de "+val.getValue());
-            }
+
             equipes.sort((o1, o2) -> {
                 int value = victoiresEquipes.get(o2).size() - victoiresEquipes.get(o1).size();
                 if (value == 0) {
@@ -167,8 +151,6 @@ public class PouleService {
                 int points = pointsEquipes.get(equipe);
                 int victoires = victoiresEquipes.get(equipe).size();
                 classement.add(new EquipeDto(equipe,rang,points,victoires));
-                //System.out.println((i+1)+"-"+equipes.get(i).getId()+"-"+victoiresEquipes.get(equipes.get(i)).size()+"-"+pointsEquipes.get(equipes.get(i)));
-
             }
             return classement;
         }

@@ -5,22 +5,39 @@
   import { useRoute,useRouter, RouterLink } from "vue-router";
   import { ref, computed} from 'vue'
   import { Tournois } from "@/stores/user/tournoi"
+import { Tableaux } from '../stores/user/tableau';
 
   const route = useRoute();
   const router = useRouter()
   const tournoiStore = Tournois();
+  const tableaustore= Tableaux();
+
   tournoiStore.getTournoiInfo()
+
+  const rang = computed(()=>{
+    return route.params.rang
+  } )
+  tableaustore.getTab(parseInt(rang.value))
+  
+  const tableau = computed(()=>tableaustore.getTableau)
 
   var actif = "Tableaux";
   var can_edit = true;
 
   var tableau_colors=["#FBBF24", "#9CA3AF", "#cd7f32"]
   var tableaux = [{"nom":"Or", "rang":1}, {"nom":"argent", "rang":2}, {"nom":"Bronze", "rang":3}, {"nom":"Autre", "rang":4}]
-  var infoCardDatas={
-        "equipe":{'image':'user.png', 'number':"89", 'text':"Equipes Inscrites", 'color':"#1B2A5A"},
-        "poule":{'image':'group.png', 'number':"12", 'text':"Poules Générées", 'color':"#195937"},
-        "tableau":{'image':'network.png', 'number':"3", 'text':"Tableaux crées", 'color':"#00253A"}
-  }
+
+    const tournoi_tableaux_length = computed(()=>tournoiStore.getTableauxLength);
+    const tournoi_equipes_length = computed(()=>tournoiStore.getEquipesLength);
+    const tournoi_poules_length = computed(()=>tournoiStore.getPoulesLength);
+
+    var infoCardDatas= computed(()=>{
+        return {
+            "equipe":{'image':'user.png', 'number': tournoi_equipes_length.value, 'text':"Equipes Inscrites", 'color':"#1B2A5A"},
+            "poule":{'image':'group.png', 'number':tournoi_poules_length.value, 'text':"Poules Générées", 'color':"#195937"},
+            "tableau":{'image':'network.png', 'number':tournoi_tableaux_length.value, 'text':"Tableaux crées", 'color':"#00253A"}
+        } 
+    })
 
   function previous(){
     if(rang.value != 1){
@@ -40,9 +57,6 @@
     } 
   }
   
-  const rang = computed(()=>{
-    return route.params.rang
-  } )
 
   var cssVars = computed(() => {
     if (rang.value <= 3){
@@ -86,7 +100,7 @@
       </div>
 
 
-      <TableauListVue  :can_edit="can_edit"/>
+      <TableauListVue  :tours="tableau.tours" :can_edit="can_edit"/>
     </div>
   </main>
   
