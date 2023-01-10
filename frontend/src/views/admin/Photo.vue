@@ -1,6 +1,5 @@
 <script setup>
     import InfoCardVue from '../../components/InfoCard.vue';
-    import BoutonGenerate from '../../components/admin/ButtonGenerate.vue';
     import GaleryView from '../../components/admin/Galery.vue';
     import BannerVue from "../../components/admin/banner.vue";
     import { Tournois } from "@/stores/user/tournoi"

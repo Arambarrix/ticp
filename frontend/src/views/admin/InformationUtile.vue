@@ -1,6 +1,5 @@
 <script setup>
     import InfoCardVue from '../../components/InfoCard.vue';
-    import BoutonGenerate from '../../components/admin/ButtonGenerate.vue';
     import InformationListeView from '../../components/admin/InformationList.vue';
     import { useRoute, useRouter, RouterLink } from "vue-router";
     import { ref, computed } from 'vue'
