@@ -124,7 +124,16 @@ const router = createRouter({
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import('../views/admin/historique.vue')
+          component: () => import('../views/admin/InformationUtile.vue')
+      },
+
+      {
+          path: '/admin/photo',
+          name: 'photo_admin',
+          // route level code-splitting
+          // this generates a separate chunk (About.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import('../views/admin/Photo.vue')
       },
 
   ]

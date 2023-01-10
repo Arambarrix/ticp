@@ -3,7 +3,7 @@
     import BannerButtonListVue from '../../components/admin/ButtonList.vue';
     import SearchBar from '../../components/admin/SearchBar.vue';
     import BoutonGenerate from '../../components/admin/ButtonGenerate.vue';
-    import MatchListTableVue from '../../components/admin/MatchList.vue';
+    import PouleListTableVue from '../../components/admin/PouleList.vue';
     import { useRoute, useRouter, RouterLink } from "vue-router";
     import { ref, computed } from 'vue'
     const route = useRoute();
@@ -36,10 +36,10 @@
 
     var matchList = [
         { "id": 1, "numero": "A1", "equipe1": "dzsfessdezf", "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1 },
-        { "id": 1, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat", "gagnant": "Tatat" },
-        { "id": 1, "numero": "A1", "equipe1": "sxzdsx ", "equipe2": "dzsxcc edzsxw", "gagnant": "c xdcxvdcx fdcx dc", "score1": 20, "score2": 56 },
-        { "id": 1, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat", "gagnant": "Tatat" },
-        { "id": 1, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat e dz dqq dq", "gagnant": "Tatat", "score1": 45, "score2": 20 },
+        { "id": 2, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1  },
+        { "id": 3, "numero": "A1", "equipe1": "sxzdsx ", "equipe2": "dzsxcc edzsxw", "gagnant": "c xdcxvdcx fdcx dc", "score1": 20, "score2": 56 },
+        { "id": 4, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1  },
+        { "id": 5, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat e dz dqq dq", "gagnant": "Tatat", "score1": 45, "score2": 20 },
     ]
 
 </script>
@@ -72,9 +72,9 @@
             </div>
 
             <div class="max-w-5xl object-left m-0">
-                <MatchListTableVue class="" :data="matchList" />
-                <MatchListTableVue class="" :data="matchList" />
-                <MatchListTableVue class="" :data="matchList" />
+                <PouleListTableVue class="" :data="matchList" />
+                <PouleListTableVue class="" :data="matchList" />
+                <PouleListTableVue class="" :data="matchList" />
             </div>
 
         </div>
