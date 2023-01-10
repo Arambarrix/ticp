@@ -2,7 +2,6 @@ package fr.istic.pdl.ticpbackend.service;
 
 import fr.istic.pdl.ticpbackend.model.*;
 import fr.istic.pdl.ticpbackend.repository.*;
-import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
