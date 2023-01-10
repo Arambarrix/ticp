@@ -15,7 +15,7 @@
         return route.params.rang
     })
 
-    tournoiStore.getActualTournoiInfo()
+    tournoiStore.getTournoiInfo()
     var actif = "Poules";
     var infoCardDatas = {
         "joeur": { 'image': 'group.png', 'number': "289", 'text': "Nombre de joeurs", 'color': "#1B2A5A" },

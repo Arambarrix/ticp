@@ -13,7 +13,7 @@
         return route.params.rang
     })
 
-    tournoiStore.getActualTournoiInfo()
+    tournoiStore.getTournoiInfo()
 
     var infoCardDatas = {
         "photos": { 'image': 'galerie.png', 'number': "310", 'text': "Photos", 'color': "#195937" }
@@ -31,7 +31,7 @@
         {
             id: 1,
             url:
-            'https://cdn.pixabay.com/photo/2021/11/11/13/08/leopard-6786267__340.jpg',
+            'https://cdn.pixabay.com/photo/2019/07/21/22/32/bule-4353765_960_720.jpg',
         },
         {
             id: 2,
