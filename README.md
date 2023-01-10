@@ -22,6 +22,8 @@
 
   - [Démarrage](#démarrage)
 
+  - [Principes de fonctionnement](#Principes de fonctionnement)
+
 - [Versions](#versions)
 
 - [Auteurs](#auteurs)
