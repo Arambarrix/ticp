@@ -12,13 +12,12 @@ export const Tableaux = defineStore("tableaux", {
   }),
   getters: {
     getTableaux: (state) => state.tableaux,
-    getTableau: (state) => state.tableau
   },
   actions: {
     
-    async getAll(rang, year=new Date().getFullYear()){
+    async getAll(year, rang){
       const constants = Constants();
-      await axios.get(constants.APIURI + "tournoi/"+year+"/tableaux")
+      await axios.get(constants.APIURI + "tournoi/"+year+"/tableaux/"+rang)
                  .then((data) => {
                     if(data.data.code ==200){
                       this.tableaux =  data.data.data
@@ -26,26 +25,7 @@ export const Tableaux = defineStore("tableaux", {
                     }
                     else{
                       this.errors =  data.data.errors
-                      this.tableaux =  []
-
-                    }
-                 })
-                .catch(function (error) {
-                  console.log(error);
-                });
-    },
-
-    async getTab(year, rang){
-      const constants = Constants();
-      await axios.get(/*constants.APIURI + "tournoi/"+year+"/tableaux/"+rang*/ "http://localhost:8081/api/v1/tableaux/114/matchs_tableaux_tour")
-                 .then((data) => {
-                    if(data.data.code ==200){
-                      this.tableau =  data.data.data
-
-                    }
-                    else{
-                      this.errors =  data.data.errors
-                      this.tableau =  {}
+                      this.poules =  []
 
                     }
                  })
