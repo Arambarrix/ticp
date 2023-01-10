@@ -49,19 +49,25 @@ public class MatchPouleService {
      * @param match que l'on doit mettre à jour
      * @throws RuntimeException si le match n'existe pas, si la phase de poules est terminée
      */
-    public void updateMatchPoule(MatchPoule match){
-        if(repository.existsById(match.getId()) & LocalDate.now().isBefore(repository.getTournoi(match.getId()).getDateFinPoule())){
+    public void updateMatchPoule(Long id, MatchPoule match){
+
+        if(!repository.existsById(id)){
+            throw new RuntimeException("Match inexistant");
+        }
+        else if(repository.getTournoi(id).getDateDebutPoule()==null){
+            throw new RuntimeException("Modification interdite tant que la phase des poules n'est pas amorcée");
+        }
+        else if(LocalDate.now().isAfter(repository.getTournoi(id).getDateFinPoule())){
+            throw new RuntimeException("Phase de poules terminée");
+        }
+        else {
             MatchPoule matchPoule = repository.getReferenceById(match.getId());
             matchPoule.setScoreA(match.getScoreA());
             matchPoule.setScoreB(match.getScoreB());
-            matchPoule.setLieu(match.getLieu());
+            if(match.getLieu() != null) {
+                matchPoule.setLieu(match.getLieu());
+            }
             repository.save(matchPoule);
-        }
-        else if(!repository.existsById(match.getId())){
-            throw new RuntimeException("Match inexistant");
-        }
-        else if(LocalDate.now().isEqual(repository.getTournoi(match.getId()).getDateFinPoule()) || LocalDate.now().isAfter(repository.getTournoi(match.getId()).getDateFinPoule())){
-            throw new RuntimeException("Phase de poules terminée");
         }
 
     }
