@@ -31,14 +31,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers(Constants.EQUIPES).permitAll()
-                .antMatchers(HttpMethod.GET,Constants.TOURNOIS+"**").authenticated()
-                .antMatchers(Constants.MATCHSPOULE).permitAll()
+                //.antMatchers(Constants.EQUIPES).permitAll()
+                .antMatchers(HttpMethod.GET,Constants.TOURNOIS).authenticated()
+                /*.antMatchers(Constants.MATCHSPOULE).permitAll()
                 .antMatchers(Constants.MATCHSTABLEAU).permitAll()
                 .antMatchers(Constants.JOUEURS).permitAll()
                 .antMatchers(Constants.ADMIN+"**").permitAll()
                 .anyRequest()
                 .permitAll();
+
+                 */
+                .and()
+                .httpBasic();
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

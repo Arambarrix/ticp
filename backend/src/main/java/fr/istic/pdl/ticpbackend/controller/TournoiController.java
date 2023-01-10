@@ -98,6 +98,14 @@ public class TournoiController {
             return Constants.error(e,404);
         }
     }
+    @GetMapping("/{id}/vainqueurs")
+    private ResponseEntity<Object> getVainqueurs(@PathVariable("id") int id){
+        try{
+            return Constants.success(tournoiService.getVainqueurs((long)id),200);
+        }catch (RuntimeException e){
+            return Constants.error(e,403);
+        }
+    }
     @PutMapping("/{id}/create-groupes")
     private ResponseEntity<Object> createGroupes(@PathVariable("id") int id){
         try {

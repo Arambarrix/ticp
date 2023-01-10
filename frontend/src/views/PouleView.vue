@@ -8,9 +8,11 @@
   const tournoiStore = Tournois();
   const pouleStore = Poules();
 
-  tournoiStore.getActualTournoiInfo()
+  const actif = "Poules";
+  const can_edit = true;
+  const show_cards = true;
 
-  var actif = "Poules";
+  tournoiStore.getTournoiInfo()
 
   pouleStore.getAllByYear(new Date().getFullYear())
   const poules = computed(()=>pouleStore.getPoules );
@@ -19,7 +21,7 @@
 <template>
   <main>
     <BannerVue :actif="actif"/>
-    <PouleListVue :poules="poules"/>
+    <PouleListVue :poules="poules" :can_edit="can_edit" :show_cards="show_cards"/>
 
   </main>
   

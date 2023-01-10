@@ -9,7 +9,7 @@
   const teamStore = Teams();
   const tournoiStore = Tournois();
 
-  tournoiStore.getActualTournoiInfo()
+  tournoiStore.getTournoiInfo()
 
 
   var actif = "Equipes";
@@ -22,7 +22,7 @@
 <template>
   <main>
     <BannerVue :actif="actif"/>
-    <TeamListVue :teams="teams" />
+    <TeamListVue :teams="teams" show_header="true"/>
   </main>
   
 </template>

@@ -2,7 +2,7 @@
     import TeamVue from './Team.vue'
     import PaginationVue from './Pagination.vue';
     import { ref, computed } from 'vue'
-    const props = defineProps({'teams':Array});
+    const props = defineProps({'teams':Array, 'show_header':String});
 
 
     var is_order_down = ref(true)
@@ -14,7 +14,7 @@
 <template>
     <div class="px-20 py-10 ">
 
-        <div class="flex flex-row justify-between">
+        <div v-if="show_header=='true'" class="flex flex-row justify-between" >
             <div class="text-xl font-bold text-dark-brown">{{teams.length}} Equipes inscrites</div>
             <div class="flex flex-row space-x-5">
                 <div><i class="fa-sharp fa-solid fa-sliders"></i> Trier par</div>
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="flex flex-col px-2 pt-10 pb-8">
+        <div class="flex flex-col px-2 pb-8" :class="show_header=='true'?'pt-10':''">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-y-2 gap-x-5 md:gap-x-10">
                 <TeamVue v-for="team in teams" :id="team.id" :name="team.nom" :joueurs="team.joueurs"/>
             </div>

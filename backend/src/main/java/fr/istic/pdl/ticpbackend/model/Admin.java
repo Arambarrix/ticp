@@ -1,8 +1,15 @@
 package fr.istic.pdl.ticpbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import fr.istic.pdl.ticpbackend.config.ConfirmationToken;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Admin {
@@ -14,6 +21,10 @@ public class Admin {
     private String password;
     private String role = "ADMIN";
     private boolean isLogged;
+    @OneToMany(mappedBy="admin")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonManagedReference
+    private List<ConfirmationToken> confirmationTokenList;
 
     public Admin() {
     }
