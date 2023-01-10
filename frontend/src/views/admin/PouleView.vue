@@ -6,9 +6,13 @@
     import PouleListTableVue from '../../components/admin/PouleList.vue';
     import BannerVue from "../../components/admin/banner.vue";
     import { Tournois } from "@/stores/user/tournoi"
+    import { Poules } from "@/stores/user/poule"
     import { useRoute, useRouter, RouterLink } from "vue-router";
     import { ref, computed } from 'vue'
+import { generate } from '@vue/compiler-core';
     const tournoiStore = Tournois();
+    const pouleStore = Poules();
+
     const route = useRoute();
     const router = useRouter()
     const year = computed(() => {
@@ -48,6 +52,21 @@
         { "id": 5, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat e dz dqq dq", "gagnant": "Tatat", "score1": 45, "score2": 20 },
     ]
 
+    const success = computed(() => { 
+        return pouleStore.success; 
+    })
+
+    const errors = computed(() => { 
+        return pouleStore.errors; 
+    })
+
+    function generatePoule(){
+        console.log("chhcg")
+        pouleStore.success=""
+        pouleStore.launch_creation();
+        
+    }
+
 </script>
 
 <template>
@@ -73,7 +92,7 @@
                 <p class="my-5 text-dark-brown text-xl md:text-2xl font-bold">Poules</p>
                 <div class="justify-between grid grid-cols-3 grid-flow-col gap-4">
 
-                    <BoutonGenerate v-bind="poule_button" class="text-white bg-green-700 rounded-full" />
+                    <BoutonGenerate v-bind="poule_button" class="text-white bg-green-700 rounded-full" @click="generatePoule()"/>
                     <div></div>
                     <SearchBar class="col-span-1 col-end" />
 
