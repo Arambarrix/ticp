@@ -1,5 +1,7 @@
 package fr.istic.pdl.ticpbackend.service;
 
+import fr.istic.pdl.ticpbackend.dto.TableauDto;
+import fr.istic.pdl.ticpbackend.dto.TourDto;
 import fr.istic.pdl.ticpbackend.model.Equipe;
 import fr.istic.pdl.ticpbackend.model.MatchTableau;
 import fr.istic.pdl.ticpbackend.model.Tableau;
@@ -82,6 +84,10 @@ public class TableauService {
 
 
         List<Integer> rounds = new ArrayList<>();
+        for(MatchTableau matchTableau:matchTableauList){
+            rounds.add(matchTableau.getTour());
+        }
+
 
         Map<Integer, Map<Equipe, MatchTableau>> vainqueursRounds = new HashMap<>();
 
@@ -192,6 +198,31 @@ public class TableauService {
 
     public List<Tableau> getTableaux() {
         return repository.findAll();
+    }
+    public TableauDto getMatchsByTour(Tableau tableau){
+        List<MatchTableau> matchsTableau = tableau.getListMatchs();//Tous les matchs d'un tableau
+        List<TourDto> tours = new ArrayList<>();//
+        List<Integer> rounds = new ArrayList<>();//Tous les rounds d'un tableau
+        for(MatchTableau matchTableau:matchsTableau){
+            rounds.add(matchTableau.getTour());
+        }
+        System.out.println(rounds);
+        for(int i=0;i< rounds.size();i++){
+            while(Collections.frequency(rounds,i)>1){
+                rounds.remove(i);
+            }
+        }
+        for(Integer integer : rounds){
+            List<MatchTableau> matchsByTour = new ArrayList<>();
+            for (MatchTableau matchTableau:matchsTableau){
+                if(matchTableau.getTour()==integer){
+                    matchsByTour.add(matchTableau);
+                }
+            }
+            tours.add(new TourDto("Tour " + integer, integer, matchsByTour));
+
+        }
+        return new TableauDto(Math.toIntExact(tableau.getId()),tableau.getRang(),tours);
     }
 }
 
