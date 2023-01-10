@@ -1,7 +1,5 @@
 <script setup>
     import { ref } from 'vue'
-    import RenseignerScoreModalVue from './RenseignerScoreTableau.vue';
-
     const props = defineProps({'data':Object});
 
 
