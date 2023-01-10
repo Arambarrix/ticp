@@ -4,14 +4,19 @@
     import SearchBar from '../../components/admin/SearchBar.vue';
     import BoutonGenerate from '../../components/admin/ButtonGenerate.vue';
     import PouleListTableVue from '../../components/admin/PouleList.vue';
+    import BannerVue from "../../components/admin/banner.vue";
+    import { Tournois } from "@/stores/user/tournoi"
     import { useRoute, useRouter, RouterLink } from "vue-router";
     import { ref, computed } from 'vue'
+    const tournoiStore = Tournois();
     const route = useRoute();
     const router = useRouter()
     const year = computed(() => {
         return route.params.rang
     })
 
+    tournoiStore.getActualTournoiInfo()
+    var actif = "Poules";
     var infoCardDatas = {
         "joeur": { 'image': 'group.png', 'number': "289", 'text': "Nombre de joeurs", 'color': "#1B2A5A" },
         "equipe": { 'image': 'user.png', 'number': "55", 'text': "Equipes Inscrites", 'color': "#3A0000" },
@@ -48,7 +53,10 @@
     <main>
 
         <div class="py-10 snap-x">
-
+            <div class="gap-y-32">
+                <BannerVue :year="year" base_link="/admin/" :actif="actif" />
+                <p></p>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-16">
                 <InfoCardVue v-bind="infoCardDatas.joeur" />
                 <InfoCardVue v-bind="infoCardDatas.equipe" />
