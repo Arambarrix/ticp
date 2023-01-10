@@ -68,7 +68,7 @@ export const Tableaux = defineStore("tableaux", {
    
     async launch_creation(year=new Date().getFullYear()){
       const constants = Constants();
-      let result = await axios.put(constants.APIURI + "tournoi/"+year+"/create-groupes/");
+      let result = await axios.put(constants.APIURI + "tournoi/"+year+"/create-tableaux/");
       if(result.data.code ==200){
         this.success="Tableau créée"
         alert(this.success)

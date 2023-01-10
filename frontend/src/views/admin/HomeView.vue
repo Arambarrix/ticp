@@ -4,9 +4,14 @@
     import SearchBar from '../../components/admin/SearchBar.vue';
     import MatchListTableVue from '../../components/admin/MatchList.vue';
     import { Tournois } from "@/stores/user/tournoi"
+    import { Tableaux } from '../../stores/user/tableau';
+    import { Poules } from '../../stores/user/poule';
     import { useRoute, useRouter, RouterLink } from "vue-router";
     import { ref, computed } from 'vue'
     const tournoiStore = Tournois();
+    const tableauStore = Tableaux();
+    const pouleStore = Poules();
+
     const route = useRoute();
     const router = useRouter()
     const year = computed(() => {
@@ -34,6 +39,17 @@
         { "id": 5, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat e dz dqq dq", "gagnant": "Tatat", "score1": 45, "score2": 20 },
     ]
 
+    function generateTableau(){
+        tableauStore.success=""
+        tableauStore.launch_creation();  
+    }
+
+    function generatePoule(){
+        pouleStore.success=""
+        pouleStore.launch_creation();
+    }
+
+
 </script>
 
 <template>
@@ -59,13 +75,13 @@
                 <p class="my-5 text-dark-brown text-xl md:text-2xl font-bold">Tournois</p>
                 <div class="justify-between h-12 grid grid-cols-5 gap-4">
                     <div class="text-center">
-                        <div to="" class="cursor-pointer text-white bg-blue-900 px-6 py-3 text-white font-bold" @click="toggleModal">
+                        <div to="" class="cursor-pointer text-white bg-blue-900 px-6 py-3 text-white font-bold" @click="generatePoule()">
                             <i class="fa-light fa-people-group" title="GenererPoules"></i>
                             <span>  Générer Poules</span>
                         </div>
                     </div>
                     <div class="text-center cursor-pointer">
-                        <div to="" class="text-white bg-blue-900 px-6 py-3 text-white font-bold" @click="toggleModal">
+                        <div to="" class="text-white bg-blue-900 px-6 py-3 text-white font-bold" @click="generateTableau()">
                             <i class="fa-regular fa-square-poll-vertical" title="GenererPoules"></i>
                             <span>  Générer Tableaux</span>
                         </div>
