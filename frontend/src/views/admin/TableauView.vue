@@ -8,7 +8,10 @@
     import { Tournois } from "@/stores/user/tournoi"
     import { useRoute, useRouter, RouterLink } from "vue-router";
     import { ref, computed } from 'vue'
+import { Tableaux } from '../../stores/user/tableau';
     const tournoiStore = Tournois();
+    const tableauStore= Tableaux();
+
     const route = useRoute();
     const router = useRouter()
     const year = computed(() => {
@@ -53,6 +56,21 @@
         { "id": 5, "numero": "A1", "equipe1": "parppp", "equipe2": "Tatat e dz dqq dq", "gagnant": "Tatat", "score1": 45, "score2": 20 },
     ]
 
+    const success = computed(() => { 
+        return tableauStore.success; 
+    })
+
+    const errors = computed(() => { 
+        return tableauStore.errors; 
+    })
+
+    function generateTableau(){
+        console.log("chhcg")
+        tableauStore.success=""
+        tableauStore.launch_creation();
+        
+    }
+
 </script>
 
 <template>
@@ -78,7 +96,7 @@
                 <p class="my-5 text-dark-brown text-xl md:text-2xl font-bold">Tableaux</p>
                 <div class="justify-between grid grid-cols-3 grid-flow-col gap-4">
 
-                    <BoutonGenerate v-bind="poule_button" class="text-white bg-green-700 rounded-full" />
+                    <BoutonGenerate v-bind="poule_button" class="text-white bg-green-700 rounded-full" @click="generateTableau()"/>
                     <div></div>
                     <SearchBar class="col-span-1 col-end" />
 

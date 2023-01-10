@@ -1,6 +1,7 @@
 package fr.istic.pdl.ticpbackend.service;
 
 import fr.istic.pdl.ticpbackend.model.MatchTableau;
+import fr.istic.pdl.ticpbackend.model.Tableau;
 import fr.istic.pdl.ticpbackend.repository.MatchTableauRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.*;
 public class MatchTableauService {
     MatchTableauRepository repository;
     TournoiService tournoiService;
+    TableauService tableauService;
 
     /**
      * Permet de retourner un match de tableau
@@ -38,20 +40,27 @@ public class MatchTableauService {
      * @param match le match de tableau à mettre à jour
      * @throws RuntimeException si le match n'existe pas
      */
-    public void updateMatchTableau(MatchTableau match){
-        if(repository.existsById(match.getId()) & LocalDate.now().isBefore(repository.getTournoi(match.getId()).getDateFinTournoi()) & (LocalDate.now().isAfter(repository.getTournoi(match.getId()).getDateDebutTableau()))){
-            MatchTableau matchTableau = repository.getReferenceById(match.getId());
-            matchTableau.setScoreA(match.getScoreA());
-            matchTableau.setScoreB(match.getScoreB());
-            matchTableau.setLieu(match.getLieu());
-            repository.save(matchTableau);
-        }
-        else if(!repository.existsById(match.getId())){
+    public void updateMatchTableau(Long id, MatchTableau match){
+        if(!repository.existsById(id)){
             throw new RuntimeException("Match inexistant");
         }
-        else if(!(LocalDate.now().isBefore(repository.getTournoi(match.getId()).getDateFinTournoi()) & (LocalDate.now().isAfter(repository.getTournoi(match.getId()).getDateDebutTableau())))){
+        else if((repository.getTournoi(id).getDateDebutTableau()==null)&(repository.getTournoi(id).getDateFinTournoi()==null || repository.getTournoi(id).getDateFinTournoi()!=null)){
+            throw new RuntimeException("Modification interdite tant que le date du début des tableaux n'est pas définie");
+        }
+        else if(LocalDate.now().isAfter(repository.getTournoi(id).getDateFinTournoi()) || LocalDate.now().isBefore(repository.getTournoi(id).getDateDebutTableau())){
             throw new RuntimeException("Modification interdite en dehors des dates réglementaires. Veuillez consulter les dates du tableau.");
         }
+        else {
+            MatchTableau matchTableau = repository.findById(id).get();
+            matchTableau.setScoreA(match.getScoreA());
+            matchTableau.setScoreB(match.getScoreB());
+            if(match.getLieu() != null) {
+                matchTableau.setLieu(match.getLieu());
+            }
+            repository.save(matchTableau);
+            tableauService.nextRound(matchTableau.getTableau().getId());
+        }
+
     }
 
     /**
