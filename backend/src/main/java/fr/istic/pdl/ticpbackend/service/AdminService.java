@@ -42,35 +42,39 @@ public class AdminService implements UserDetailsService {
         }
 
          */
-        Admin admin = new Admin();
-        admin.setUsername(appUser.getUsername());
-        admin.setPassword(appUser.getPassword());
+        if(adminRepository.findByUsername(appUser.getUsername())!=null){
+            throw new RuntimeException("Nom d'utilisateur déjà existant");
+        }
+        else if(appUser.getPassword().isEmpty() || appUser.getPassword().length()<=5){
+            throw new RuntimeException("Mot de passe trop court. Il doit contenir au moins 6 caractères ");
+        }
+        else {
+            Admin admin = new Admin();
+            admin.setUsername(appUser.getUsername());
+            admin.setPassword(appUser.getPassword());
+            String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
+            appUser.setPassword(encodedPassword);
+            appUser.setLogged(true);
+            adminRepository.save(appUser);
 
-        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
-        System.out.println(appUser);
+            String token = UUID.randomUUID().toString();
 
-        appUser.setPassword(encodedPassword);
+            ConfirmationToken confirmationToken = new ConfirmationToken(
+                    token,
+                    LocalDateTime.now(),
+                    LocalDateTime.now().plusMinutes(15),
+                    appUser
+            );
 
-        adminRepository.save(appUser);
-
-        String token = UUID.randomUUID().toString();
-
-        ConfirmationToken confirmationToken = new ConfirmationToken(
-                token,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
-                appUser
-        );
-
-        confirmationTokenService.saveConfirmationToken(
-                confirmationToken);
-        admin.setLogged(true);
+            confirmationTokenService.saveConfirmationToken(
+                    confirmationToken);
 
 //        TODO: SEND EMAIL
+        }
 
     }
     public void seConnecter(String username, String password){
-        if(!adminRepository.findAll().contains(adminRepository.findByUsername(username))){
+        if(adminRepository.findByUsername(username)==null){
             throw new RuntimeException("Utilisateur introuvable");
         }
         else if(!bCryptPasswordEncoder.matches(password,adminRepository.findByUsername(username).getPassword())){
@@ -80,32 +84,35 @@ public class AdminService implements UserDetailsService {
             throw new RuntimeException("Utilisateur déjà connecté");
         }
         else {
+            Admin connecte = adminRepository.findByUsername(username);
             String token = UUID.randomUUID().toString();
             ConfirmationToken confirmationToken = new ConfirmationToken(
                     token,
                     LocalDateTime.now(),
                     LocalDateTime.now().plusMinutes(15),
-                    adminRepository.findByUsername(username)
+                    connecte
             );
-            adminRepository.findByUsername(username).setLogged(true);
-            adminRepository.save(adminRepository.findByUsername(username));
+            connecte.setLogged(true);
+            adminRepository.save(connecte);
             confirmationTokenService.saveConfirmationToken(
                     confirmationToken);
-
-
         }
 
     }
     public void seDeconnecter(Admin admin){
-        if(!adminRepository.findAll().contains(adminRepository.findByUsername(admin.getUsername()))){
+        if(admin.getUsername().isEmpty()){
+            throw new RuntimeException("Aucun nom d'utilisateur détecté");
+        }
+        else if(adminRepository.findByUsername(admin.getUsername())==null){
             throw new RuntimeException("Utilisateur introuvable");
         }
         else if(!adminRepository.findByUsername(admin.getUsername()).isLogged()){
             throw new RuntimeException("Utilisateur non connecté");
         }
         else {
-            adminRepository.findByUsername(admin.getUsername()).setLogged(false);
-            adminRepository.save(adminRepository.findByUsername(admin.getUsername()));
+            Admin connecte = adminRepository.findByUsername(admin.getUsername());
+            connecte.setLogged(false);
+            adminRepository.save(connecte);
         }
 
     }

@@ -33,6 +33,10 @@ public class TournoiServiceTests {
     @Autowired
     InformationRepository informationRepository;
     Tournoi tournoi;
+    @Autowired
+    EquipeRepository equipeRepository;
+    @Autowired
+    JoueurRepository joueurRepository;
     @BeforeEach
     void setUp() throws Exception {
         tournoiService=new TournoiService(tournoiRepository,pouleRepository,tableauRepository,matchPouleRepository,matchTableauRepository,informationRepository,photoRepository);
