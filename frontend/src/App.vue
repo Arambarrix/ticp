@@ -1,10 +1,17 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import AdminHeader from './components/templates/AdminHeader.vue'
-import UserHeader from './components/templates/UserHeader.vue'
-import AdminLeftMenu from './components/templates/AdminLeftMenu.vue'
+  import { RouterView } from 'vue-router'
+  import AdminHeader from './components/templates/AdminHeader.vue'
+  import UserHeader from './components/templates/UserHeader.vue'
+  import AdminLeftMenu from './components/templates/AdminLeftMenu.vue'
+  import { useAuthStore } from "@/stores/auth"
+  import { computed } from "vue";
 
-    var is_admin = true;
+  const authStore = useAuthStore();
+
+
+  const is_admin = computed(() => { 
+    return authStore.is_admin; 
+  })
 </script>
 
 <template>
@@ -17,8 +24,8 @@ import AdminLeftMenu from './components/templates/AdminLeftMenu.vue'
   <div v-if="is_admin" class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white text-black">
     <AdminHeader  />
     <AdminLeftMenu />
-    <div class="flex flex-col mb-5 px-8 w-full fixed left-14 md:left-64 top-14 relative overflow-y-auto">
-      <RouterView />
+    <div class="flex flex-col mb-5 w-screen px-8 fixed left-14 md:left-64 top-14 relative overflow-y-auto overflow-x-contain">
+      <RouterView class=" " />
     </div>
   </div>
 

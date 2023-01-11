@@ -1,21 +1,23 @@
 <script setup>
 import { ref, computed } from "vue";
-import { Teams } from "@/stores/user/team"
+import { Tournois } from "@/stores/user/tournoi"
 
-const teamStore = Teams();
+const tournoiStore = Tournois();
 
 const nom = ref("");
-const membre1 = ref("");
-const membre2 = ref("");
-const membre3 = ref("");
-const membre4 = ref("");
+const dateDebutTournoi = ref("");
+const dateFinInscription = ref("");
+const dateDebutPoule = ref("");
+const dateFinPoule = ref("");
+const dateDebutTableau = ref("");
+const dateFinTournoi = ref("");
 
 const errors = computed(() => { 
-  return teamStore.errors; 
+  return tournoiStore.errors; 
 })
 
 function validateFields() {
-  if(nom.value === "" || membre1.value === "" || membre2.value === ""){
+  if(nom.value === "" || dateDebutTournoi.value === "   "){
     return false;
   }
 }
@@ -24,20 +26,20 @@ function validateFields() {
 async function store() {
     teamStore.errors=""
     if(validateFields() === false){
-        teamStore.errors = "Les champs nom, membre 1 et membre2 sont requis";
+        tournoiStore.errors = "Les champs nom et la date de debut du tournoi sont requis";
     }    
     else{
-        var membres =[membre1.value, membre2.value]
-        if(membre3.value !="") membres.push(membre3.value)
-        if(membre4.value !="") membres.push(membre4.value)
+        var data ={"nom":nom.value, "dateDebutTournoi":dateDebutTournoi.value}
+        if(dateFinInscription.value !="") data.dateFinInscription = dateFinInscription.value
+        if(dateDebutPoule.value !="") data.dateDebutPoule = dateDebutPoule.value
+        if(dateFinPoule.value !="") data.dateFinPoule = dateFinPoule.value
+        if(dateDebutTableau.value !="") data.dateDebutTableau = dateDebutTableau.value
+        if(dateFinTournoi.value !="") data.dateFinTournoi = dateFinTournoi.value
 
-        await teamStore.store({
-        "nom":nom.value,
-        "membres":membres,
-        })  
+        await tournoiStore.store(data)  
     }
     if(errors == ""){
-        teamStore.errors=""
+        tournoiStore.errors=""
     }
 }
 
@@ -47,9 +49,9 @@ async function store() {
 </script>
 <template>
     <div class="flex flex-col items-center justify-center h-full w-full pt-20">
-        <p class="text-md">Informations de l'Equipe</p>
+        <p class="text-md">Informations deu tournoi</p>
             
-        <form @submit.prevent="store" class="flex flex-col items-center justify-center">
+        <form @submit.prevent="store" class="flex flex-col items-center justify-center space-y-5 md:space-y-8 w-1/3">
 
             <div class="flex flex-col text-red-300 text-center tracking-wider">
                 <p 
@@ -62,60 +64,95 @@ async function store() {
         
 
             <div class="mt-2 w-full text-dark-brown flex flex-col">
+                <span class="text-sm">Nom </span>
+
                 <input
                     v-model="nom"
                     aria-label="Entrer nom"
                     role="input"
                     type="text"
-                    placeholder="Nom équipe *"
+                    placeholder="abcd *"
                     class="tracking-wider shadow poppins bg-white border border-dark-brown rounded-lg focus:outline-none text-sm font-medium leading-none py-3 w-full pl-3 mt-2"
                 />
             </div>
 
             <div class="mt-2 w-full text-dark-brown flex flex-col">
+                <span class="text-sm">Date de début du tournoi </span>
                 <input
-                    v-model="membre1"
+                    v-model="dateDebutTournoi"
                     aria-label="membre 1"
                     role="input"
-                    type="text"
+                    type="date"
                     placeholder="Membre 1 *"
                     class="tracking-wider shadow poppins bg-white border border-dark-brown rounded-lg focus:outline-none text-sm font-medium leading-none py-3 w-full pl-3 mt-2"
                 />
             </div>
 
             <div class="mt-2 w-full text-dark-brown flex flex-col">
+                <span class="text-sm">Date de fin d'inscription des équipes </span>
                 <input
-                    v-model="membre2"
-                    aria-label="membre 2"
+                    v-model="dateFinInscription"
+                    aria-label="dateFinInscription 2"
                     role="input"
-                    type="text"
+                    type="date"
                     placeholder="Membre 2 *"
                     class="tracking-wider shadow poppins bg-white border border-dark-brown rounded-lg focus:outline-none text-sm font-medium leading-none py-3 w-full pl-3 mt-2"
                 />
             </div>
 
             <div class="mt-2 w-full text-dark-brown flex flex-col">
+                <span class="text-sm">Date de début des phases de poules </span>
+
                 <input
-                    v-model="membre3"
+                    v-model="dateDebutPoule"
                     aria-label="membre 3"
                     role="input"
-                    type="text"
+                    type="date"
                     placeholder="Membre 3"
                     class="tracking-wider shadow poppins bg-white border border-dark-brown rounded-lg focus:outline-none text-sm font-medium leading-none py-3 w-full pl-3 mt-2"
                 />
             </div>
 
             <div class="mt-2 w-full text-dark-brown flex flex-col">
+                <span class="text-sm">Date de fin des phases de poules </span>
+
                 <input
-                    v-model="membre4"
+                    v-model="dateFinPoule"
                     aria-label="membre 4"
                     role="input"
-                    type="text"
+                    type="date"
                     placeholder="Membre 4"
                     class="tracking-wider  shadow-xl poppins bg-white border  border-dark-brown rounded-lg focus:outline-none text-sm font-medium leading-none py-3 w-full pl-3 mt-2"
                 />
             </div>
 
+
+            <div class="mt-2 w-full text-dark-brown flex flex-col">
+                <span class="text-sm">Date de début des phases de tableaux </span>
+
+                <input
+                    v-model="dateDebutTableau"
+                    aria-label="membre 4"
+                    role="input"
+                    type="date"
+                    placeholder="Membre 4"
+                    class="tracking-wider  shadow-xl poppins bg-white border  border-dark-brown rounded-lg focus:outline-none text-sm font-medium leading-none py-3 w-full pl-3 mt-2"
+                />
+            </div>
+
+
+            <div class="mt-2 w-full text-dark-brown flex flex-col">
+                <span class="text-sm">Date de fin du tournoi </span>
+
+                <input
+                    v-model="dateFinTournoi"
+                    aria-label="membre 4"
+                    role="input"
+                    type="date"
+                    placeholder="Membre 4"
+                    class="tracking-wider  shadow-xl poppins bg-white border  border-dark-brown rounded-lg focus:outline-none text-sm font-medium leading-none py-3 w-full pl-3 mt-2"
+                />
+            </div>
 
         
             <div class="flex items-center justify-center w-full mt-6 mb-2">

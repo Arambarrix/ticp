@@ -1,77 +1,82 @@
 <script setup>
     import InfoCardVue from '../../components/InfoCard.vue';
-    import BannerVue from "../../components/admin/banner.vue";
+    import HistoriqueYearsVue from '../../components/historique/HistoriqueYears.vue';
     import SearchBar from '../../components/admin/SearchBar.vue';
     import MatchListTableVue from '../../components/admin/MatchList.vue';
     import { Tournois } from "@/stores/user/tournoi"
     import { Tableaux } from '../../stores/user/tableau';
     import { Poules } from '../../stores/user/poule';
     import { useRoute, useRouter, RouterLink } from "vue-router";
-    import { ref, computed } from 'vue'
+    import { watch, computed } from 'vue'
+
     const tournoiStore = Tournois();
     const tableauStore = Tableaux();
     const pouleStore = Poules();
 
     const route = useRoute();
     const router = useRouter()
-    const year = computed(() => {
-        return route.params.rang
-    })
+    
+    const year = computed(()=>{
+        return route.params.year
+    } )
 
-    tournoiStore.getTournoiInfo()
-    var actif = "tournoisHistorique";
-    var infoCardDatas = {
-        "joeur": { 'image': 'group.png', 'number': "289", 'text': "Nombre de joeurs", 'color': "#1B2A5A" },
-        "equipe": { 'image': 'user.png', 'number': "55", 'text': "Equipes Inscrites", 'color': "#3A0000" },
-        "match": { 'image': 'flag.png', 'number': "1452", 'text': "Matchs Termin�s", 'color': "#195937" }
-    };
+    watch(year, yearChanged)
 
-    var matchList = [
-        { "id": 1, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1 },
-        { "id": 2, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1 },
-        { "id": 3, "date": "12/05/22", "valeur": 236, "equipe2": "dzsxcc edzsxw", "gagnant": "c xdcxvdcx fdcx dc", "score1": 20, "score2": 56 },
-        { "id": 4, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1 },
-        { "id": 5, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat e dz dqq dq", "gagnant": "Tatat", "score1": 45, "score2": 20 },
-        { "id": 1, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1 },
-        { "id": 2, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1 },
-        { "id": 3, "date": "12/05/22", "valeur": 236, "equipe2": "dzsxcc edzsxw", "gagnant": "c xdcxvdcx fdcx dc", "score1": 20, "score2": 56 },
-        { "id": 4, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat", "gagnant": "Tatat", "score1": 2, "score2": 1 },
-        { "id": 5, "date": "12/05/22", "valeur": 236, "equipe2": "Tatat e dz dqq dq", "gagnant": "Tatat", "score1": 45, "score2": 20 },
-    ]
+    tournoiStore.getTournoiInfo(year.value)
+    tournoiStore.getAll()
+    const tournois = computed(()=>tournoiStore.getTournois );
 
+    console.log(tournois.value)
+
+    const tournoi_tableaux_length = computed(()=>tournoiStore.getTableauxLength);
+    const tournoi_equipes_length = computed(()=>tournoiStore.getEquipesLength);
+    const tournoi_poules_length = computed(()=>tournoiStore.getPoulesLength);
+
+    var infoCardDatas= computed(()=>{
+        return {
+            "equipe":{'image':'user.png', 'number': tournoi_equipes_length.value, 'text':"Equipes Inscrites", 'color':"#1B2A5A"},
+            "poule":{'image':'group.png', 'number':tournoi_poules_length.value, 'text':"Poules Générées", 'color':"#195937"},
+            "tableau":{'image':'network.png', 'number':tournoi_tableaux_length.value, 'text':"Tableaux crées", 'color':"#00253A"}
+        } 
+    }) 
+
+
+    var historique_links= computed(() => {
+    
+        return {
+            'tournois':tournois.value,
+            'year_actif':year.value, 
+            'base_link':"/admin/accueil/", 
+        };
+
+    });
     function generateTableau(){
-        tableauStore.success=""
         tableauStore.launch_creation();  
     }
 
     function generatePoule(){
-        pouleStore.success=""
         pouleStore.launch_creation();
     }
 
-
+    function yearChanged(year){
+        tournoiStore.getTournoiInfo(year)
+    }
 </script>
 
 <template>
     <main>
 
-        <div class="py-10 snap-x">
-            <div class="gap-y-32">
-                <BannerVue :year="year" base_link="/admin/" :actif="actif" />
-                <p></p>
-            </div>
+        <div class="flex flex-col space-y-10 w-auto ">
+            
+            <HistoriqueYearsVue  v-bind="historique_links" class="w-full px-6 md:px-8"/>
+
             <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-6">
-                <InfoCardVue v-bind="infoCardDatas.joeur" />
-                <InfoCardVue v-bind="infoCardDatas.equipe" />
-                <InfoCardVue v-bind="infoCardDatas.match" />
+                <InfoCardVue v-bind="infoCardDatas.equipe"/>
+                <InfoCardVue v-bind="infoCardDatas.poule"/>
+                <InfoCardVue v-bind="infoCardDatas.tableau"/>
             </div>
 
-            <div class="w-96 ">
-
-            </div>
-
-
-            <div class="max-w-5xl ">
+            <div class="max-w-5xl">
                 <p class="my-5 text-dark-brown text-xl md:text-2xl font-bold">Tournois</p>
                 <div class="justify-between h-12 grid grid-cols-5 gap-4">
                     <div class="text-center">
@@ -91,9 +96,7 @@
                 </div>
             </div>
 
-            <div class="max-w-5xl object-left m-0">
-                <MatchListTableVue class="" :data="matchList" />
-            </div>
+            <MatchListTableVue class="" :data="tournois" />
 
         </div>
     </main>
