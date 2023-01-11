@@ -3,6 +3,7 @@ package fr.istic.pdl.ticpbackend.controller;
 import fr.istic.pdl.ticpbackend.model.Admin;
 import fr.istic.pdl.ticpbackend.service.AdminService;
 import fr.istic.pdl.ticpbackend.service.ConfirmationTokenService;
+import fr.istic.pdl.ticpbackend.utils.Constants;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +18,30 @@ public class AdminController {
     private ConfirmationTokenService confirmationTokenService;
     @PostMapping("/")
     private ResponseEntity<Object> saveAdmin(@RequestBody Admin admin){
-        System.out.println(admin);
-        adminService.signUpUser(admin);
-        return new ResponseEntity<>(admin, HttpStatus.OK);
+        try{
+            adminService.signUpUser(admin);
+            return Constants.success(admin,200);
+        }catch (RuntimeException e){
+            return Constants.error(e,403);
+        }
     }
     @PutMapping("/login")
     private ResponseEntity<Object> connecterAdmin(@RequestBody Admin admin){
-        adminService.seConnecter(admin.getUsername(),admin.getPassword());
-        return new ResponseEntity<>(admin+" connecté", HttpStatus.OK);
+        try{
+            adminService.seConnecter(admin.getUsername(),admin.getPassword());
+            return Constants.success(admin,200);
+        }catch (RuntimeException e){
+            return Constants.error(e,403);
+        }
     }
     @PutMapping("/logout")
     private ResponseEntity<Object> deConnecterAdmin(@RequestBody Admin admin){
-        adminService.seDeconnecter(admin);
-        return new ResponseEntity<>(admin+" déconnecté", HttpStatus.OK);
+        try{
+            adminService.seDeconnecter(admin);
+            return Constants.success(admin,200);
+        }catch (RuntimeException e){
+            return Constants.error(e,403);
+        }
     }
 
     @GetMapping("/confirm-token")

@@ -8,8 +8,8 @@ export const Tournois = defineStore("tournois", {
     current_tournoi: {},
     is_tournoi_launched: Boolean(localStorage.getItem('is_tournoi_launched')) || false,
     is_registration_ended: Boolean(localStorage.getItem('is_registration_ended')) || false,
-    errors:[],
-    success:[],
+    errors:"",
+    success:"",
     tableaux_length:0,
     equipes_length:0,
     poules_length:0,
@@ -64,6 +64,7 @@ export const Tournois = defineStore("tournois", {
                   .catch(function (error) {
                     console.log(error);
                   });
+                  console.log(this.tournois)
     },
 
     async getVainqueursByYear(year=new Date().getFullYear()){
