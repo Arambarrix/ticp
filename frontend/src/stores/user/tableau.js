@@ -60,6 +60,8 @@ export const Tableaux = defineStore("tableaux", {
       console.log(rang)
       if(result.data.code ==200){
         this.getTab(rang)
+        this.errors = ""
+
       }
       else{
         this.errors =  result.data.errors

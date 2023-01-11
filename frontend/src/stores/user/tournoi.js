@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from 'axios'
 import {Constants} from "../constants";
+import router from "@/router"
 
 export const Tournois = defineStore("tournois", {
   state: () => ({
@@ -17,7 +18,9 @@ export const Tournois = defineStore("tournois", {
   }),
   getters: {
     getCurrentTournoi: (state) => state.current_tournoi,
-    getTournois: (state) => state.tournois,
+    getTournois: (state) => state.tournois.sort(function(a,b){
+      return  b.id - a.id ;
+    }),
     getVainqueurs: (state) => state.vainqueurs,
     isTournoiLaunched: (state) => state.is_tournoi_launched,
     isRegistrationEnded: (state) => state.is_registration_ended,
@@ -64,8 +67,39 @@ export const Tournois = defineStore("tournois", {
                   .catch(function (error) {
                     console.log(error);
                   });
-                  console.log(this.tournois)
     },
+
+
+    async store(data){
+      const constants = Constants();
+      let result = await axios.post(constants.APIURI + "tournoi/", 
+          data
+      );
+      if(result.data.code ==200){      
+        router.push("/admin/accueil/"+constants.year);
+        this.errors = ""
+      }
+      else{
+        this.errors =  result.data.errors
+      }         
+    },
+
+    async update(data){
+      const constants = Constants();
+      let result = await axios.put(constants.APIURI + "tournoi/"+data.id, 
+          data
+      );
+      if(result.data.code ==200){    
+        console.log(result.data.data)
+        this.errors = ""
+        this.getAll()  
+        
+      }
+      else{
+        this.errors =  result.data.errors
+      }         
+    },
+
 
     async getVainqueursByYear(year=new Date().getFullYear()){
 
@@ -84,7 +118,10 @@ export const Tournois = defineStore("tournois", {
                 .catch(function (error) {
                   console.log(error);
                 });
-  },
+    },
+
+
+
     async updateTournoiInfo(){
       if(this.current_tournoi.id){
         this.tableaux_length = this.current_tournoi.tableaux.length

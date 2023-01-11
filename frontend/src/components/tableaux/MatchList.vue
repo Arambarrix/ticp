@@ -1,8 +1,14 @@
 <script setup>
     import RenseignerScoreModalVue from './RenseignerScoreModal.vue';
+    import { Tournois } from "@/stores/user/tournoi"
+    import { computed } from 'vue'
 
     const props = defineProps({'data':Object, 'type':String, 'can_edit':Boolean, 'rang':String});
-    
+    const tournoiStore = Tournois();
+
+    const  is_poule_phase_on = computed(()=>{
+        
+    })
 </script>
 
 <template>
