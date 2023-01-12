@@ -51,7 +51,8 @@ public class MatchTableauService {
             throw new RuntimeException("Modification interdite en dehors des dates réglementaires. Veuillez consulter les dates du tableau.");
         }
         else {
-            MatchTableau matchTableau = repository.findById(id).get();
+            System.out.println(repository.findById(id).get());
+            MatchTableau matchTableau = repository.getReferenceById(id);
             matchTableau.setScoreA(match.getScoreA());
             matchTableau.setScoreB(match.getScoreB());
             if(match.getLieu() != null) {
@@ -59,6 +60,7 @@ public class MatchTableauService {
             }
             repository.save(matchTableau);
             tableauService.nextRound(matchTableau.getTableau().getId());
+            System.out.println(repository.findById(id).get());
         }
 
     }

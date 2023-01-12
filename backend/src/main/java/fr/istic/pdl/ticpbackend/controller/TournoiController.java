@@ -113,7 +113,7 @@ public class TournoiController {
     private ResponseEntity<Object> createGroupes(@PathVariable("id") int id){
         try {
             tournoiService.createGroupes((long)id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return Constants.success("ok",200);
         }catch (RuntimeException e){
             return Constants.error(e,403);
         }
@@ -122,7 +122,7 @@ public class TournoiController {
     private ResponseEntity<Object> createTableaux(@PathVariable("id")int id){
        try {
            tournoiService.createTableaux((long)id);
-           return new ResponseEntity<>(HttpStatus.OK);
+           return Constants.success("ok",200);
        }catch (RuntimeException e){
            return Constants.error(e,403);
        }

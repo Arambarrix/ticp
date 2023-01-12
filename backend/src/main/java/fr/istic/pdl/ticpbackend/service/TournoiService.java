@@ -516,7 +516,6 @@ public class TournoiService {
         } else if (repository.findById(id).get().getPoules().isEmpty()){
             throw new RuntimeException("Impossible de lancer générer la phase des tableaux sans les poules");
         }
-
         else{
             List<Integer> puissances = new ArrayList<>();
             List<Tableau> tableaux = new ArrayList<>();
@@ -558,7 +557,6 @@ public class TournoiService {
             //1- Implémentation du tableau principal
             int toursPrincipal = (int) Math.ceil(((Math.log(vainqueurs.size() + seconds.size()) / Math.log(2))));//Nombre de tours du tableau principal
             List<MatchTableau> matchTableaux = new ArrayList<>();//Liste des matchs du tableau principal
-
             if (puissances.contains(totalPrincipal)) {
                 //Si le nombre d'équipes du tableau principal est parfaitement pair, l'implémentation est directe
                 for (int i = 0; i < toursPrincipal; i++) {
@@ -593,7 +591,6 @@ public class TournoiService {
                             break;
                         }
                     }
-
                     //On crée les matchs des deux premiers tours
                     Map<Integer, Integer> relation2 = new HashMap<>();
                     int tours = (int) Math.ceil(((Math.log(totalPrincipal) / Math.log(2))));
@@ -602,7 +599,6 @@ public class TournoiService {
                             relation2.put(i, (totalPrincipal / (int) Math.pow(2, i + 1)));
                         }
                     }
-
                     //On met à jour le nombre de matchs de chaque tour
                     for (Map.Entry<Integer, Integer> val : relation2.entrySet()) {
                         int ancien0 = 0;
@@ -613,7 +609,6 @@ public class TournoiService {
                             relation2.replace(1, nombreDeMatchsADeplacer + (ancien0 / 2));
                         }
                     }
-
                     //On crée les matchs des autres tours en divisant progressivement ceux du deuxième tour.
                     for (int i = 2; i < tours; i++) {
                         relation2.put(i, relation2.get(1) / (int) Math.pow(2, i - 1));
@@ -627,7 +622,6 @@ public class TournoiService {
                             tableaux.get(0).setListMatchs(matchTableaux);
                         }
                     }
-
                     //Après la création des matchs, on récupère toutes les équipes qui doivent jouer et on les associe à un match
                     for (MatchTableau matchTableau : matchTableaux) {
                         if (!vainqueurs.isEmpty() & (matchTableau.getTour() == 0 || matchTableau.getTour() == 1)) {
@@ -653,7 +647,35 @@ public class TournoiService {
             for (int i = 1; i < tableaux.size(); i++) {
                 int nombreEquipes = equipeList.size();
                 int tours = (int) Math.ceil(((Math.log(nombreEquipes) / Math.log(2))));//Nombre de tours du tableau courant
-                if (nombreEquipes % 2 == 0) {
+                if(puissances.contains(nombreEquipes)){
+                    for (int j = 0; j < nombreEquipes; j++) {
+                        //Pour chaque tour, on récupère le nombre de matchs par puissance de 2 et on les crée.
+                        for (int k = 0; k < nombreEquipes / (int) Math.pow(2, j + 1); k++) {
+                            MatchTableau match = new MatchTableau(tableaux.get(i), j);
+                            match.setTour(j);
+                            match.setLieu("Inconnu");
+                            matchs.add(match);
+                            tableaux.get(i).setListMatchs(matchs);
+                        }
+                    }
+                    for (MatchTableau matchTableau : matchs) {
+                        //On est obligé d'imposer le premier tour.
+                        if (!equipeList.isEmpty() & matchTableau.getTour() == 0) {
+                            Equipe equipeA = equipeList.get(new Random().nextInt(equipeList.size()));
+                            Equipe equipeB = equipeList.get(new Random().nextInt(equipeList.size()));
+                            while (equipeB == equipeA) {
+                                equipeB = equipeList.get(new Random().nextInt(equipeList.size()));
+                            }
+                            matchTableau.setEquipeA(equipeA);
+                            matchTableau.setEquipeB(equipeB);
+                            tableaux.get(i).getListMatchs().set(tableaux.get(i).getListMatchs().indexOf(matchTableau), matchTableau);
+                            equipeList.remove(equipeA);
+                            equipeList.remove(equipeB);
+                        }
+                    }
+                    //matchTableauRepository.saveAll(matchs);
+                }
+                else if (nombreEquipes % 2 == 0) {
                     //Si le total d'équipes est pair, mais pas parfaitement, on choisit le nombre de matchs du premier tour à déplacer dans le prochain.
                     int adeplacer = 0;
                     for (int j = 0; j < nombreEquipes; j++) {
@@ -712,7 +734,7 @@ public class TournoiService {
                             equipeList.remove(equipeB);
                         }
                     }
-                    matchTableauRepository.saveAll(matchs);
+                    //matchTableauRepository.saveAll(matchs);
                 }
                 else {
                     //On peut déplacer une équipe dans le tour suivant ou lui attribuer une équipe fictive, mais il faudra s'assurer que l'équipe fictive n'ait aucun groupe.
@@ -782,9 +804,10 @@ public class TournoiService {
                     matchTableau.setEquipeA(deplacee);
                     matchTableau.setScoreA(3);
                     matchs.add(matchTableau);
-                    matchTableauRepository.saveAll(matchs);
+                    //matchTableauRepository.saveAll(matchs);
                 }
             }
+            matchTableauRepository.saveAll(matchs);
         }
     }
     /*private void refreshTournois(){

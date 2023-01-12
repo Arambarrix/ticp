@@ -123,10 +123,8 @@ public class TableauService {
                 System.out.println(matchTableau.getTour()+" tour");
                 if (matchTableau.getTour() == i & (matchTableau.getEquipeA() != null || matchTableau.getEquipeB() != null)) {
                     if (matchTableau.getScoreA() > matchTableau.getScoreB()) {
-                        System.out.println(matchTableau.getEquipeA()+" vainqueur");
                         vainqueurs.put(matchTableau.getEquipeA(), matchTableau);
                     } else if (matchTableau.getScoreA() < matchTableau.getScoreB()) {
-                        System.out.println(matchTableau.getEquipeB()+" vainqueur");
                         vainqueurs.put(matchTableau.getEquipeB(), matchTableau);
                     }
                 }
