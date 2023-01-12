@@ -59,8 +59,18 @@ public class MatchTableauService {
                 matchTableau.setLieu(match.getLieu());
             }
             repository.save(matchTableau);
-            tableauService.nextRound(matchTableau.getTableau().getId());
-            System.out.println(repository.findById(id).get());
+            List<Integer> rounds = new ArrayList<>();
+            for(MatchTableau matchTableauTour:tableauService.getMatchsTableau(matchTableau.getTableau().getId())){
+                rounds.add(matchTableauTour.getTour());
+            }
+            for(int i=0;i< rounds.size();i++){
+                while(Collections.frequency(rounds,i)>1){
+                    rounds.remove(i);
+                }
+            }
+            if(matchTableau.getTour()!=rounds.size()-1) {
+                tableauService.nextRound(matchTableau.getTableau().getId());
+            }
         }
 
     }
