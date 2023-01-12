@@ -78,12 +78,25 @@ public class TournoiService {
         if( repository.existsById(tournoi.getId()) ){
             Tournoi update = repository.getReferenceById(tournoi.getId());
             update.setNom(tournoi.getNom());
-            updateDateDebutTournoi(tournoi,update);
-            updateDateFinInscription(tournoi,update);
-            updateDateDebutPoule(tournoi,update);
-            updateDateFinPoule(tournoi,update);
-            updateDateDebutTableau(tournoi,update);
-            updateDateFinTournoi(tournoi,update);
+            if(tournoi.getDateDebutTournoi()!=null){
+                updateDateDebutTournoi(tournoi,update);
+            }
+            if(tournoi.getDateFinInscription()!=null){
+                updateDateFinInscription(tournoi,update);
+            }
+
+            if(tournoi.getDateDebutPoule()!=null){
+                updateDateDebutPoule(tournoi,update);
+            }
+            if(tournoi.getDateFinPoule()!=null){
+                updateDateFinPoule(tournoi,update);
+            }
+            if(tournoi.getDateDebutTableau()!=null){
+                updateDateDebutTableau(tournoi,update);
+            }
+            if(tournoi.getDateFinTournoi()!=null){
+                updateDateFinTournoi(tournoi,update);
+            }
             repository.save(update);
 
         }

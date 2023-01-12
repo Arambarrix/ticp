@@ -43,6 +43,11 @@ public class Equipe implements Serializable {
     public Tournoi getTournoi() {
         return tournoi;
     }
+
+    public void setTournoi(Tournoi tournoi) {
+        this.tournoi = tournoi;
+    }
+
     public Long getId() {
         return id;
     }

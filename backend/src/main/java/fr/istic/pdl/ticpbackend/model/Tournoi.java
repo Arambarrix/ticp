@@ -22,6 +22,7 @@ public class Tournoi implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy="tournoi")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JsonManagedReference
     private List<Equipe> equipes ;
 
