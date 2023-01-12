@@ -57,9 +57,10 @@ export const Tableaux = defineStore("tableaux", {
       let result = await axios.put(constants.APIURI + "match_tableaux/"+id_match,
         data
       );
-      console.log(rang)
       if(result.data.code ==200){
         this.getTab(rang)
+        this.errors = ""
+
       }
       else{
         this.errors =  result.data.errors

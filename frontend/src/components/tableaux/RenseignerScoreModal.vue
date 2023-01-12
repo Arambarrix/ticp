@@ -43,7 +43,7 @@ async function store() {
         })
       }
 
-      if(errors == ""){
+      if(pouleStore.errors == ""){
           toggleModal();
       }
   }
@@ -64,7 +64,7 @@ async function store() {
         )
       }
 
-      if(errors == ""){
+      if(tableauStore.errors == ""){
           toggleModal();
       }
   }

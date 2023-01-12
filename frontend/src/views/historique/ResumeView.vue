@@ -1,6 +1,5 @@
 <script setup>
   import { Tournois } from "@/stores/user/tournoi"
-  import { Teams } from "@/stores/user/team"
 
   import BannerVue from "../../components/historique/banner.vue";
   import TeamListVue from '../../components/TeamList.vue';
@@ -10,7 +9,6 @@
   import { watch, computed} from 'vue'
 
   const tournoiStore = Tournois();
-  const teamStore = Teams();
   const route = useRoute();
 
   const actif = "Résumé";

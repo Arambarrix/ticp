@@ -95,14 +95,15 @@
     <main>
 
         <div class="py-5 snap-x">
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-16">
-                <InfoCardVue v-bind="infoCardDatas.photos" />
-            </div>
             <div class="gap-y-32">
                 <BannerVue :year="year" base_link="/admin/photo/"/>
                 <p></p>
             </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-1 gap-y-8 gap-x-16 justify-items-stretch mb-16">
+                <InfoCardVue v-bind="infoCardDatas.photos" />
+            </div>
+           
             <div class="w-48 justify-items-stretch">
                 <div class="justify-between text-white bg-green-700 text-xl p-2 rounded-xl gap-4">
                     <RouterLink to="/" class="relative flex flex-row items-center text-white-600 pr-6">

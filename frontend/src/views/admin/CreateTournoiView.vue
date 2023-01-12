@@ -24,7 +24,7 @@ function validateFields() {
 
 
 async function store() {
-    teamStore.errors=""
+    tournoiStore.errors=""
     if(validateFields() === false){
         tournoiStore.errors = "Les champs nom et la date de debut du tournoi sont requis";
     }    
@@ -49,7 +49,7 @@ async function store() {
 </script>
 <template>
     <div class="flex flex-col items-center justify-center h-full w-full pt-20">
-        <p class="text-md">Informations deu tournoi</p>
+        <p class="text-md">Informations des tournoi</p>
             
         <form @submit.prevent="store" class="flex flex-col items-center justify-center space-y-5 md:space-y-8 w-1/3">
 

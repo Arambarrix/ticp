@@ -22,11 +22,13 @@
 
     watch(year, yearChanged)
 
+    const is_this_year_actif= computed(() =>{
+        if (year.value == new Date().getFullYear()) return true;
+    })
+
     tournoiStore.getTournoiInfo(year.value)
     tournoiStore.getAll()
     const tournois = computed(()=>tournoiStore.getTournois );
-
-    console.log(tournois.value)
 
     const tournoi_tableaux_length = computed(()=>tournoiStore.getTableauxLength);
     const tournoi_equipes_length = computed(()=>tournoiStore.getEquipesLength);
@@ -58,6 +60,8 @@
         pouleStore.launch_creation();
     }
 
+    
+
     function yearChanged(year){
         tournoiStore.getTournoiInfo(year)
     }
@@ -66,27 +70,27 @@
 <template>
     <main>
 
-        <div class="flex flex-col space-y-10 w-auto ">
+        <div class="flex flex-col space-y-10 w-full ">
             
             <HistoriqueYearsVue  v-bind="historique_links" class="w-full px-6 md:px-8"/>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-16 justify-items-stretch mb-6">
                 <InfoCardVue v-bind="infoCardDatas.equipe"/>
                 <InfoCardVue v-bind="infoCardDatas.poule"/>
                 <InfoCardVue v-bind="infoCardDatas.tableau"/>
             </div>
 
-            <div class="max-w-5xl">
+            <div class="w-full">
                 <p class="my-5 text-dark-brown text-xl md:text-2xl font-bold">Tournois</p>
-                <div class="justify-between h-12 grid grid-cols-5 gap-4">
-                    <div class="text-center">
-                        <div to="" class="cursor-pointer text-white bg-blue-900 px-6 py-3 text-white font-bold" @click="generatePoule()">
+                <div class="justify-between h-auto grid grid-cols-2  md:grid-cols-5 gap-4 items-end">
+                    <div class="text-center" >
+                        <div v-if="is_this_year_actif" class="cursor-pointer text-white bg-blue-900 px-6 py-3 text-white font-bold" @click="generatePoule()">
                             <i class="fa-light fa-people-group" title="GenererPoules"></i>
                             <span>  Générer Poules</span>
                         </div>
                     </div>
                     <div class="text-center cursor-pointer">
-                        <div to="" class="text-white bg-blue-900 px-6 py-3 text-white font-bold" @click="generateTableau()">
+                        <div v-if="is_this_year_actif" class="text-white bg-blue-900 px-6 py-3 text-white font-bold" @click="generateTableau()">
                             <i class="fa-regular fa-square-poll-vertical" title="GenererPoules"></i>
                             <span>  Générer Tableaux</span>
                         </div>
@@ -96,7 +100,7 @@
                 </div>
             </div>
 
-            <MatchListTableVue class="" :data="tournois" />
+            <MatchListTableVue class="w-full" :data="tournois" />
 
         </div>
     </main>
