@@ -30,8 +30,6 @@
     tournoiStore.getAll()
     const tournois = computed(()=>tournoiStore.getTournois );
 
-    console.log(tournois.value)
-
     const tournoi_tableaux_length = computed(()=>tournoiStore.getTableauxLength);
     const tournoi_equipes_length = computed(()=>tournoiStore.getEquipesLength);
     const tournoi_poules_length = computed(()=>tournoiStore.getPoulesLength);

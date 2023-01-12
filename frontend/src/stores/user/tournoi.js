@@ -128,8 +128,8 @@ export const Tournois = defineStore("tournois", {
         this.poules_length = this.current_tournoi.poules.length
         this.equipes_length = this.current_tournoi.equipes.length
 
-        const date = new Date();
-        const start = new Date(this.current_tournoi.dateDebutTournoi);
+        const date = new Date().setHours(0,0,0,0);
+        const start = new Date(this.current_tournoi.dateDebutTournoi).setHours(0,0,0,0);
 
         if(date >= start){
           this.is_tournoi_launched = true
@@ -139,7 +139,7 @@ export const Tournois = defineStore("tournois", {
         }
 
         if(this.current_tournoi.dateFinInscription ){
-          if( date >= start && date <= new Date(this.current_tournoi.dateFinInscription)){
+          if( date >= start && date <= new Date(this.current_tournoi.dateFinInscription).setHours(0,0,0,0)){
             this.is_registration_ended = false
           }
           else this.is_registration_ended = true
