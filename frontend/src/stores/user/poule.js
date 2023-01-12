@@ -41,6 +41,8 @@ export const Poules = defineStore("poules", {
       );
       if(result.data.code ==200){
         this.getAllByYear(constants.year)
+        this.errors = ""
+
       }
       else{
         this.errors =  result.data.errors

@@ -44,15 +44,17 @@ export const useAuthStore = defineStore({
       );
 
       if(result.data.code ==200){
-        localStorage.setItem("is_admin", false);
-        this.is_admin=false;
-        router.push("/")
+        localStorage.clear();
+        location.assign("/");
+        location.reload();
       }
       else{
         alert(result.data.errors)
-      }
-
-      
+      } 
     },
-  }
+
+    async updateIsAdmin(){
+      this.is_admin = localStorage.getItem('is_admin')}
+    }
+  
 });

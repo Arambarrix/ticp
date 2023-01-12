@@ -9,6 +9,7 @@
   const tournoiStore = Tournois();
   const route = useRoute();
 
+  const actif =""
   const year = computed(()=>{
     return route.params.year
   } )

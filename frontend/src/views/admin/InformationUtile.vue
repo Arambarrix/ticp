@@ -37,7 +37,7 @@
 
         <div class="py-10 snap-x">
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-16 justify-items-stretch mb-16">
+            <div class="grid grid-cols-2 md:grid-cols-2 gap-y-8 gap-x-16 justify-items-stretch mb-16">
                 <InfoCardVue v-bind="infoCardDatas.infos" />
                 <InfoCardVue v-bind="infoCardDatas.emplacements" />
             </div>
