@@ -109,11 +109,7 @@ Il s'agit de la version finale du logiciel. Elle être stable, facile à utilise
   - Renseigner les informations utiles    (par l'administrateur)   (terminé)
   - Un system d'alerte par mail           (automatique)           (à vérifier))
 
-## Auteurs
-* **Brou Assamela** _alias_ [@abrou](https://gitlab.istic.univ-rennes1.fr/abrou)
-* **Lokonon Bignon M Souvenir** _alias_ [@blokonon](https://gitlab.istic.univ-rennes1.fr/blokonon)
-* **Padonou Alexandra Epiphanie** _alias_ [@apadonou](https://gitlab.istic.univ-rennes1.fr/apadonou)
-* **Soumare Sekou** _alias_ [@ssoumare](https://gitlab.istic.univ-rennes1.fr/ssoumare)
-* **Tra-Lou Toure William** _alias_ [@wtraloutoure](https://gitlab.istic.univ-rennes1.fr/wtraloutoure)
+## Auteur
+* **Toure William**
 
 
